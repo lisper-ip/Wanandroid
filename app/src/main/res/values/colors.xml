@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!--底部菜单-->
+    <color name="main_text_normal">#2c2c2c</color>
+    <color name="main_text_select">#d81e06</color>
+
+    <color name="search_text">#666666</color>
+    <color name="hint_text_color">#999999</color>
+    <color name="search_bg_text">#F5F5F5</color>
+
+    <color name="title_color">#333333</color>
+
+    <color name="line_color">#f5f5f5</color>
+</resources>

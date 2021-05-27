@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply from: '../config.gradle'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures{
+        dataBinding = true
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(path: ':common-library')
+    implementation rootProject.ext.androidx['navigation-fragment-ktx']
+    implementation rootProject.ext.androidx['navigation-ui-ktx']
+    implementation rootProject.ext.dependencies['android-startup']
+    implementation rootProject.ext.dependencies['mmkv']
+    implementation rootProject.ext.dependencies['lottie']
+    implementation rootProject.ext.dependencies['permissionx']
+    implementation rootProject.ext.dependencies['banner']
+    implementation rootProject.ext.dependencies['brv']
+    implementation rootProject.ext.dependencies['coil']
+    debugImplementation rootProject.ext.dependencies['leakcanary']
+}

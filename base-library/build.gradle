@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: '../config.gradle'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    buildFeatures{
+        dataBinding = true
+    }
+}
+
+dependencies {
+    api rootProject.ext.dependencies['kotlin-stdlib']
+    api rootProject.ext.androidx['constraintlayout']
+    api rootProject.ext.androidx['viewpager2']
+    api rootProject.ext.androidx['cardview']
+    api rootProject.ext.androidx['recycleview']
+    api rootProject.ext.androidx['fragment']
+    api rootProject.ext.androidx['multidex']
+    api rootProject.ext.androidx['androidx-ktx']
+    api rootProject.ext.dependencies['material']
+    api rootProject.ext.dependencies['immersionbar']
+    api rootProject.ext.dependencies['immersionbar-ktx']
+    api rootProject.ext.dependencies['titlebar']
+    api rootProject.ext.dependencies['toast']
+    api rootProject.ext.dependencies['activitymessenger']
+    api rootProject.ext.dependencies['utilcodex']
+}

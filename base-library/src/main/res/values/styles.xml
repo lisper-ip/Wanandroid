@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 缩放动画 -->
+    <style name="ScaleAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/scale_in_window</item>
+        <item name="android:windowExitAnimation">@anim/scale_out_window</item>
+    </style>
+
+    <!-- ios 动画 -->
+    <style name="IOSAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/ios_in_window</item>
+        <item name="android:windowExitAnimation">@anim/ios_out_window</item>
+    </style>
+
+    <!-- 顶部弹出动画 -->
+    <style name="TopAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/top_in_window</item>
+        <item name="android:windowExitAnimation">@anim/top_out_window</item>
+    </style>
+
+    <!-- 底部弹出动画 -->
+    <style name="BottomAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_window</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_window</item>
+    </style>
+
+    <!-- 左边弹出动画 -->
+    <style name="LeftAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/left_in_window</item>
+        <item name="android:windowExitAnimation">@anim/left_out_window</item>
+    </style>
+
+    <!-- 右边弹出动画 -->
+    <style name="RightAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/right_in_window</item>
+        <item name="android:windowExitAnimation">@anim/right_out_window</item>
+    </style>
+</resources>

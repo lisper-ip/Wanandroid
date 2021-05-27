@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">WanAndroid</string>
+
+    <string name="tab_home">首页</string>
+    <string name="tab_project">项目</string>
+    <string name="tab_square">广场</string>
+    <string name="tab_official_account">公众号</string>
+    <string name="tab_mine">我的</string>
+    <string name="search_text">关键字搜索</string>
+    <string name="publish_article">发布文章</string>
+    <string name="article_title">文章标题</string>
+    <string name="less_than_100">100字以内</string>
+    <string name="article_url">文章链接</string>
+    <string name="hint_article_url">请输入链接</string>
+    <string name="article_share_title">分享须知</string>
+    <string name="article_share_information">1. 只要是任何好文都可以分享哈，并不一定要是原创！投递的文章会进入广场 tab;\n2. CSDN，掘金，简书等官方博客站点会直接通过，不需要审核;\n3. 其他个人站点会进入审核阶段，不要投递任何无效链接，测试的请尽快删除，否则可能会对你的账号产生一定影响;\n4. 目前处于测试阶段，如果你发现500等错误，可以向我提交日志，让我们一起使网站变得更好。\n5. 由于本站只有我一个人开发与维护，会尽力保证24小时内审核，当然有可能哪天太累，会延期，请保持佛系...</string>
+    <string name="share_article">分享</string>
+    <string name="please_input_article_content">请输入文章标题</string>
+    <string name="publish_success">发布成功</string>
+</resources>

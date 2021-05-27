@@ -1,0 +1,5 @@
+include ':common-library'
+include ':base-library'
+include ':net-library'
+include ':app'
+rootProject.name = "lisper"

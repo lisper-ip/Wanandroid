@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_home"
+        android:checked="true"
+        android:icon="@drawable/selector_main_home"
+        android:title="@string/tab_home"/>
+
+    <item android:id="@+id/menu_project"
+        android:icon="@drawable/selector_main_project"
+        android:title="@string/tab_project"/>
+
+    <item android:id="@+id/menu_square"
+        android:icon="@drawable/selector_main_square"
+        android:title="@string/tab_square"/>
+
+    <item android:id="@+id/menu_official_account"
+        android:icon="@drawable/selector_main_official_account"
+        android:title="@string/tab_official_account"/>
+
+    <item android:id="@+id/menu_mine"
+        android:icon="@drawable/selector_main_mine"
+        android:title="@string/tab_mine"/>
+</menu>

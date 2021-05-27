@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply from: '../config.gradle'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    api rootProject.ext.dependencies["kotlin-stdlib"]
+    api "com.github.liujingxing.rxhttp:rxhttp:${rootProject.ext.versions['rxhttp']}"
+    api "com.squareup.okhttp3:okhttp:${rootProject.ext.versions['okhttp']}"
+    kapt "com.github.liujingxing.rxhttp:rxhttp-compiler:${rootProject.ext.versions['rxhttp']}"
+    api "com.github.liujingxing.rxlife:rxlife-coroutine:${rootProject.ext.versions['rxlife-coroutine']}"
+}
