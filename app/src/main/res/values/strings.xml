@@ -17,4 +17,13 @@
     <string name="share_article">分享</string>
     <string name="please_input_article_content">请输入文章标题</string>
     <string name="publish_success">发布成功</string>
+    <string name="login">登录</string>
+    <string name="please_input_account">请输入账号</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="please_input_again_password">请再次输入密码</string>
+    <string name="login_back">暂不登录</string>
+    <string name="back">返回</string>
+    <string name="register">注册</string>
+    <string name="register_success">注册成功</string>
+    <string name="login_success">登录成功</string>
 </resources>

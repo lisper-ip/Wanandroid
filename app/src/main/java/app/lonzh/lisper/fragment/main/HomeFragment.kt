@@ -1,4 +1,4 @@
-package app.lonzh.lisper.fragment
+package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
@@ -9,7 +9,7 @@ import app.lonzh.lisper.data.BannerBean
 import app.lonzh.lisper.data.HomeBanner
 import app.lonzh.lisper.databinding.FragmentHomeBinding
 import app.lonzh.lisper.ext.nav
-import app.lonzh.lisper.vm.request.HomeRequestViewModel
+import app.lonzh.lisper.vm.request.main.HomeRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
 import com.drake.brv.utils.bindingAdapter
 import com.drake.brv.utils.divider
@@ -36,7 +36,7 @@ class HomeFragment : BaseVmDbFragment<HomeRequestViewModel, FragmentHomeBinding>
 
     companion object{
         @JvmStatic
-        fun getInstance(): HomeFragment{
+        fun getInstance(): HomeFragment {
             return HomeFragment()
         }
     }
@@ -66,6 +66,16 @@ class HomeFragment : BaseVmDbFragment<HomeRequestViewModel, FragmentHomeBinding>
                                 LogCat.e((data as BannerBean).url)
                             }
                     }
+                }
+            }
+
+            onClick(R.id.home_list, R.id.iv_home_collect){
+                when(it){
+                    R.id.home_list -> {}
+                    R.id.iv_home_collect -> {
+                        nav(R.id.action_main_fragment_to_loginFragment)
+                    }
+                    else ->{}
                 }
             }
         }

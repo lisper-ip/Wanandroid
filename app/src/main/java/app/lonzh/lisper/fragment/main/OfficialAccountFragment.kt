@@ -1,10 +1,9 @@
-package app.lonzh.lisper.fragment
+package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
-import app.lonzh.lisper.databinding.FragmentHomeBinding
 import app.lonzh.lisper.databinding.FragmentOfficialAccountBinding
 
 /**
@@ -22,7 +21,7 @@ class OfficialAccountFragment : BaseVmDbFragment<BaseViewModel, FragmentOfficial
 
     companion object{
         @JvmStatic
-        fun getInstance(): OfficialAccountFragment{
+        fun getInstance(): OfficialAccountFragment {
             return OfficialAccountFragment()
         }
     }

@@ -1,11 +1,10 @@
-package app.lonzh.lisper.fragment
+package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
-import app.lonzh.lisper.databinding.FragmentHomeBinding
-import app.lonzh.lisper.databinding.FragmentMineBinding
+import app.lonzh.lisper.databinding.FragmentProjectBinding
 
 /**
  *
@@ -18,17 +17,16 @@ import app.lonzh.lisper.databinding.FragmentMineBinding
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class MineFragment : BaseVmDbFragment<BaseViewModel, FragmentMineBinding>() {
+class ProjectFragment : BaseVmDbFragment<BaseViewModel, FragmentProjectBinding>() {
 
     companion object{
         @JvmStatic
-        fun getInstance(): MineFragment{
-            return MineFragment()
+        fun getInstance(): ProjectFragment {
+            return ProjectFragment()
         }
     }
 
-
-    override fun layoutId(): Int = R.layout.fragment_mine
+    override fun layoutId(): Int = R.layout.fragment_project
 
     /**
      * 初始化view

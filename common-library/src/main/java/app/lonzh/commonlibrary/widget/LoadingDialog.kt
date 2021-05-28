@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import app.lonzh.commonlibrary.R
 import com.blankj.utilcode.util.StringUtils
-import java.lang.Exception
 
 
 /**
@@ -24,9 +23,7 @@ import java.lang.Exception
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class LoadingDialog(context: Context, content: String, canNotCancel: Boolean) : Dialog(context, R.style.Loading) {
-
-    private var canNotCancel: Boolean = false
+class LoadingDialog(context: Context, content: String, var canNotCancel: Boolean) : Dialog(context, R.style.Loading) {
 
     companion object{
         private var loadingDialog: LoadingDialog? = null
@@ -93,7 +90,6 @@ class LoadingDialog(context: Context, content: String, canNotCancel: Boolean) : 
         window?.run {
             attributes.gravity = Gravity.CENTER
         }
-        this.canNotCancel = canNotCancel
     }
 
     override fun onStart() {

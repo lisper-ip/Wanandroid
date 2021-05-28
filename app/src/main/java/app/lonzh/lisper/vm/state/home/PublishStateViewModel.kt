@@ -1,4 +1,4 @@
-package app.lonzh.lisper.vm.state
+package app.lonzh.lisper.vm.state.home
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel

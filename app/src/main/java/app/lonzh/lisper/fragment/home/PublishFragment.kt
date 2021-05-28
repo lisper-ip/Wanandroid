@@ -1,4 +1,4 @@
-package app.lonzh.lisper.fragment
+package app.lonzh.lisper.fragment.home
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
@@ -6,14 +6,14 @@ import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentPublishBinding
 import app.lonzh.lisper.ext.back
-import app.lonzh.lisper.vm.request.PublishRequestViewModel
-import app.lonzh.lisper.vm.state.PublishStateViewModel
+import app.lonzh.lisper.vm.request.home.PublishRequestViewModel
+import app.lonzh.lisper.vm.state.home.PublishStateViewModel
 import com.blankj.utilcode.util.ClickUtils
 
 /**
  *
  * @ProjectName:    lisper
- * @Description:    描述
+ * @Description:    发布文章
  * @Author:         Lisper
  * @CreateDate:     5/27/21 4:44 PM
  * @UpdateUser:     Lisper：
