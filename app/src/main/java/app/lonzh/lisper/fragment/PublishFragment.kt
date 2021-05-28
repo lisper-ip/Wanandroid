@@ -2,11 +2,10 @@ package app.lonzh.lisper.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
-import app.lonzh.lisper.WanApp
 import app.lonzh.lisper.databinding.FragmentPublishBinding
+import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.vm.request.PublishRequestViewModel
 import app.lonzh.lisper.vm.state.PublishStateViewModel
 import com.blankj.utilcode.util.ClickUtils
@@ -24,7 +23,7 @@ import com.blankj.utilcode.util.ClickUtils
  */
 class PublishFragment : BaseVmDbFragment<PublishRequestViewModel, FragmentPublishBinding>() {
 
-    val publishStateViewModel: PublishStateViewModel by viewModels()
+    private val publishStateViewModel: PublishStateViewModel by viewModels()
 
     override fun layoutId(): Int = R.layout.fragment_publish
 
@@ -42,7 +41,7 @@ class PublishFragment : BaseVmDbFragment<PublishRequestViewModel, FragmentPublis
     override fun createObserver() {
         viewModel.resultLiveData.observe(viewLifecycleOwner, {
             toast(getString(R.string.publish_success))
-            findNavController().popBackStack()
+            back()
         })
     }
 }

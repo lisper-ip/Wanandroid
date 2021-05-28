@@ -1,7 +1,6 @@
 package app.lonzh.lisper.fragment
 
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.adapter.HomeBannerAdapter
@@ -9,6 +8,7 @@ import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.BannerBean
 import app.lonzh.lisper.data.HomeBanner
 import app.lonzh.lisper.databinding.FragmentHomeBinding
+import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.vm.request.HomeRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
 import com.drake.brv.utils.bindingAdapter
@@ -71,7 +71,7 @@ class HomeFragment : BaseVmDbFragment<HomeRequestViewModel, FragmentHomeBinding>
         }
 
         ClickUtils.applySingleDebouncing(binding.ivAdd){
-            findNavController().navigate(R.id.action_main_fragment_to_publishFragment)
+            nav(R.id.action_main_fragment_to_publishFragment)
         }
 
         binding.pageRefresh.run {

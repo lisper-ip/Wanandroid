@@ -3,11 +3,11 @@ package app.lonzh.lisper.fragment
 import android.Manifest
 import android.animation.Animator
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentSplashBinding
+import app.lonzh.lisper.ext.nav
 import com.permissionx.guolindev.PermissionX
 
 /**
@@ -42,7 +42,7 @@ class SplashFragment : BaseVmDbFragment<BaseViewModel, FragmentSplashBinding>() 
                     }
 
                     override fun onAnimationEnd(p0: Animator?) {
-                        findNavController().navigate(R.id.action_splashFragment_to_main_fragment)
+                        nav(R.id.action_splashFragment_to_main_fragment)
                     }
 
                     override fun onAnimationCancel(p0: Animator?) {

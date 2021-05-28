@@ -22,9 +22,11 @@ fun BaseViewModel.launch(block: suspend CoroutineScope.() -> Unit,
            requestConfig: RequestConfig? = null){
     if(!checkRequestConfig(requestConfig)) return
     rxLifeScope.launch(block, {
-        if(BuildConfig.DEBUG){
-            it.errorMsg?.let { errorMsg ->
+        it.errorMsg?.let { errorMsg ->
+            if(BuildConfig.DEBUG){
                 getShowErrorEvent().setValue("$errorMsg,错误代号:${it.errorCode}")
+            } else {
+                getShowErrorEvent().setValue(errorMsg)
             }
         }
     }, {
@@ -54,9 +56,11 @@ fun BaseViewModel.launchList(block: suspend CoroutineScope.() -> Unit,
                          requestConfig: RequestConfig? = null){
     if(!checkRequestConfig(requestConfig)) return
     rxLifeScope.launch(block, {
-        if(BuildConfig.DEBUG){
-            it.errorMsg?.let { errorMsg ->
-                getShowErrorViewEvent().setValue("$errorMsg,错误代号:${it.errorCode}")
+        it.errorMsg?.let { errorMsg ->
+            if(BuildConfig.DEBUG){
+                getShowErrorEvent().setValue("$errorMsg,错误代号:${it.errorCode}")
+            } else {
+                getShowErrorEvent().setValue(errorMsg)
             }
         }
     }, {

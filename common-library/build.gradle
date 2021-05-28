@@ -29,4 +29,5 @@ dependencies {
     api project(path: ':net-library')
     api rootProject.ext.dependencies['logcat']
     api rootProject.ext.dependencies['dialog']
+    api rootProject.ext.dependencies['lottie']
 }

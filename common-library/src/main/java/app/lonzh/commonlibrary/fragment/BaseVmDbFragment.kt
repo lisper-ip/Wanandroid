@@ -10,6 +10,7 @@ import app.lonzh.baselibrary.action.TitleBarAction
 import app.lonzh.baselibrary.fragment.BaseDBFragment
 import app.lonzh.commonlibrary.ext.getVmClazz
 import app.lonzh.commonlibrary.vm.BaseViewModel
+import app.lonzh.commonlibrary.widget.LoadingDialog
 import com.drake.logcat.LogCat
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.bar.TitleBar
@@ -51,14 +52,15 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
             LogCat.e("start-request")
         })
         viewModel.getShowLoadingEvent().observe(viewLifecycleOwner, {
-            ViewLoading.show(mActivity, it)
+            showLoading(it)
             LogCat.e( "loading-request: $it")
         })
         viewModel.getShowErrorEvent().observe(viewLifecycleOwner, {
-            toast(it)
+            showErrorMsg(it);
             LogCat.e( "error-request: $it")
         })
         viewModel.getShowFinishEvent().observe(viewLifecycleOwner, {
+            dismissLoading()
             LogCat.e( "finish-request")
         })
         viewModel.getShowLoadingViewEvent().observe(viewLifecycleOwner, {
@@ -72,6 +74,17 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
         })
     }
 
+    open fun showLoading(msg: String){
+        LoadingDialog.show(mActivity, msg)
+    }
+
+    open fun dismissLoading(){
+        LoadingDialog.dismiss(mActivity)
+    }
+
+    open fun showErrorMsg(msg: String){
+        toast(msg)
+    }
     /**
      * 初始化沉浸式
      */

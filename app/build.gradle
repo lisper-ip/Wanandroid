@@ -46,7 +46,6 @@ dependencies {
     implementation rootProject.ext.androidx['navigation-ui-ktx']
     implementation rootProject.ext.dependencies['android-startup']
     implementation rootProject.ext.dependencies['mmkv']
-    implementation rootProject.ext.dependencies['lottie']
     implementation rootProject.ext.dependencies['permissionx']
     implementation rootProject.ext.dependencies['banner']
     implementation rootProject.ext.dependencies['brv']

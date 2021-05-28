@@ -32,6 +32,6 @@ class PublishRequestViewModel: BaseViewModel() {
                 .toLpResponse<String>()
                 .await()
             resultLiveData.value = result
-        }, RequestConfig().isShowLoading(true).setTag("shareArticle").loadingMessage("分享中"))
+        }, RequestConfig().isShowLoading(true).setTag("shareArticle").loadingMessage("发布中..."))
     }
 }

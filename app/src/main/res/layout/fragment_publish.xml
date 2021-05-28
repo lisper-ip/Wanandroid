@@ -15,7 +15,8 @@
         <com.hjq.bar.TitleBar
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/publish_titleBar"
-            app:title="@string/publish_article"
+            app:leftColor="@color/title_color"
+            app:leftTitle="@string/publish_article"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
