@@ -7,12 +7,16 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentLoginBinding
 import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.fragment.base.LisperFragment
+import app.lonzh.lisper.utils.MMKVUtil
+import app.lonzh.lisper.vm.AppDataViewModel
 import app.lonzh.lisper.vm.request.login.LoginRequestViewModel
 import app.lonzh.lisper.vm.state.login.LoginStateViewModel
 import com.blankj.utilcode.util.ClickUtils
@@ -29,7 +33,8 @@ import com.blankj.utilcode.util.StringUtils
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class LoginFragment : BaseVmDbFragment<LoginRequestViewModel, FragmentLoginBinding>() {
+class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding>() {
+    private val appDataViewModel: AppDataViewModel by activityViewModels()
 
     private val loginStateViewModel: LoginStateViewModel by viewModels()
 
@@ -89,6 +94,10 @@ class LoginFragment : BaseVmDbFragment<LoginRequestViewModel, FragmentLoginBindi
 
     override fun createObserver() {
         viewModel.resultLiveData.observe(viewLifecycleOwner) {
+            dismissLoading()
+            appDataViewModel.userInfo.value = it
+            MMKVUtil.setUsername(it.username)
+            MMKVUtil.setPassword(loginStateViewModel.password.get())
             toast(getString(R.string.login_success))
             back()
         }

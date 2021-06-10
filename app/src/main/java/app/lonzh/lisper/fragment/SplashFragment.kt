@@ -8,6 +8,7 @@ import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentSplashBinding
 import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.fragment.base.LisperFragment
 import com.permissionx.guolindev.PermissionX
 
 /**
@@ -21,7 +22,7 @@ import com.permissionx.guolindev.PermissionX
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class SplashFragment : BaseVmDbFragment<BaseViewModel, FragmentSplashBinding>() {
+class SplashFragment : LisperFragment<BaseViewModel, FragmentSplashBinding>() {
 
     override fun layoutId(): Int = R.layout.fragment_splash
 

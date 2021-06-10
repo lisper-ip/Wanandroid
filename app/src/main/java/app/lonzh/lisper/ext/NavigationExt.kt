@@ -2,7 +2,6 @@ package app.lonzh.lisper.ext
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import app.lonzh.lisper.navigation.FragmentNavigator
 
 /**
  *
@@ -15,8 +14,7 @@ import app.lonzh.lisper.navigation.FragmentNavigator
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-
-fun Fragment.nav(id: Int){
+fun Fragment.nav(id: Int, isLogin: Boolean = false){
     findNavController().navigate(id)
 }
 

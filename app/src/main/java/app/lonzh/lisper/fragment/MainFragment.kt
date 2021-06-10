@@ -8,6 +8,7 @@ import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentMainBinding
 import app.lonzh.lisper.ext.doSelected
 import app.lonzh.lisper.ext.initFragment
+import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.fragment.main.*
 
 /**
@@ -21,7 +22,7 @@ import app.lonzh.lisper.fragment.main.*
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class MainFragment: BaseVmDbFragment<BaseViewModel, FragmentMainBinding>() {
+class MainFragment: LisperFragment<BaseViewModel, FragmentMainBinding>() {
 
     private val fragmentList = arrayListOf<Fragment>()
 
@@ -60,6 +61,10 @@ class MainFragment: BaseVmDbFragment<BaseViewModel, FragmentMainBinding>() {
                 true
             }
         }
+    }
+
+    override fun isStatusBarEnabled(): Boolean {
+        return !super.isStatusBarEnabled()
     }
 
     /**

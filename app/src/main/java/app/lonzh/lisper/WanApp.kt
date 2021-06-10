@@ -25,12 +25,12 @@ class WanApp : CommonApp() {
 
     override fun onCreate() {
         super.onCreate()
-        app = this
         StartupManager.Builder()
             .addStartup(CommonMainStartUp())
             .addStartup(CommonThreadStartUp())
             .build(this)
             .start()
             .await()
+        app = this
     }
 }

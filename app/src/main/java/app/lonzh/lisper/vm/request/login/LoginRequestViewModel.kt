@@ -3,6 +3,7 @@ package app.lonzh.lisper.vm.request.login
 import androidx.lifecycle.MutableLiveData
 import app.lonzh.commonlibrary.ext.launch
 import app.lonzh.commonlibrary.vm.BaseViewModel
+import app.lonzh.lisper.data.UserInfo
 import app.lonzh.lisper.vm.state.login.LoginStateViewModel
 import app.lonzh.netlibrary.config.RequestConfig
 import rxhttp.wrapper.param.RxHttp
@@ -20,15 +21,15 @@ import rxhttp.wrapper.param.toLpResponse
  * @Version:        1.0
  */
 class LoginRequestViewModel : BaseViewModel() {
-    val resultLiveData by lazy { MutableLiveData<String>() }
+    val resultLiveData by lazy { MutableLiveData<UserInfo>() }
 
     fun login(loginStateViewModel: LoginStateViewModel){
         if(!loginStateViewModel.checkData()) return
         launch({
-            val result = RxHttp.postJson("/user/login")
+            val result = RxHttp.postForm("/user/login")
                 .add("username", loginStateViewModel.account.get())
                 .add("password", loginStateViewModel.password.get())
-                .toLpResponse<String>().await()
+                .toLpResponse<UserInfo>().await()
             resultLiveData.value = result
         }, RequestConfig().loadingMessage("登录中...").setTag("login").isShowLoading(true))
     }

@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    api rootProject.ext.dependencies["kotlin-stdlib"]
+    implementation rootProject.ext.dependencies["kotlin-stdlib"]
     api "com.github.liujingxing.rxhttp:rxhttp:${rootProject.ext.versions['rxhttp']}"
     api "com.squareup.okhttp3:okhttp:${rootProject.ext.versions['okhttp']}"
     kapt "com.github.liujingxing.rxhttp:rxhttp-compiler:${rootProject.ext.versions['rxhttp']}"

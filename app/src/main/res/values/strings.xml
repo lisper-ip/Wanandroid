@@ -26,4 +26,13 @@
     <string name="register">注册</string>
     <string name="register_success">注册成功</string>
     <string name="login_success">登录成功</string>
+    <string name="my_coin">我的积分</string>
+    <string name="cur_coins">当前积分:</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="my_article">我的文章</string>
+    <string name="wanandroid_web">Wanandroid网站</string>
+    <string name="settings">设置</string>
+    <string name="login_first">请先登录</string>
+    <string name="default_id">--</string>
+    <string name="article_top">置顶</string>
 </resources>

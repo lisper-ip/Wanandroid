@@ -21,16 +21,16 @@ import rxhttp.wrapper.param.toLpResponse
  * @Version:        1.0
  */
 class RegisterRequestViewModel : BaseViewModel() {
-    val resultLiveData by lazy { MutableLiveData<String>() }
+    val resultLiveData by lazy { MutableLiveData<Any>() }
 
     fun register(registerStateViewModel: RegisterStateViewModel){
         if(!registerStateViewModel.checkData()) return
         launch({
-            val result = RxHttp.postJson("/user/register")
+            val result = RxHttp.postForm("/user/register")
                 .add("username", registerStateViewModel.account.get())
                 .add("password", registerStateViewModel.password.get())
-                .add("repassword", registerStateViewModel.password.get())
-                .toLpResponse<String>().await()
+                .add("repassword", registerStateViewModel.againPassword.get())
+                .toLpResponse<Any>().await()
             resultLiveData.value = result
         }, RequestConfig().loadingMessage("注册中...").setTag("register").isShowLoading(true))
     }

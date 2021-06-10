@@ -1,16 +1,17 @@
-apply from: "config.gradle"
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.21"
-    ext.gradle_version = "4.0.2"
+    ext.kotlin_version = "1.5.10"
+    ext.gradle_version = '4.2.1'
     ext.nav_version = "2.3.5"
     repositories {
-        google()
-        jcenter()
+        google { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://jitpack.io' }
         maven { url "https://s01.oss.sonatype.org/content/groups/public" }
-        mavenCentral()
     }
+    apply from: "config.gradle"
+
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -22,11 +23,12 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        jcenter()
+        google { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://jitpack.io' }
         maven { url "https://s01.oss.sonatype.org/content/groups/public" }
-        mavenCentral()
+
     }
 }
 

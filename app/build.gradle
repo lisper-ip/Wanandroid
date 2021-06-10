@@ -48,5 +48,6 @@ dependencies {
     implementation rootProject.ext.dependencies['banner']
     implementation rootProject.ext.dependencies['brv']
     implementation rootProject.ext.dependencies['coil']
+    implementation rootProject.ext.dependencies['tablayout']
     debugImplementation rootProject.ext.dependencies['leakcanary']
 }

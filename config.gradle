@@ -39,7 +39,8 @@ ext {
             "brv"                     : "1.3.19",
             "coil"                    : "1.2.1",
             "logcat"                  : "1.1.0",
-            "dialog"                  : "3.6.6"
+            "dialog"                  : "3.6.6",
+            "tablayout"               : "2.1.2@aar"
     ]
 
     androidx = [
@@ -75,6 +76,7 @@ ext {
             "brv"                     : "com.github.liangjingkanji:BRV:${versions["brv"]}", //https://github.com/liangjingkanji/BRV/
             "coil"                    : "io.coil-kt:coil:${versions["coil"]}", //https://github.com/coil-kt/coil/blob/master/README-zh.md
             "logcat"                  : "com.github.liangjingkanji:LogCat:${versions["logcat"]}", //https://github.com/liangjingkanji/LogCat
-            "dialog"                  : "cn.yc:YCDialogLib:${versions["dialog"]}"//https://github.com/yangchong211/YCDialog
+            "dialog"                  : "cn.yc:YCDialogLib:${versions["dialog"]}",//https://github.com/yangchong211/YCDialog
+            "tablayout"               : "com.flyco.tablayout:FlycoTabLayout_Lib:${versions['tablayout']}",//https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md
     ]
 }

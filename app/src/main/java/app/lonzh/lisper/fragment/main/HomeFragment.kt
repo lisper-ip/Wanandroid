@@ -1,6 +1,8 @@
 package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.adapter.HomeBannerAdapter
@@ -9,6 +11,7 @@ import app.lonzh.lisper.data.BannerBean
 import app.lonzh.lisper.data.HomeBanner
 import app.lonzh.lisper.databinding.FragmentHomeBinding
 import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.request.main.HomeRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
 import com.drake.brv.utils.bindingAdapter
@@ -30,7 +33,7 @@ import com.youth.banner.indicator.CircleIndicator
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class HomeFragment : BaseVmDbFragment<HomeRequestViewModel, FragmentHomeBinding>() {
+class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>() {
 
     private val homeBanner: HomeBanner by lazy{ HomeBanner(null) }
 
@@ -73,7 +76,7 @@ class HomeFragment : BaseVmDbFragment<HomeRequestViewModel, FragmentHomeBinding>
                 when(it){
                     R.id.home_list -> {}
                     R.id.iv_home_collect -> {
-                        nav(R.id.action_main_fragment_to_loginFragment)
+                        collectArticle()
                     }
                     else ->{}
                 }
@@ -93,6 +96,37 @@ class HomeFragment : BaseVmDbFragment<HomeRequestViewModel, FragmentHomeBinding>
             onLoadMore {
                 viewModel.getHomeArticles(index)
             }
+        }
+
+        binding.homeRecycle.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && binding.btnFloat.visibility == View.VISIBLE){
+                    binding.btnFloat.hide()
+                }else if (dy < 0 && binding.btnFloat.visibility != View.VISIBLE){
+                    binding.btnFloat.show()
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(!recyclerView.canScrollVertically(-1)){
+                    //到达顶部
+                    binding.btnFloat.hide()
+                }
+            }
+        })
+
+        ClickUtils.applySingleDebouncing(binding.btnFloat){
+            binding.homeRecycle.smoothScrollToPosition(0)
+        }
+    }
+
+    private fun collectArticle(){
+        if(isLogin()){
+            LogCat.e("请求收藏")
+        } else {
+            nav(R.id.action_main_fragment_to_loginFragment)
         }
     }
 

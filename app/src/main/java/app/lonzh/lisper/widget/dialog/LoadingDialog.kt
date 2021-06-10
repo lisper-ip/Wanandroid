@@ -1,4 +1,4 @@
-package app.lonzh.commonlibrary.widget
+package app.lonzh.lisper.widget.dialog
 
 import android.app.Dialog
 import android.content.Context

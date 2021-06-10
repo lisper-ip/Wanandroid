@@ -5,6 +5,7 @@ import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentOfficialAccountBinding
+import app.lonzh.lisper.fragment.base.LisperFragment
 
 /**
  *
@@ -17,7 +18,7 @@ import app.lonzh.lisper.databinding.FragmentOfficialAccountBinding
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class OfficialAccountFragment : BaseVmDbFragment<BaseViewModel, FragmentOfficialAccountBinding>() {
+class OfficialAccountFragment : LisperFragment<BaseViewModel, FragmentOfficialAccountBinding>() {
 
     companion object{
         @JvmStatic

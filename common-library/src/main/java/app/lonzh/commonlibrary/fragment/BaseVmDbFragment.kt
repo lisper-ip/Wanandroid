@@ -1,7 +1,6 @@
 package app.lonzh.commonlibrary.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -10,11 +9,9 @@ import app.lonzh.baselibrary.action.TitleBarAction
 import app.lonzh.baselibrary.fragment.BaseDBFragment
 import app.lonzh.commonlibrary.ext.getVmClazz
 import app.lonzh.commonlibrary.vm.BaseViewModel
-import app.lonzh.commonlibrary.widget.LoadingDialog
 import com.drake.logcat.LogCat
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.bar.TitleBar
-import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading
 
 /**
  *
@@ -30,7 +27,7 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading
 abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseDBFragment<DB>(), TitleBarAction {
     lateinit var viewModel: VM
 
-    protected var mImmersionBar: ImmersionBar? = null
+    private var mImmersionBar: ImmersionBar? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +53,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
             LogCat.e( "loading-request: $it")
         })
         viewModel.getShowErrorEvent().observe(viewLifecycleOwner, {
-            showErrorMsg(it);
+            showErrorMsg(it)
             LogCat.e( "error-request: $it")
         })
         viewModel.getShowFinishEvent().observe(viewLifecycleOwner, {
@@ -74,17 +71,11 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
         })
     }
 
-    open fun showLoading(msg: String){
-        LoadingDialog.show(mActivity, msg)
-    }
+    abstract fun showLoading(msg: String)
 
-    open fun dismissLoading(){
-        LoadingDialog.dismiss(mActivity)
-    }
+    abstract fun dismissLoading()
 
-    open fun showErrorMsg(msg: String){
-        toast(msg)
-    }
+    abstract fun showErrorMsg(msg: String)
     /**
      * 初始化沉浸式
      */

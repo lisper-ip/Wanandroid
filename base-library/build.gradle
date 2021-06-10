@@ -25,7 +25,7 @@ android {
 }
 
 dependencies {
-    api rootProject.ext.dependencies['kotlin-stdlib']
+    api rootProject.ext.dependencies["kotlin-stdlib"]
     api rootProject.ext.androidx['constraintlayout']
     api rootProject.ext.androidx['viewpager2']
     api rootProject.ext.androidx['cardview']

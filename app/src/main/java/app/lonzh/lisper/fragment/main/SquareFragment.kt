@@ -5,6 +5,7 @@ import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentSquareBinding
+import app.lonzh.lisper.fragment.base.LisperFragment
 
 /**
  *
@@ -17,7 +18,7 @@ import app.lonzh.lisper.databinding.FragmentSquareBinding
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class SquareFragment : BaseVmDbFragment<BaseViewModel, FragmentSquareBinding>() {
+class SquareFragment : LisperFragment<BaseViewModel, FragmentSquareBinding>() {
 
     companion object{
         @JvmStatic

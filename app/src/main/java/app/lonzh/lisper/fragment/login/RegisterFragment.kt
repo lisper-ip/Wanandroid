@@ -12,6 +12,7 @@ import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentRegisterBinding
 import app.lonzh.lisper.ext.back
+import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.request.login.RegisterRequestViewModel
 import app.lonzh.lisper.vm.state.login.RegisterStateViewModel
 import com.blankj.utilcode.util.ClickUtils
@@ -28,7 +29,7 @@ import com.blankj.utilcode.util.StringUtils
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class RegisterFragment : BaseVmDbFragment<RegisterRequestViewModel, FragmentRegisterBinding>() {
+class RegisterFragment : LisperFragment<RegisterRequestViewModel, FragmentRegisterBinding>() {
 
     private val registerStateViewModel: RegisterStateViewModel by viewModels()
 
@@ -102,6 +103,7 @@ class RegisterFragment : BaseVmDbFragment<RegisterRequestViewModel, FragmentRegi
 
     override fun createObserver() {
         viewModel.resultLiveData.observe(viewLifecycleOwner) {
+            dismissLoading()
             toast(getString(R.string.register_success))
             back()
         }

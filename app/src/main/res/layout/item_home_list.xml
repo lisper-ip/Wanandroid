@@ -21,8 +21,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="置顶"
-            android:textColor="@color/main_text_select"
+            android:text="@string/article_top"
+            android:textColor="@color/red_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/tv_home_top"

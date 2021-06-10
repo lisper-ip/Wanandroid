@@ -1,10 +1,12 @@
 package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
+import androidx.fragment.app.activityViewModels
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentMineBinding
+import app.lonzh.lisper.fragment.base.LisperFragment
+import app.lonzh.lisper.vm.AppDataViewModel
 
 /**
  *
@@ -17,7 +19,9 @@ import app.lonzh.lisper.databinding.FragmentMineBinding
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class MineFragment : BaseVmDbFragment<BaseViewModel, FragmentMineBinding>() {
+class MineFragment : LisperFragment<BaseViewModel, FragmentMineBinding>() {
+
+    private val appDataViewModel : AppDataViewModel by activityViewModels()
 
     companion object{
         @JvmStatic
@@ -33,6 +37,8 @@ class MineFragment : BaseVmDbFragment<BaseViewModel, FragmentMineBinding>() {
      * 初始化view
      */
     override fun initView(savedInstanceState: Bundle?) {
+        binding.vm = appDataViewModel
+
 
     }
 }

@@ -6,6 +6,7 @@ import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentPublishBinding
 import app.lonzh.lisper.ext.back
+import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.request.home.PublishRequestViewModel
 import app.lonzh.lisper.vm.state.home.PublishStateViewModel
 import com.blankj.utilcode.util.ClickUtils
@@ -21,7 +22,7 @@ import com.blankj.utilcode.util.ClickUtils
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class PublishFragment : BaseVmDbFragment<PublishRequestViewModel, FragmentPublishBinding>() {
+class PublishFragment : LisperFragment<PublishRequestViewModel, FragmentPublishBinding>() {
 
     private val publishStateViewModel: PublishStateViewModel by viewModels()
 
