@@ -8,7 +8,9 @@ import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.databinding.FragmentListBinding
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
-import app.lonzh.lisper.vm.request.tab.TabListRequestViewModel
+import app.lonzh.lisper.fragment.main.TabFragment
+import app.lonzh.lisper.vm.request.tab.TabItemRequestViewModel
+import app.lonzh.netlibrary.response.PageList
 import com.blankj.utilcode.util.ClickUtils
 import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear
@@ -26,11 +28,11 @@ import com.drake.logcat.LogCat
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class TabFragment : LisperFragment<TabListRequestViewModel, FragmentListBinding>() {
+open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentListBinding>() {
     companion object{
         @JvmStatic
-        fun getInstance(): TabFragment {
-            return TabFragment()
+        fun getInstance(): TabItemFragment {
+            return TabItemFragment()
         }
 
         const val TAB_ID = "tab_id"
@@ -51,7 +53,13 @@ class TabFragment : LisperFragment<TabListRequestViewModel, FragmentListBinding>
             }
         }
         binding.recycleView.linear().divider(R.drawable.driver_black_line).setup {
-            addType<ArticleBean>(R.layout.item_article_list)
+            arguments?.let {
+                when(it.getString(TabFragment.TAB_TYPE)){
+                    TabFragment.TAB_PROJECT -> addType<ArticleBean>(R.layout.item_article_list)
+                    TabFragment.TAB_WXARTICLE -> addType<ArticleBean>(R.layout.item_wxarticle_list)
+                    else ->{}
+                }
+            }
 
             onClick(R.id.article_list, R.id.iv_article_collect){
                 when(it){
@@ -91,7 +99,11 @@ class TabFragment : LisperFragment<TabListRequestViewModel, FragmentListBinding>
     private fun getArticleList(index: Int){
         arguments?.let {
             val tabId = it.getString(TAB_ID)
-            viewModel.getTabList(tabId, index)
+            when(it.getString(TabFragment.TAB_TYPE)){
+                TabFragment.TAB_PROJECT -> viewModel.getArticleList(tabId, index)
+                TabFragment.TAB_WXARTICLE -> viewModel.getWxArticleList(tabId, index)
+                else ->{}
+            }
         }
     }
 
@@ -112,11 +124,23 @@ class TabFragment : LisperFragment<TabListRequestViewModel, FragmentListBinding>
     }
 
     override fun createObserver() {
-        viewModel.articleListLiveData.observe(viewLifecycleOwner){
-            binding.pageRefresh.run {
-                addData(it.datas) {
-                    index < it.pageCount
+        arguments?.let {
+            when(it.getString(TabFragment.TAB_TYPE)){
+                TabFragment.TAB_PROJECT -> viewModel.articleListLiveData.observe(viewLifecycleOwner){ list ->
+                    handlerList(list)
                 }
+                TabFragment.TAB_WXARTICLE -> viewModel.wxArticleListLiveData.observe(viewLifecycleOwner){ list ->
+                    handlerList(list)
+                }
+                else ->{}
+            }
+        }
+    }
+
+    private fun handlerList(list: PageList<ArticleBean>){
+        binding.pageRefresh.run {
+            addData(list.datas) {
+                index < list.pageCount
             }
         }
     }

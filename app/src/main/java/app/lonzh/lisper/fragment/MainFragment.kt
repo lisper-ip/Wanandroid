@@ -2,7 +2,6 @@ package app.lonzh.lisper.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentMainBinding
@@ -10,6 +9,7 @@ import app.lonzh.lisper.ext.doSelected
 import app.lonzh.lisper.ext.initFragment
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.fragment.main.*
+import app.lonzh.lisper.fragment.tab.TabItemFragment
 
 /**
  *
@@ -29,9 +29,17 @@ class MainFragment: LisperFragment<BaseViewModel, FragmentMainBinding>() {
     init {
         fragmentList.apply {
             add(HomeFragment.getInstance())
-            add(ProjectFragment.getInstance())
+            add(TabFragment.getInstance().apply {
+                val bundle = Bundle()
+                bundle.putString(TabFragment.TAB_TYPE, TabFragment.TAB_PROJECT)
+                arguments = bundle
+            })
             add(SquareFragment.getInstance())
-            add(OfficialAccountFragment.getInstance())
+            add(TabFragment.getInstance().apply {
+                val bundle = Bundle()
+                bundle.putString(TabFragment.TAB_TYPE, TabFragment.TAB_WXARTICLE)
+                arguments = bundle
+            })
             add(MineFragment.getInstance())
         }
     }

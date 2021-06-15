@@ -58,9 +58,9 @@ fun BaseViewModel.launchList(block: suspend CoroutineScope.() -> Unit,
     rxLifeScope.launch(block, {
         it.errorMsg?.let { errorMsg ->
             if(BuildConfig.DEBUG){
-                getShowErrorEvent().setValue("$errorMsg,错误代号:${it.errorCode}")
+                getShowErrorViewEvent().setValue("$errorMsg,错误代号:${it.errorCode}")
             } else {
-                getShowErrorEvent().setValue(errorMsg)
+                getShowErrorViewEvent().setValue(errorMsg)
             }
         }
     }, {
