@@ -35,4 +35,6 @@
     <string name="login_first">请先登录</string>
     <string name="default_id">--</string>
     <string name="article_top">置顶</string>
+    <string name="square_title">体系</string>
+    <string name="view_empty_msg">空空如也</string>
 </resources>

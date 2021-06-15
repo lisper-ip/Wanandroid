@@ -18,6 +18,8 @@ class RequestConfig {
     var showLoading: Boolean = true
     //网络加载框上的文本
     var loadingMessage: String? = null
+    //当前请求页数
+    var curPage = 0
 
     fun setTag(tag: String) = apply {
         this.tag = tag

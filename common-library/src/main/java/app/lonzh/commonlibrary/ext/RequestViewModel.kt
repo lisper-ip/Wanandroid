@@ -52,7 +52,7 @@ fun BaseViewModel.launch(block: suspend CoroutineScope.() -> Unit,
 /**
  * 列表请求
  */
-fun BaseViewModel.launchList(block: suspend CoroutineScope.() -> Unit,
+fun BaseViewModel.launchView(block: suspend CoroutineScope.() -> Unit,
                          requestConfig: RequestConfig? = null){
     if(!checkRequestConfig(requestConfig)) return
     rxLifeScope.launch(block, {

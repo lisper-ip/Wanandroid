@@ -56,18 +56,18 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
             showErrorMsg(it)
             LogCat.e( "error-request: $it")
         })
-        viewModel.getShowFinishEvent().observe(viewLifecycleOwner, {
-            dismissLoading()
-            LogCat.e( "finish-request")
-        })
-        viewModel.getShowLoadingViewEvent().observe(viewLifecycleOwner, {
-            LogCat.e("loadingView-request: $it")
-        })
         viewModel.getShowEmptyViewEvent().observe(viewLifecycleOwner, {
+            showEmptyView()
             LogCat.e("emptyView-request")
         })
         viewModel.getShowErrorViewEvent().observe(viewLifecycleOwner, {
+            showErrorView(it)
             LogCat.e( "errorView-request")
+        })
+        viewModel.getShowFinishEvent().observe(viewLifecycleOwner, {
+            dismissLoading()
+            finishRefreshOrLoadMore()
+            LogCat.e( "finish-request")
         })
     }
 
@@ -76,6 +76,19 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
     abstract fun dismissLoading()
 
     abstract fun showErrorMsg(msg: String)
+
+    open fun showErrorView(msg: String){
+
+    }
+
+    open fun showEmptyView(){
+
+    }
+
+    open fun finishRefreshOrLoadMore(){
+
+    }
+
     /**
      * 初始化沉浸式
      */
