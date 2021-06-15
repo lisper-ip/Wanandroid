@@ -2,6 +2,7 @@ package app.lonzh.lisper.fragment.tab
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.ArticleBean
@@ -50,6 +51,10 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
 
             onLoadMore {
                 getArticleList(index)
+            }
+
+            onLoading {
+                findViewById<TextView>(R.id.tv_msg).text = "拼命加载中..."
             }
         }
         binding.recycleView.linear().divider(R.drawable.driver_black_line).setup {
@@ -109,10 +114,25 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
 
     open fun repeatFresh(){
         binding.pageRefresh.autoRefresh()
+        binding.recycleView.smoothScrollToPosition(0)
+        binding.btnFloat.hide()
     }
 
     override fun lazyLoad() {
-        binding.pageRefresh.autoRefresh()
+        binding.pageRefresh.showLoading(refresh = false)
+    }
+
+    override fun finishRefreshOrLoadMore() {
+        binding.pageRefresh.finishRefresh()
+        binding.pageRefresh.finishLoadMore()
+    }
+
+    override fun showEmptyView() {
+        binding.pageRefresh.showEmpty()
+    }
+
+    override fun showErrorMsg(msg: String) {
+        binding.pageRefresh.showError()
     }
 
     private fun collectArticle(){

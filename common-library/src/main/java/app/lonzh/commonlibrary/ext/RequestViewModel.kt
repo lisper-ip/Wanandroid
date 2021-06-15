@@ -66,9 +66,6 @@ fun BaseViewModel.launchView(block: suspend CoroutineScope.() -> Unit,
     }, {
         getShowStartEvent().call()
         requestConfig?.let {
-            if(it.showLoading){
-                getShowLoadingViewEvent().setValue(it.loadingMessage ?: appContext.getString(R.string.default_loading))
-            }
             if(it.tag.isNotEmpty()){
                 tagList.add(it.tag)
             }

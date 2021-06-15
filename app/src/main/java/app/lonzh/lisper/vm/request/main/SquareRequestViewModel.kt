@@ -26,6 +26,6 @@ class SquareRequestViewModel : BaseViewModel() {
         launchView({
             val result = RxHttp.get("/tree/json").toLpResponse<List<Tab>>().await()
             squareLiveData.value = result
-        }, RequestConfig().loadingMessage("拼命加载中...").isShowLoading(true).setTag("tree"))
+        }, RequestConfig().setTag("tree"))
     }
 }

@@ -50,7 +50,7 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
             }
 
             onLoading {
-
+                findViewById<TextView>(R.id.tv_msg).text = "拼命加载中..."
             }
         }
         binding.squareRecycle.linear().setup {
@@ -72,12 +72,7 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
     }
 
     override fun lazyLoad() {
-        binding.squareRefresh.run {
-            onLoading {
-                findViewById<TextView>(R.id.tv_msg).text = "拼命加载中..."
-            }
-            showLoading(refresh = false) //显示加载页 不显示刷新
-        }
+        binding.squareRefresh.showLoading(refresh = false) //显示加载页 不显示刷新
     }
 
     private fun requestData() {
