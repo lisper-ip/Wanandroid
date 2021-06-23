@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import app.lonzh.commonlibrary.ext.launch
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.data.Tab
-import com.drake.logcat.LogCat
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toLpResponse
 
@@ -22,20 +21,15 @@ import rxhttp.wrapper.param.toLpResponse
 class TabRequestViewModel : BaseViewModel() {
     val projectTabLiveData by lazy { MutableLiveData<List<Tab>>() }
 
-    fun getProjectTab() {
-        LogCat.e("获取tab getProjectTab")
-        launch({
-            val result = RxHttp.get("/project/tree/json").toLpResponse<List<Tab>>().await()
-            projectTabLiveData.value = result
-        })
-    }
+    fun getProjectTab() = launch({
+        val result = RxHttp.get("/project/tree/json").toLpResponse<List<Tab>>().await()
+        projectTabLiveData.value = result
+    })
 
     val officialAccountTabLiveData by lazy { MutableLiveData<List<Tab>>() }
 
-    fun getOfficialAccountTab() {
-        launch({
-            val result = RxHttp.get("/wxarticle/chapters/json").toLpResponse<List<Tab>>().await()
-            officialAccountTabLiveData.value = result
-        })
-    }
+    fun getOfficialAccountTab() = launch({
+        val result = RxHttp.get("/wxarticle/chapters/json").toLpResponse<List<Tab>>().await()
+        officialAccountTabLiveData.value = result
+    })
 }

@@ -26,6 +26,13 @@
             app:popExitAnim="@anim/window_right_out"
             app:popEnterAnim="@anim/window_left_in"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_settingFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -61,4 +68,9 @@
         tools:layout="@layout/fragment_register"
         android:name="app.lonzh.lisper.fragment.login.RegisterFragment"
         android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        tools:layout="@layout/fragment_setting"
+        android:name="app.lonzh.lisper.fragment.mine.SettingFragment"
+        android:label="SettingFragment" />
 </navigation>

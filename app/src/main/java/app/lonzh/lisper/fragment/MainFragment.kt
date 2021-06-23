@@ -8,8 +8,10 @@ import app.lonzh.lisper.databinding.FragmentMainBinding
 import app.lonzh.lisper.ext.doSelected
 import app.lonzh.lisper.ext.initFragment
 import app.lonzh.lisper.fragment.base.LisperFragment
-import app.lonzh.lisper.fragment.main.*
-import app.lonzh.lisper.fragment.tab.TabItemFragment
+import app.lonzh.lisper.fragment.main.HomeFragment
+import app.lonzh.lisper.fragment.main.MineFragment
+import app.lonzh.lisper.fragment.main.SquareFragment
+import app.lonzh.lisper.fragment.main.TabFragment
 
 /**
  *

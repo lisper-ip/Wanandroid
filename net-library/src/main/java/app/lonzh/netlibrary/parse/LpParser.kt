@@ -4,11 +4,10 @@ import app.lonzh.netlibrary.ext.success
 import app.lonzh.netlibrary.response.LpResponse
 import okhttp3.Response
 import rxhttp.wrapper.annotation.Parser
-import rxhttp.wrapper.entity.ParameterizedTypeImpl
 import rxhttp.wrapper.exception.ParseException
-import rxhttp.wrapper.parse.AbstractParser
-import rxhttp.wrapper.utils.GsonUtil
-import rxhttp.wrapper.utils.convert
+import rxhttp.wrapper.parse.TypeParser
+import rxhttp.wrapper.utils.convertTo
+import java.io.IOException
 import java.lang.reflect.Type
 
 /**
@@ -21,8 +20,8 @@ import java.lang.reflect.Type
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-@Parser(name = "LpResponse", wrappers = [List::class])
-open class LpParser<T> : AbstractParser<T> {
+@Parser(name = "LpResponse")
+open class LpParser<T> : TypeParser<T> {
 
     protected constructor() : super()
     constructor(type: Type) : super(type)
@@ -36,24 +35,16 @@ open class LpParser<T> : AbstractParser<T> {
      * @return
      */
     @Suppress("UNCHECKED_CAST")
+    @Throws(IOException::class)
     override fun onParse(response: Response): T {
-        val type = ParameterizedTypeImpl[LpResponse::class.java, String::class.java]
-        val res: LpResponse<String> = response.convert(type)
-        var t: T? = null
-        if (res.success) {
-            t = GsonUtil.getObject(res.data, mType)
-        }
-        if (t == null && mType == String::class.java) {
+        val res: LpResponse<T> = response.convertTo(LpResponse::class.java, *types)
+        var t = res.data
+        if(t == null && types[0] === Any::class.java){
             t = res.errorMsg as T
         }
-        if(!res.success ||t == null){
+        if(!res.success){
             throw ParseException(res.errorCode.toString(), res.errorMsg, response)
         }
         return t
-    }
-
-    companion object {
-        @JvmStatic
-        operator fun <T> get(type: Class<T>) = LpParser<T>(type)
     }
 }

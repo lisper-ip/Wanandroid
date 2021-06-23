@@ -3,7 +3,6 @@ package app.lonzh.lisper.fragment.main
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.adapter.HomeBannerAdapter
 import app.lonzh.lisper.data.ArticleBean
@@ -34,6 +33,8 @@ import com.youth.banner.indicator.CircleIndicator
  * @Version:        1.0
  */
 class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>() {
+
+    private var selectIndex = -1
 
     private val homeBanner: HomeBanner by lazy{ HomeBanner(null) }
 
@@ -73,18 +74,24 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
             }
 
             onClick(R.id.home_list, R.id.iv_home_collect){
+                selectIndex = modelPosition
                 when(it){
                     R.id.home_list -> {}
                     R.id.iv_home_collect -> {
-                        collectArticle()
+                        collectArticle(getModel())
                     }
                     else ->{}
                 }
             }
         }
 
-        ClickUtils.applySingleDebouncing(binding.ivAdd){
-            nav(R.id.action_main_fragment_to_publishFragment)
+        ClickUtils.applySingleDebouncing(arrayOf(binding.ivAdd, binding.btnFloat)){
+            when(it.id){
+                R.id.iv_add -> nav(R.id.action_main_fragment_to_publishFragment)
+                R.id.btn_float -> binding.homeRecycle.smoothScrollToPosition(0)
+                else ->{}
+            }
+
         }
 
         binding.pageRefresh.run {
@@ -116,17 +123,17 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
                 }
             }
         })
-
-        ClickUtils.applySingleDebouncing(binding.btnFloat){
-            binding.homeRecycle.smoothScrollToPosition(0)
-        }
     }
 
-    private fun collectArticle(){
-        if(isLogin()){
-            LogCat.e("请求收藏")
-        } else {
+    private fun collectArticle(articleBean: ArticleBean){
+        if(!isLogin()){
             nav(R.id.action_main_fragment_to_loginFragment)
+            return
+        }
+        if(articleBean.collect){
+            viewModel.unCollectArticle(articleBean)
+        } else {
+            viewModel.collectArticle(articleBean)
         }
     }
 
@@ -149,5 +156,18 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
                 }
             }
         })
+        viewModel.collectArticleLiveData.observe(viewLifecycleOwner){
+            val index = selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)
+            val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
+            articleBean.collect = !articleBean.collect
+            binding.homeRecycle.bindingAdapter.notifyItemChanged(selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount))
+        }
+
+        viewModel.unCollectArticleLiveData.observe(viewLifecycleOwner){
+            val index = selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)
+            val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
+            articleBean.collect = !articleBean.collect
+            binding.homeRecycle.bindingAdapter.notifyItemChanged(index)
+        }
     }
 }

@@ -9,7 +9,6 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentLoginBinding
 import app.lonzh.lisper.ext.back
@@ -96,8 +95,7 @@ class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding
         viewModel.resultLiveData.observe(viewLifecycleOwner) {
             dismissLoading()
             appDataViewModel.userInfo.value = it
-            MMKVUtil.setUsername(it.username)
-            MMKVUtil.setPassword(loginStateViewModel.password.get())
+            MMKVUtil.setObject(it)
             toast(getString(R.string.login_success))
             back()
         }

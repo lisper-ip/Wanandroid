@@ -6,7 +6,7 @@
 
     <!--底部菜单-->
     <color name="main_text_normal">#2c2c2c</color>
-    <color name="main_text_select">#03DAC5</color>
+    <color name="main_text_select">#d81e06</color>
 
     <color name="red_text">#d81e06</color>
 

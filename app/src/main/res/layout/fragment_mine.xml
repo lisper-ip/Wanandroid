@@ -21,7 +21,7 @@
             android:layout_height="@dimen/dp_0_1"/>
 
         <ImageView
-            android:id="@+id/ivHead"
+            android:id="@+id/iv_head"
             android:layout_marginLeft="@dimen/dp_30"
             android:contentDescription="@string/app_name"
             app:layout_constraintTop_toTopOf="@id/guide"
@@ -32,15 +32,15 @@
             android:layout_height="@dimen/dp_80"/>
 
         <TextView
-            android:id="@+id/tvName"
-            app:layout_constraintLeft_toRightOf="@id/ivHead"
+            android:id="@+id/tv_Name"
+            app:layout_constraintLeft_toRightOf="@id/iv_head"
             app:layout_constraintBottom_toTopOf="@id/guide"
             tools:text="lisper"
             android:textSize="@dimen/text_16sp"
             android:layout_marginStart="@dimen/dp_10"
             android:textColor="@color/title_color"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@id/ivHead"
+            app:layout_constraintTop_toTopOf="@id/iv_head"
             android:gravity="bottom"
             android:layout_marginBottom="@dimen/dp_4"
             android:text="@{vm.userInfo == null ? @string/login_first : vm.userInfo.username}"
@@ -49,34 +49,34 @@
             android:layout_height="0dp"/>
 
         <TextView
-            android:id="@+id/tvId"
+            android:id="@+id/tv_id"
             tools:text="111"
             android:layout_marginTop="@dimen/dp_4"
-            app:layout_constraintLeft_toLeftOf="@id/tvName"
+            app:layout_constraintLeft_toLeftOf="@id/tv_Name"
             app:layout_constraintTop_toBottomOf="@id/guide"
             android:text="@{vm.userInfo == null ? @string/default_id :String.valueOf(vm.userInfo.id)}"
             android:layout_width="0dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/ivHead"
+            app:layout_constraintBottom_toBottomOf="@id/iv_head"
             android:layout_height="0dp"/>
 
         <View
             android:id="@+id/line_one"
             android:layout_marginTop="@dimen/dp_30"
-            app:layout_constraintTop_toBottomOf="@id/ivHead"
+            app:layout_constraintTop_toBottomOf="@id/iv_head"
             android:background="@color/line_color"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_4"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@color/white"
-            android:id="@+id/myCon"
+            android:id="@+id/my_con"
             app:layout_constraintTop_toBottomOf="@id/line_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvCoins"
+                android:id="@+id/tv_coins"
                 android:layout_marginStart="@dimen/dp_30"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dp_10"
@@ -88,34 +88,35 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/my_coin"
-                android:layout_width="wrap_content"
+                app:layout_constraintRight_toLeftOf="@id/tv_coinNext"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:drawableStartCompat="@drawable/ic_coins" />
 
 
             <TextView
-                android:id="@+id/tvCoinNext"
+                android:id="@+id/tv_coinNext"
                 android:textColor="@color/search_text"
                 android:textSize="@dimen/text_14sp"
                 android:gravity="center_vertical"
                 android:layout_marginEnd="@dimen/dp_30"
                 app:layout_constraintRight_toRightOf="parent"
                 android:text='@{@string/cur_coins + vm.userInfo.coinCount}'
-                app:layout_constraintTop_toTopOf="@id/tvCoins"
-                app:layout_constraintBottom_toBottomOf="@id/tvCoins"
+                app:layout_constraintTop_toTopOf="@id/tv_coins"
+                app:layout_constraintBottom_toBottomOf="@id/tv_coins"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 app:drawableEndCompat="@drawable/ic_next" />
 
             <View
                 android:id="@+id/line_coin"
-                app:layout_constraintTop_toBottomOf="@id/tvCoins"
+                app:layout_constraintTop_toBottomOf="@id/tv_coins"
                 android:background="@color/line_color"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"/>
 
             <TextView
-                android:id="@+id/tvCollection"
+                android:id="@+id/tv_collection"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
@@ -123,24 +124,24 @@
                 android:textColor="@color/search_text"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_14sp"
-                app:layout_constraintLeft_toLeftOf="@id/tvCoins"
+                app:layout_constraintLeft_toLeftOf="@id/tv_coins"
                 app:layout_constraintTop_toBottomOf="@id/line_coin"
                 android:text="@string/my_collection"
                 android:layout_width="0dp"
-                app:layout_constraintRight_toRightOf="@id/tvCoinNext"
+                app:layout_constraintRight_toRightOf="@id/tv_coinNext"
                 android:layout_height="wrap_content"
                 app:drawableStartCompat="@drawable/ic_collection"
                 app:drawableEndCompat="@drawable/ic_next" />
 
             <View
                 android:id="@+id/line_collection"
-                app:layout_constraintTop_toBottomOf="@id/tvCollection"
+                app:layout_constraintTop_toBottomOf="@id/tv_collection"
                 android:background="@color/line_color"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"/>
 
             <TextView
-                android:id="@+id/tvArticle"
+                android:id="@+id/tv_article"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
@@ -148,11 +149,11 @@
                 android:textColor="@color/search_text"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_14sp"
-                app:layout_constraintLeft_toLeftOf="@id/tvCoins"
+                app:layout_constraintLeft_toLeftOf="@id/tv_coins"
                 app:layout_constraintTop_toBottomOf="@id/line_collection"
                 android:text="@string/my_article"
                 android:layout_width="0dp"
-                app:layout_constraintRight_toRightOf="@id/tvCoinNext"
+                app:layout_constraintRight_toRightOf="@id/tv_coinNext"
                 android:layout_height="wrap_content"
                 app:drawableStartCompat="@drawable/ic_article"
                 app:drawableEndCompat="@drawable/ic_next" />
@@ -160,7 +161,7 @@
 
         <View
             android:id="@+id/line_two"
-            app:layout_constraintTop_toBottomOf="@id/myCon"
+            app:layout_constraintTop_toBottomOf="@id/my_con"
             android:background="@color/line_color"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_4"/>
@@ -172,7 +173,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvWeb"
+                android:id="@+id/tv_web"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
@@ -192,13 +193,13 @@
 
             <View
                 android:id="@+id/line_web"
-                app:layout_constraintTop_toBottomOf="@id/tvWeb"
+                app:layout_constraintTop_toBottomOf="@id/tv_web"
                 android:background="@color/line_color"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"/>
 
             <TextView
-                android:id="@+id/tvSetting"
+                android:id="@+id/tv_setting"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
@@ -206,12 +207,12 @@
                 android:textColor="@color/search_text"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_14sp"
-                app:layout_constraintLeft_toLeftOf="@id/tvWeb"
+                app:layout_constraintLeft_toLeftOf="@id/tv_web"
                 app:layout_constraintTop_toBottomOf="@id/line_web"
                 android:text="@string/settings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="@id/tvWeb"
+                app:layout_constraintRight_toRightOf="@id/tv_web"
                 app:drawableStartCompat="@drawable/ic_setting"
                 app:drawableEndCompat="@drawable/ic_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>

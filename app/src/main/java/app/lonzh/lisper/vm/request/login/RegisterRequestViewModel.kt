@@ -3,7 +3,6 @@ package app.lonzh.lisper.vm.request.login
 import androidx.lifecycle.MutableLiveData
 import app.lonzh.commonlibrary.ext.launch
 import app.lonzh.commonlibrary.vm.BaseViewModel
-import app.lonzh.lisper.vm.state.login.LoginStateViewModel
 import app.lonzh.lisper.vm.state.login.RegisterStateViewModel
 import app.lonzh.netlibrary.config.RequestConfig
 import rxhttp.wrapper.param.RxHttp
@@ -23,8 +22,8 @@ import rxhttp.wrapper.param.toLpResponse
 class RegisterRequestViewModel : BaseViewModel() {
     val resultLiveData by lazy { MutableLiveData<Any>() }
 
-    fun register(registerStateViewModel: RegisterStateViewModel){
-        if(!registerStateViewModel.checkData()) return
+    fun register(registerStateViewModel: RegisterStateViewModel) {
+        if (!registerStateViewModel.checkData()) return
         launch({
             val result = RxHttp.postForm("/user/register")
                 .add("username", registerStateViewModel.account.get())

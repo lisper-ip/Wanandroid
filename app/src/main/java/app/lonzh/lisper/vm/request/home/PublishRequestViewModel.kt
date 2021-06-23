@@ -19,11 +19,11 @@ import rxhttp.wrapper.param.toLpResponse
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class PublishRequestViewModel: BaseViewModel() {
+class PublishRequestViewModel : BaseViewModel() {
     val resultLiveData by lazy { MutableLiveData<String>() }
 
-    fun shareArticle(publishStateViewModel: PublishStateViewModel){
-        if(!publishStateViewModel.checkData()) return
+    fun shareArticle(publishStateViewModel: PublishStateViewModel) {
+        if (!publishStateViewModel.checkData()) return
         launch({
             val result = RxHttp.postJson("/lg/user_article/add/json")
                 .add("title", publishStateViewModel.articleContent.get())

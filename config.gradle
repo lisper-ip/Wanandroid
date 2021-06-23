@@ -28,7 +28,7 @@ ext {
             "activitymessenger"       : '1.2.0',
             "utilcodex"               : "1.30.6",
             "immersionbar"            : "3.0.0",
-            "rxhttp"                  : "2.6.1",
+            "rxhttp"                  : "2.6.2",
             "okhttp"                  : "4.9.1",
             "rxlife-coroutine"        : "2.1.0",
             "toast"                   : "9.2",

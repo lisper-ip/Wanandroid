@@ -22,10 +22,8 @@ import rxhttp.wrapper.param.toLpResponse
 class SquareRequestViewModel : BaseViewModel() {
     val squareLiveData by lazy { MutableLiveData<List<Tab>>() }
 
-    fun getSquareList(){
-        launchView({
-            val result = RxHttp.get("/tree/json").toLpResponse<List<Tab>>().await()
-            squareLiveData.value = result
-        }, RequestConfig().setTag("tree"))
-    }
+    fun getSquareList() = launchView({
+        val result = RxHttp.get("/tree/json").toLpResponse<List<Tab>>().await()
+        squareLiveData.value = result
+    }, RequestConfig().setTag("tree"))
 }

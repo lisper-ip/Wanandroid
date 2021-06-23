@@ -37,4 +37,6 @@
     <string name="article_top">置顶</string>
     <string name="square_title">体系</string>
     <string name="view_empty_msg">空空如也</string>
+    <string name="setting">设置</string>
+    <string name="logout">退出登录</string>
 </resources>

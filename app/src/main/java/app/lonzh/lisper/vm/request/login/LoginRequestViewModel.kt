@@ -23,8 +23,8 @@ import rxhttp.wrapper.param.toLpResponse
 class LoginRequestViewModel : BaseViewModel() {
     val resultLiveData by lazy { MutableLiveData<UserInfo>() }
 
-    fun login(loginStateViewModel: LoginStateViewModel){
-        if(!loginStateViewModel.checkData()) return
+    fun login(loginStateViewModel: LoginStateViewModel) {
+        if (!loginStateViewModel.checkData()) return
         launch({
             val result = RxHttp.postForm("/user/login")
                 .add("username", loginStateViewModel.account.get())

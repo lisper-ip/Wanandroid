@@ -3,16 +3,12 @@ package app.lonzh.lisper.fragment.main
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
-import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
-import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.Children
 import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSquareBinding
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.request.main.SquareRequestViewModel
-import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.models
 import com.drake.brv.utils.setup

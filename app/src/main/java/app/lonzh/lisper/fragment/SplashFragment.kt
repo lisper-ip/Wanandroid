@@ -3,7 +3,6 @@ package app.lonzh.lisper.fragment
 import android.Manifest
 import android.animation.Animator
 import android.os.Bundle
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentSplashBinding

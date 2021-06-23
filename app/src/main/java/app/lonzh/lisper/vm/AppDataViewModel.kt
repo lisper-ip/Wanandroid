@@ -3,6 +3,7 @@ package app.lonzh.lisper.vm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.lonzh.lisper.data.UserInfo
+import app.lonzh.lisper.utils.MMKVUtil
 
 /**
  *
@@ -21,4 +22,10 @@ class AppDataViewModel : ViewModel(){
      */
     val userInfo by lazy { MutableLiveData<UserInfo>() }
 
+    init {
+        val user = MMKVUtil.getObject("user", UserInfo::class.java)
+        user?.let {
+            userInfo.value = user
+        }
+    }
 }

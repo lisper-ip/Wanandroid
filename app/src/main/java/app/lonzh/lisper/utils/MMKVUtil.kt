@@ -1,5 +1,6 @@
 package app.lonzh.lisper.utils
 
+import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 
 /**
@@ -21,11 +22,15 @@ object MMKVUtil {
         return MMKV.mmkvWithID(str)
     }
 
-    fun setUsername(username: String?){
-        getInstance(null)?.encode("username", username)
+    fun <P : Parcelable > setObject(value : P){
+        getInstance(null)?.encode("user", value)
     }
 
-    fun setPassword(password: String?){
-        getInstance(null)?.encode("password", password)
+    fun <T : Parcelable> getObject(key: String, clazz: Class<T>): T?{
+        return getInstance(null)?.decodeParcelable(key, clazz)
+    }
+
+    fun clearUser(){
+        getInstance(null)?.clearAll()
     }
 }

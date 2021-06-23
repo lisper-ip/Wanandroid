@@ -72,7 +72,7 @@ class TabFragment : LisperFragment<TabRequestViewModel, FragmentTabBinding>() {
                 })
             }
         }
-        binding.viewpager.run {
+        binding.viewPager.run {
             adapter = tabFragmentAdapter
             offscreenPageLimit = titles.size
             binding.tabLayout.setViewPager(this, titles)

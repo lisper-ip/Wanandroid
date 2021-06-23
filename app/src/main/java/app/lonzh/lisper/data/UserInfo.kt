@@ -1,5 +1,8 @@
 package app.lonzh.lisper.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  *
  * @ProjectName:    lisper
@@ -11,11 +14,12 @@ package app.lonzh.lisper.data
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-data class UserInfo(
+@Parcelize
+open class UserInfo(
     val admin: Boolean,
-    val chapterTops: List<Any>,
+    val chapterTops: List<Int>,
     val coinCount: Int,
-    val collectIds: List<Any>,
+    val collectIds: List<Int>,
     val email: String,
     val icon: String,
     val id: Int,
@@ -25,4 +29,4 @@ data class UserInfo(
     val token: String,
     val type: Int,
     val username: String
-)
+) : Parcelable
