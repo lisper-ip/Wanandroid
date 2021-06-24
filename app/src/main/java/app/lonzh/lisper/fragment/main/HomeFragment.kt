@@ -8,16 +8,20 @@ import app.lonzh.lisper.adapter.HomeBannerAdapter
 import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.BannerBean
 import app.lonzh.lisper.data.HomeBanner
+import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.databinding.FragmentHomeBinding
+import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.request.main.HomeRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
+import com.drake.brv.PageRefreshLayout.Companion.startIndex
 import com.drake.brv.utils.bindingAdapter
 import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.logcat.LogCat
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.youth.banner.Banner
 import com.youth.banner.indicator.CircleIndicator
 
@@ -35,6 +39,9 @@ import com.youth.banner.indicator.CircleIndicator
 class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>() {
 
     private var selectIndex = -1
+
+    //加载更多真实的index
+    private var realIndex: Int = startIndex
 
     private val homeBanner: HomeBanner by lazy{ HomeBanner(null) }
 
@@ -91,16 +98,15 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
                 R.id.btn_float -> binding.homeRecycle.smoothScrollToPosition(0)
                 else ->{}
             }
-
         }
 
         binding.pageRefresh.run {
             onRefresh {
-                viewModel.getHomeBanner()
                 viewModel.getHomeArticles(index)
             }
 
             onLoadMore {
+                index = realIndex
                 viewModel.getHomeArticles(index)
             }
         }
@@ -138,7 +144,22 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
     }
 
     override fun lazyLoad() {
-        binding.pageRefresh.autoRefresh()
+        binding.pageRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
+    }
+
+    override fun showEmptyView() {
+        binding.pageRefresh.showEmpty()
+    }
+
+    override fun showErrorView(msg: String) {
+        binding.pageRefresh.run {
+            if(loaded){
+                finish(success = false, hasMore = true)
+                toast(msg)
+            } else {
+                showError(StateData(R.drawable.ic_error, msg))
+            }
+        }
     }
 
     override fun createObserver() {
@@ -151,6 +172,11 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
         })
         viewModel.homeArticlesLiveData.observe(viewLifecycleOwner, {
             binding.pageRefresh.run {
+                if(index == startIndex){ // 刷新
+                    realIndex = index + 1
+                } else {
+                    realIndex += 1
+                }
                 addData(it.datas) {
                     index < it.pageCount
                 }
@@ -168,6 +194,10 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
             val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
             articleBean.collect = !articleBean.collect
             binding.homeRecycle.bindingAdapter.notifyItemChanged(index)
+        }
+
+        LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
+            binding.pageRefresh.refresh()
         }
     }
 }

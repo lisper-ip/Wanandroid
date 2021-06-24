@@ -40,7 +40,7 @@ fun BaseViewModel.launch(block: suspend CoroutineScope.() -> Unit,
             }
         }
     }, {
-        getShowFinishEvent().call()
+        getShowFinishEvent().setValue(requestConfig?.tag ?: "")
         requestConfig?.let {
             if(it.tag.isNotEmpty()){
                 tagList.remove(it.tag)
@@ -58,7 +58,7 @@ fun BaseViewModel.launchView(block: suspend CoroutineScope.() -> Unit,
     rxLifeScope.launch(block, {
         it.errorMsg?.let { errorMsg ->
             if(BuildConfig.DEBUG){
-                getShowErrorViewEvent().setValue("$errorMsg,错误代号:${it.errorCode}")
+                getShowErrorViewEvent().setValue("$errorMsg \n 错误代号:${it.errorCode}")
             } else {
                 getShowErrorViewEvent().setValue(errorMsg)
             }
@@ -71,7 +71,7 @@ fun BaseViewModel.launchView(block: suspend CoroutineScope.() -> Unit,
             }
         }
     }, {
-        getShowFinishEvent().call()
+        getShowFinishEvent().setValue(requestConfig?.tag ?: "")
         requestConfig?.let {
             if(it.tag.isNotEmpty()){
                 tagList.remove(it.tag)

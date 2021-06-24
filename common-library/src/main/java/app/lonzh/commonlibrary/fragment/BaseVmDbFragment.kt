@@ -56,6 +56,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
             showErrorMsg(it)
             LogCat.e( "error-request: $it")
         })
+        //列表状态监听
         viewModel.getShowEmptyViewEvent().observe(viewLifecycleOwner, {
             showEmptyView()
             LogCat.e("emptyView-request")
@@ -66,8 +67,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
         })
         viewModel.getShowFinishEvent().observe(viewLifecycleOwner, {
             dismissLoading()
-            finishRefreshOrLoadMore()
-            LogCat.e( "finish-request")
+            LogCat.e("finish-request:$it")
         })
     }
 
@@ -77,15 +77,12 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
 
     abstract fun showErrorMsg(msg: String)
 
+    //以下三方法列表显示时使用
     open fun showErrorView(msg: String){
 
     }
 
     open fun showEmptyView(){
-
-    }
-
-    open fun finishRefreshOrLoadMore(){
 
     }
 

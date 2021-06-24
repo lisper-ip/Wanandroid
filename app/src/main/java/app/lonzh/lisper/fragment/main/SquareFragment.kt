@@ -74,11 +74,7 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
     private fun requestData() {
         viewModel.getSquareList()
     }
-
-    override fun finishRefreshOrLoadMore() {
-        binding.squareRefresh.finishRefresh()
-        binding.squareRefresh.finishLoadMore()
-    }
+    
 
     override fun showEmptyView() {
         binding.squareRefresh.showEmpty()

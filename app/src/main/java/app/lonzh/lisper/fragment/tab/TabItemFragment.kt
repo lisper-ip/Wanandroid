@@ -45,6 +45,7 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
     override fun initView(savedInstanceState: Bundle?) {
         binding.pageRefresh.run {
             onRefresh {
+                //接口页数从1开始， 如果是0不需要设置
                 index = 1
                 getArticleList(index)
             }
@@ -120,11 +121,6 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
 
     override fun lazyLoad() {
         binding.pageRefresh.showLoading(refresh = false)
-    }
-
-    override fun finishRefreshOrLoadMore() {
-        binding.pageRefresh.finishRefresh()
-        binding.pageRefresh.finishLoadMore()
     }
 
     override fun showEmptyView() {

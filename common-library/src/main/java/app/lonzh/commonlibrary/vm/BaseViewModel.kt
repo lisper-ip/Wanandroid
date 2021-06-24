@@ -32,7 +32,7 @@ open class BaseViewModel : ViewModel(){
     /**
      * 请求结束
      */
-    private var showFinishEvent: SingleLiveEvent<Void>? = null
+    private var showFinishEvent: SingleLiveEvent<String>? = null
 
     /**以下是替换页面状态布局 多用于列表**/
     /**
@@ -46,7 +46,7 @@ open class BaseViewModel : ViewModel(){
     /**
      * 显示错误布局
      */
-    private var showErrorViewEvent: SingleLiveEvent<Void>? = null
+    private var showErrorViewEvent: SingleLiveEvent<String>? = null
 
     /**
      * 针对同一请求在没有返回值之前能不能再次请求
@@ -65,9 +65,9 @@ open class BaseViewModel : ViewModel(){
         showErrorEvent = createLiveData(showErrorEvent)
         return showErrorEvent as SingleLiveEvent<String>
     }
-    fun getShowFinishEvent(): SingleLiveEvent<Void>{
+    fun getShowFinishEvent(): SingleLiveEvent<String>{
         showFinishEvent = createLiveData(showFinishEvent)
-        return showFinishEvent as SingleLiveEvent<Void>
+        return showFinishEvent as SingleLiveEvent<String>
     }
 
     fun getShowLoadingViewEvent(): SingleLiveEvent<String>{

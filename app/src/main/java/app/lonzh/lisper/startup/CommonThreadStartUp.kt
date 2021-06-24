@@ -1,6 +1,8 @@
 package app.lonzh.lisper.startup
 
 import android.content.Context
+import app.lonzh.lisper.BuildConfig
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.rousetime.android_startup.AndroidStartup
 
 /**
@@ -27,6 +29,7 @@ class CommonThreadStartUp : AndroidStartup<String>(){
      * @param [context]
      */
     override fun create(context: Context): String? {
+        LiveEventBus.config().enableLogger(BuildConfig.DEBUG)
         return javaClass.simpleName
     }
 

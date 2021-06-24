@@ -51,5 +51,6 @@ dependencies {
     implementation rootProject.ext.dependencies['coil']
     implementation rootProject.ext.dependencies['tablayout']
     implementation rootProject.ext.dependencies['flexbox']
+    implementation rootProject.ext.dependencies['liveDataBus']
     debugImplementation rootProject.ext.dependencies['leakcanary']
 }

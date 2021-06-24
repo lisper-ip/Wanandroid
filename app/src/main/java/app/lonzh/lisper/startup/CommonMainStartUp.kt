@@ -1,11 +1,15 @@
 package app.lonzh.lisper.startup
 
+import android.animation.ValueAnimator
 import android.app.Application
 import android.content.Context
+import android.widget.ImageView
 import android.widget.TextView
 import app.lonzh.lisper.BR
 import app.lonzh.lisper.BuildConfig
 import app.lonzh.lisper.R
+import app.lonzh.lisper.data.StateData
+import app.lonzh.lisper.ext.appContext
 import app.lonzh.netlibrary.RxHttpManager
 import com.airbnb.lottie.LottieAnimationView
 import com.drake.brv.PageRefreshLayout
@@ -56,24 +60,47 @@ class CommonMainStartUp : AndroidStartup<String>(){
             ClassicsFooter(mContext)
         }
         StateConfig.apply {
-            loadingLayout = R.layout.layout_view_state
+            loadingLayout = R.layout.layout_view_loading
             emptyLayout = R.layout.layout_view_state
             errorLayout = R.layout.layout_view_state
 
             onLoading {
-                findViewById<LottieAnimationView>(R.id.iv_anim).setAnimation("view_loading.json")
-                findViewById<TextView>(R.id.tv_msg).text = context.getText(R.string.default_loading)
+                when(it){
+                    is StateData -> {
+                        findViewById<TextView>(R.id.tv_msg).text = it.msg
+                    }
+                    else -> {
+                        findViewById<TextView>(R.id.tv_msg).text = appContext.getString(R.string.default_loading)
+                    }
+                }
             }
 
             onEmpty {
-                findViewById<LottieAnimationView>(R.id.iv_anim).setAnimation("view_empty.json")
-                findViewById<TextView>(R.id.tv_msg).text = context.getText(R.string.view_empty_msg)
+                when(it){
+                    is StateData -> {
+                        findViewById<ImageView>(R.id.iv_anim).setImageResource(it.resId)
+                        findViewById<TextView>(R.id.tv_msg).text = it.msg
+                    }
+                    else -> {
+                        findViewById<ImageView>(R.id.iv_anim).setImageResource(R.drawable.ic_empty)
+                        findViewById<TextView>(R.id.tv_msg).text = appContext.getString(R.string.view_empty_msg)
+                    }
+                }
             }
 
             onError {
-                findViewById<LottieAnimationView>(R.id.iv_anim).setAnimation("view_error.json")
-                findViewById<TextView>(R.id.tv_msg).text = context.getText(R.string.unknown_mistake)
+                when(it){
+                    is StateData -> {
+                        findViewById<ImageView>(R.id.iv_anim).setImageResource(it.resId)
+                        findViewById<TextView>(R.id.tv_msg).text = it.msg
+                    }
+                    else -> {
+                        findViewById<ImageView>(R.id.iv_anim).setImageResource(R.drawable.ic_error)
+                        findViewById<TextView>(R.id.tv_msg).text = appContext.getString(R.string.unknown_mistake)
+                    }
+                }
             }
+            setRetryIds(R.id.iv_anim, R.id.tv_msg)
         }
         LogCat.config {
             defaultTag = "lisper"

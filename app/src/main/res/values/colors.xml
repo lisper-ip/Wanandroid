@@ -17,4 +17,6 @@
     <color name="title_color">#333333</color>
 
     <color name="line_color">#f5f5f5</color>
+
+    <color name="state_text">#bfbfbf</color>
 </resources>

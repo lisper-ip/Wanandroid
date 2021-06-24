@@ -41,7 +41,8 @@ ext {
             "logcat"                  : "1.1.0",
             "dialog"                  : "3.6.6",
             "tablayout"               : "2.1.2@aar",
-            "flexbox"                 : "3.0.0"
+            "flexbox"                 : "3.0.0",
+            "liveDataBus"             : "1.8.0"
     ]
 
     androidx = [
@@ -80,5 +81,6 @@ ext {
             "dialog"                  : "cn.yc:YCDialogLib:${versions["dialog"]}",//https://github.com/yangchong211/YCDialog
             "tablayout"               : "com.flyco.tablayout:FlycoTabLayout_Lib:${versions['tablayout']}",//https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md
             "flexbox"                 : "com.google.android.flexbox:flexbox:${versions['flexbox']}", //https://github.com/google/flexbox-layout
+            "liveDataBus"             : "io.github.jeremyliao:live-event-bus-x:${versions['liveDataBus']}", //https://github.com/JeremyLiao/LiveEventBus
     ]
 }

@@ -35,7 +35,7 @@ class RxHttpManager {
                 .build()
             RxHttpPlugins.init(okHttpClient)
                 .setDebug(BuildConfig.DEBUG)
-                .setCache(file, 10*1024*1024, CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
+                .setCache(file, 10*1024*1024, CacheMode.ONLY_NETWORK)
         }
     }
 }

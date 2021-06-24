@@ -28,7 +28,7 @@ class TabItemRequestViewModel : BaseViewModel() {
             RxHttp.get("/project/list/$index/json?cid=$tabId").toLpResponse<PageList<ArticleBean>>()
                 .await()
         articleListLiveData.value = result
-    }, RequestConfig().isShowLoading(true).setTag("tab_article").loadingMessage("拼命请求中..."))
+    })
 
     val wxArticleListLiveData by lazy { MutableLiveData<PageList<ArticleBean>>() }
 
@@ -36,5 +36,5 @@ class TabItemRequestViewModel : BaseViewModel() {
         val result = RxHttp.get("/wxarticle/list/$tabId/$index/json ")
             .toLpResponse<PageList<ArticleBean>>().await()
         wxArticleListLiveData.value = result
-    }, RequestConfig().isShowLoading(true).setTag("tab_wx_article").loadingMessage("拼命请求中..."))
+    })
 }

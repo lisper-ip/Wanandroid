@@ -8,7 +8,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import app.lonzh.commonlibrary.R
+import app.lonzh.lisper.R
 import com.blankj.utilcode.util.StringUtils
 
 

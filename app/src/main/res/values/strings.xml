@@ -13,7 +13,7 @@
     <string name="article_url">文章链接</string>
     <string name="hint_article_url">请输入链接</string>
     <string name="article_share_title">分享须知</string>
-    <string name="article_share_information">1. 只要是任何好文都可以分享哈，并不一定要是原创！投递的文章会进入广场 tab;\n2. CSDN，掘金，简书等官方博客站点会直接通过，不需要审核;\n3. 其他个人站点会进入审核阶段，不要投递任何无效链接，测试的请尽快删除，否则可能会对你的账号产生一定影响;\n4. 目前处于测试阶段，如果你发现500等错误，可以向我提交日志，让我们一起使网站变得更好。\n5. 由于本站只有我一个人开发与维护，会尽力保证24小时内审核，当然有可能哪天太累，会延期，请保持佛系...</string>
+    <string name="article_share_information">1. 只要是任何好文都可以分享哈，并不一定要是原创！投递的文章会进入广场 tab;\n2. CSDN，掘金，简书等官方博客站点会直接通过，不需要审核;\n3. 其他个人站点会进入审核阶段，不要投递任何无效链接，测试的请尽快删除，否则可能会对你的账号产生一定影响;\n4. 目前处于测试阶段，如果你发现500等错误，可以向我提交日志，让我们一起使网站变得更好。\n5. 由于本站只有我一个人开发与维护，会尽力保证24小时内审核，当然有可能哪天太累，会延期，请保持佛系…</string>
     <string name="share_article">分享</string>
     <string name="please_input_article_content">请输入文章标题</string>
     <string name="publish_success">发布成功</string>
@@ -30,7 +30,7 @@
     <string name="cur_coins">当前积分:</string>
     <string name="my_collection">我的收藏</string>
     <string name="my_article">我的文章</string>
-    <string name="wanandroid_web">Wanandroid网站</string>
+    <string name="wan_android_web">WanAndroid网站</string>
     <string name="settings">设置</string>
     <string name="login_first">请先登录</string>
     <string name="default_id">--</string>
@@ -39,4 +39,5 @@
     <string name="view_empty_msg">空空如也</string>
     <string name="setting">设置</string>
     <string name="logout">退出登录</string>
+    <string name="lisper_request">拼命请求中…</string>
 </resources>
