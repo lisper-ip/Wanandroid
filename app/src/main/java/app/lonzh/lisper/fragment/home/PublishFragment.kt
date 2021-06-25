@@ -2,7 +2,6 @@ package app.lonzh.lisper.fragment.home
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import app.lonzh.commonlibrary.fragment.BaseVmDbFragment
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentPublishBinding
 import app.lonzh.lisper.ext.back

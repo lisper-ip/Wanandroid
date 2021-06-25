@@ -1,6 +1,5 @@
 package app.lonzh.lisper.startup
 
-import android.animation.ValueAnimator
 import android.app.Application
 import android.content.Context
 import android.widget.ImageView
@@ -11,7 +10,6 @@ import app.lonzh.lisper.R
 import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.ext.appContext
 import app.lonzh.netlibrary.RxHttpManager
-import com.airbnb.lottie.LottieAnimationView
 import com.drake.brv.PageRefreshLayout
 import com.drake.brv.utils.BRV
 import com.drake.logcat.LogCat

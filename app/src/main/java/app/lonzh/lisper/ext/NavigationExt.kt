@@ -2,8 +2,6 @@ package app.lonzh.lisper.ext
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import app.lonzh.lisper.data.UserInfo
-import app.lonzh.lisper.utils.MMKVUtil
 
 /**
  *

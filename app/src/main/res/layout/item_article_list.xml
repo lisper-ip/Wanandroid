@@ -78,7 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.airbnb.lottie.LottieAnimationView
+        <ImageView
+            android:contentDescription="@string/app_name"
             android:id="@+id/iv_article_collect"
             app:layout_constraintBottom_toBottomOf="@id/tv_time"
             app:layout_constraintRight_toRightOf="@id/tv_title"

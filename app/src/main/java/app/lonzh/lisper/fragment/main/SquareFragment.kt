@@ -1,10 +1,10 @@
 package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.Children
+import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSquareBinding
 import app.lonzh.lisper.fragment.base.LisperFragment
@@ -42,11 +42,7 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
     override fun initView(savedInstanceState: Bundle?) {
         binding.squareRefresh.run {
             onRefresh {
-                requestData()
-            }
-
-            onLoading {
-                findViewById<TextView>(R.id.tv_msg).text = "拼命加载中..."
+                viewModel.getSquareList()
             }
         }
         binding.squareRecycle.linear().setup {
@@ -68,20 +64,22 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
     }
 
     override fun lazyLoad() {
-        binding.squareRefresh.showLoading(refresh = false) //显示加载页 不显示刷新
+        binding.squareRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
     }
-
-    private fun requestData() {
-        viewModel.getSquareList()
-    }
-    
 
     override fun showEmptyView() {
         binding.squareRefresh.showEmpty()
     }
 
-    override fun showErrorMsg(msg: String) {
-        binding.squareRefresh.showError()
+    override fun showErrorView(msg: String) {
+        binding.squareRefresh.run {
+            if(loaded){
+                finish(success = false, hasMore = true)
+                toast(msg)
+            } else {
+                showError(StateData(R.drawable.ic_error, msg))
+            }
+        }
     }
 
     override fun createObserver() {

@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentLoginBinding
+import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
@@ -20,6 +21,7 @@ import app.lonzh.lisper.vm.request.login.LoginRequestViewModel
 import app.lonzh.lisper.vm.state.login.LoginStateViewModel
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.StringUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
  *
@@ -93,6 +95,7 @@ class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding
 
     override fun createObserver() {
         viewModel.resultLiveData.observe(viewLifecycleOwner) {
+            LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).post(LoginEvent(true))
             dismissLoading()
             appDataViewModel.userInfo.value = it
             MMKVUtil.setObject(it)

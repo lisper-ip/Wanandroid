@@ -3,6 +3,7 @@ package app.lonzh.lisper.fragment.main
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
 import app.lonzh.lisper.adapter.HomeBannerAdapter
 import app.lonzh.lisper.data.ArticleBean
@@ -58,48 +59,6 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
      * 初始化view
      */
     override fun initView(savedInstanceState: Bundle?) {
-        ClickUtils.applySingleDebouncing(binding.tvHomeSearch) {
-            toast("跳转搜索")
-        }
-
-        binding.homeRecycle.linear().divider(R.drawable.driver_black_line).setup {
-            addType<ArticleBean>(R.layout.item_home_list)
-            addType<HomeBanner>(R.layout.item_home_banner)
-
-            onBind {
-                when(itemViewType){
-                    R.layout.item_home_banner ->{
-                        val banner = findView<Banner<BannerBean, HomeBannerAdapter>>(R.id.home_banner)
-                        banner.addBannerLifecycleObserver(viewLifecycleOwner)
-                            .setAdapter(HomeBannerAdapter(getModel<HomeBanner>().list))
-                            .setIndicator(CircleIndicator(mActivity))
-                            .setOnBannerListener { data, _ ->
-                                LogCat.e((data as BannerBean).url)
-                            }
-                    }
-                }
-            }
-
-            onClick(R.id.home_list, R.id.iv_home_collect){
-                selectIndex = modelPosition
-                when(it){
-                    R.id.home_list -> {}
-                    R.id.iv_home_collect -> {
-                        collectArticle(getModel())
-                    }
-                    else ->{}
-                }
-            }
-        }
-
-        ClickUtils.applySingleDebouncing(arrayOf(binding.ivAdd, binding.btnFloat)){
-            when(it.id){
-                R.id.iv_add -> nav(R.id.action_main_fragment_to_publishFragment)
-                R.id.btn_float -> binding.homeRecycle.smoothScrollToPosition(0)
-                else ->{}
-            }
-        }
-
         binding.pageRefresh.run {
             onRefresh {
                 viewModel.getHomeArticles(index)
@@ -111,24 +70,65 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
             }
         }
 
-        binding.homeRecycle.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && binding.btnFloat.visibility == View.VISIBLE){
-                    binding.btnFloat.hide()
-                }else if (dy < 0 && binding.btnFloat.visibility != View.VISIBLE){
-                    binding.btnFloat.show()
+        binding.homeRecycle.run {
+            linear().divider(R.drawable.driver_black_line).setup {
+                addType<ArticleBean>(R.layout.item_home_list)
+                addType<HomeBanner>(R.layout.item_home_banner)
+
+                onBind {
+                    when(itemViewType){
+                        R.layout.item_home_banner ->{
+                            val banner = findView<Banner<BannerBean, HomeBannerAdapter>>(R.id.home_banner)
+                            banner.addBannerLifecycleObserver(viewLifecycleOwner)
+                                .setAdapter(HomeBannerAdapter(getModel<HomeBanner>().list))
+                                .setIndicator(CircleIndicator(mActivity))
+                                .setOnBannerListener { data, _ ->
+                                    LogCat.e((data as BannerBean).url)
+                                }
+                        }
+                    }
+                }
+
+                onClick(R.id.home_list, R.id.iv_home_collect){
+                    selectIndex = modelPosition
+                    when(it){
+                        R.id.home_list -> {}
+                        R.id.iv_home_collect -> {
+                            collectArticle(getModel())
+                        }
+                        else ->{}
+                    }
                 }
             }
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if(!recyclerView.canScrollVertically(-1)){
-                    //到达顶部
-                    binding.btnFloat.hide()
+            addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0 && binding.btnFloat.visibility == View.VISIBLE){
+                        binding.btnFloat.hide()
+                    }else if (dy < 0 && binding.btnFloat.visibility != View.VISIBLE){
+                        binding.btnFloat.show()
+                    }
                 }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if(!recyclerView.canScrollVertically(-1)){
+                        //到达顶部
+                        binding.btnFloat.hide()
+                    }
+                }
+            })
+        }
+
+        ClickUtils.applySingleDebouncing(arrayOf(binding.ivAdd, binding.btnFloat, binding.tvHomeSearch)){
+            when(it.id){
+                R.id.iv_add -> nav(R.id.action_main_fragment_to_publishFragment)
+                R.id.btn_float -> binding.homeRecycle.smoothScrollToPosition(0)
+                R.id.tv_home_search -> toast("跳转搜索")
+                else ->{}
             }
-        })
+        }
     }
 
     private fun collectArticle(articleBean: ArticleBean){
@@ -197,7 +197,9 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
         }
 
         LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
-            binding.pageRefresh.refresh()
+            postDelayed({
+                binding.pageRefresh.refresh()
+            }, Constant.RELAY_LOAD)
         }
     }
 }

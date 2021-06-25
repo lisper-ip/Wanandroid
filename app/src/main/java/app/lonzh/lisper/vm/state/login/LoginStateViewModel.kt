@@ -1,7 +1,6 @@
 package app.lonzh.lisper.vm.state.login
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.ext.appContext

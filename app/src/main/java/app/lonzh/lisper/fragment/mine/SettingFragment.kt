@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentSettingBinding
+import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.utils.MMKVUtil
 import app.lonzh.lisper.vm.AppDataViewModel
 import app.lonzh.lisper.vm.request.mine.SettingRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
 import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.cookie.ICookieJar
 
@@ -49,6 +51,7 @@ class SettingFragment : LisperFragment<SettingRequestViewModel, FragmentSettingB
             val cookie = RxHttpPlugins.getOkHttpClient().cookieJar as ICookieJar
             cookie.removeAllCookie()
             appDataViewModel.userInfo.value = null
+            LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).post(LoginEvent(false))
             back()
         }
     }

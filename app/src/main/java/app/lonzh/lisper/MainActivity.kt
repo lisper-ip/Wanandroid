@@ -1,14 +1,15 @@
 package app.lonzh.lisper
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import app.lonzh.baselibrary.manage.net.NetState
 import app.lonzh.commonlibrary.activity.BaseVmDbActivity
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.databinding.ActivityMainBinding
 import app.lonzh.lisper.fragment.MainFragment
 import app.lonzh.lisper.vm.AppDataViewModel
+import com.drake.logcat.LogCat
 
 class MainActivity : BaseVmDbActivity<BaseViewModel, ActivityMainBinding>() {
 
@@ -33,5 +34,9 @@ class MainActivity : BaseVmDbActivity<BaseViewModel, ActivityMainBinding>() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onNetworkStateChanged(netState: NetState) {
+        LogCat.e("网络变化: ${netState.networkType.desc}")
     }
 }

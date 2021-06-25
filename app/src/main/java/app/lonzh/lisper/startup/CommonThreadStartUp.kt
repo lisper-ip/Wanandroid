@@ -30,6 +30,7 @@ class CommonThreadStartUp : AndroidStartup<String>(){
      */
     override fun create(context: Context): String? {
         LiveEventBus.config().enableLogger(BuildConfig.DEBUG)
+            .lifecycleObserverAlwaysActive(false)
         return javaClass.simpleName
     }
 

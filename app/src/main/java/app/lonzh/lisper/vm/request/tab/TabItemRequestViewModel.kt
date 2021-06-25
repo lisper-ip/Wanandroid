@@ -1,10 +1,10 @@
 package app.lonzh.lisper.vm.request.tab
 
 import androidx.lifecycle.MutableLiveData
+import app.lonzh.commonlibrary.ext.launch
 import app.lonzh.commonlibrary.ext.launchView
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.data.ArticleBean
-import app.lonzh.netlibrary.config.RequestConfig
 import app.lonzh.netlibrary.response.PageList
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toLpResponse
@@ -36,5 +36,19 @@ class TabItemRequestViewModel : BaseViewModel() {
         val result = RxHttp.get("/wxarticle/list/$tabId/$index/json ")
             .toLpResponse<PageList<ArticleBean>>().await()
         wxArticleListLiveData.value = result
+    })
+
+    val collectArticleLiveData by lazy { MutableLiveData<Any>() }
+
+    fun collectArticle(articleBean: ArticleBean) = launch({
+        val result = RxHttp.postJson("/lg/collect/${articleBean.id}/json").toLpResponse<Any>().await()
+        collectArticleLiveData.value = result
+    })
+
+    val unCollectArticleLiveData by lazy { MutableLiveData<Any>() }
+
+    fun unCollectArticle(articleBean: ArticleBean) = launch({
+        val result = RxHttp.postJson("/lg/uncollect_originId/${articleBean.id}/json").toLpResponse<Any>().await()
+        unCollectArticleLiveData.value = result
     })
 }

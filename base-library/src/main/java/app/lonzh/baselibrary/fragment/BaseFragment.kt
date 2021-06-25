@@ -11,6 +11,7 @@ import app.lonzh.baselibrary.action.ToastAction
 import app.lonzh.baselibrary.activity.BaseActivity
 import app.lonzh.baselibrary.manage.net.NetState
 import app.lonzh.baselibrary.manage.net.NetworkStateManager
+import app.lonzh.baselibrary.util.Constant
 
 /**
  *
@@ -43,7 +44,7 @@ abstract class BaseFragment : Fragment(), HandlerAction, ToastAction {
                         }
                     })
                 firstLoad = !firstLoad
-            }, 300)
+            }, Constant.RELAY_LOAD)
         }
     }
 
