@@ -9,7 +9,9 @@ import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.databinding.FragmentListBinding
 import app.lonzh.lisper.event.LoginEvent
+import app.lonzh.lisper.event.UnCollectEvent
 import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.fragment.main.TabFragment
 import app.lonzh.lisper.vm.request.tab.TabItemRequestViewModel
@@ -73,7 +75,7 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
                 arguments?.let {
                     when(it.getString(TabFragment.TAB_TYPE)){
                         TabFragment.TAB_PROJECT -> addType<ArticleBean>(R.layout.item_article_list)
-                        TabFragment.TAB_WXARTICLE -> addType<ArticleBean>(R.layout.item_wxarticle_list)
+                        TabFragment.TAB_WXARTICLE -> addType<ArticleBean>(R.layout.item_home_list)
                         else ->{}
                     }
                 }
@@ -81,7 +83,11 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
                 onClick(R.id.article_list, R.id.iv_article_collect){
                     selectIndex = modelPosition
                     when(it){
-                        R.id.article_list -> {}
+                        R.id.article_list -> {
+                            val bundle = WebFragmentArgs(getModel<ArticleBean>().title, getModel<ArticleBean>().link,
+                                getModel<ArticleBean>().author, getModel<ArticleBean>().id).toBundle()
+                            nav(R.id.action_main_fragment_to_webFragment, bundle)
+                        }
                         R.id.iv_article_collect -> {
                             collectArticle(getModel())
                         }
@@ -197,6 +203,23 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
                 binding.pageRefresh.refresh()
             }, Constant.RELAY_LOAD)
         }
+
+        LiveEventBus.get<UnCollectEvent>(UnCollectEvent::class.java.simpleName).observe(viewLifecycleOwner){ event ->
+            binding.recycleView.bindingAdapter.run {
+                var unCollectIndex = -1
+                models?.mapIndexed{ index, it ->
+                    if(it is ArticleBean){
+                        if(it.id == event.id){
+                            it.collect = false
+                            unCollectIndex = index
+                        }
+                    }
+                }
+                if(unCollectIndex >= 0){
+                    notifyItemChanged(unCollectIndex)
+                }
+            }
+        }
     }
 
     private fun handlerList(list: PageList<ArticleBean>){
@@ -208,7 +231,7 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
                 realIndex += 1
             }
             addData(list.datas) {
-                index < list.pageCount
+                !list.over
             }
         }
     }

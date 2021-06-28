@@ -23,7 +23,7 @@ class AppDataViewModel : ViewModel(){
     val userInfo by lazy { MutableLiveData<UserInfo>() }
 
     init {
-        val user = MMKVUtil.getObject("user", UserInfo::class.java)
+        val user = MMKVUtil.getObject(MMKVUtil.USER, UserInfo::class.java)
         user?.let {
             userInfo.value = user
         }

@@ -52,6 +52,19 @@ class TabFragment : LisperFragment<TabRequestViewModel, FragmentTabBinding>() {
         }
     }
 
+    override fun createObserver() {
+        arguments?.let {
+            when(it.getString(TAB_TYPE)){
+                TAB_PROJECT -> viewModel.projectTabLiveData.observe(viewLifecycleOwner){ list ->
+                    handlerTabList(list)
+                }
+                TAB_WXARTICLE -> viewModel.officialAccountTabLiveData.observe(viewLifecycleOwner){ list ->
+                    handlerTabList(list)
+                }
+            }
+        }
+    }
+
     private fun handlerTabList(tabList : List<Tab>){
         val titles = arrayOfNulls<String>(tabList.size)
         tabList.forEachIndexed { index, tab ->
@@ -86,19 +99,6 @@ class TabFragment : LisperFragment<TabRequestViewModel, FragmentTabBinding>() {
                 }
 
             })
-        }
-    }
-
-    override fun createObserver() {
-        arguments?.let {
-            when(it.getString(TAB_TYPE)){
-                TAB_PROJECT -> viewModel.projectTabLiveData.observe(viewLifecycleOwner){ list ->
-                    handlerTabList(list)
-                }
-                TAB_WXARTICLE -> viewModel.officialAccountTabLiveData.observe(viewLifecycleOwner){ list ->
-                    handlerTabList(list)
-                }
-            }
         }
     }
 }

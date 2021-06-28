@@ -11,32 +11,32 @@
         android:layout_height="match_parent">
 
         <com.hjq.bar.TitleBar
-            app:backButton="false"
             android:id="@+id/project_titleBar"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:backButton="false"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingStart="@dimen/dp_10"
                 android:paddingEnd="@dimen/dp_10"
+                app:tl_iconVisible="false"
+                app:tl_indicator_color="@color/colorAccent"
+                app:tl_indicator_style="BLOCK"
                 app:tl_textSelectColor="@color/white"
                 app:tl_textUnselectColor="@color/title_color"
-                app:tl_iconVisible="false"
-                app:tl_indicator_style="BLOCK"
-                app:tl_indicator_color="@color/colorAccent"
-                app:tl_textsize="@dimen/text_14sp"
-                android:layout_height="match_parent"/>
+                app:tl_textsize="@dimen/text_14sp" />
         </com.hjq.bar.TitleBar>
 
         <androidx.viewpager.widget.ViewPager
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/project_titleBar"
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_height="0dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/project_titleBar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

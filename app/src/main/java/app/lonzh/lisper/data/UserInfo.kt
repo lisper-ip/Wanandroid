@@ -1,6 +1,7 @@
 package app.lonzh.lisper.data
 
 import android.os.Parcelable
+import androidx.databinding.BaseObservable
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -18,7 +19,7 @@ import kotlinx.parcelize.Parcelize
 open class UserInfo(
     val admin: Boolean,
     val chapterTops: List<Int>,
-    val coinCount: Int,
+    var coinCount: Int,
     val collectIds: List<Int>,
     val email: String,
     val icon: String,
@@ -29,4 +30,4 @@ open class UserInfo(
     val token: String,
     val type: Int,
     val username: String
-) : Parcelable
+) : Parcelable, BaseObservable()

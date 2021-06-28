@@ -13,7 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_list"
+        android:id="@+id/article_list"
         android:paddingTop="@dimen/dp_16"
         android:paddingLeft="@dimen/dp_16"
         android:paddingRight="@dimen/dp_16"
@@ -62,8 +62,9 @@
             android:maxLines="2"
             android:text="@{Html.fromHtml(bean.title)}"
             app:layout_constraintTop_toBottomOf="@id/tv_home_author"
-            android:textSize="@dimen/text_16sp"
+            android:textSize="@dimen/text_14sp"
             android:textColor="@color/title_color"
+            android:textStyle="bold"
             android:id="@+id/tv_home_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -71,8 +72,8 @@
         <TextView
             tools:text="干货资源"
             android:text="@{bean.superChapterName}"
-            app:layout_constraintTop_toTopOf="@id/iv_home_collect"
-            app:layout_constraintBottom_toBottomOf="@id/iv_home_collect"
+            app:layout_constraintTop_toTopOf="@id/iv_article_collect"
+            app:layout_constraintBottom_toBottomOf="@id/iv_article_collect"
             android:id="@+id/tv_main_category"
             app:layout_constraintLeft_toLeftOf="@id/tv_home_top"
             android:textColor="@color/search_text"
@@ -82,7 +83,7 @@
 
         <ImageView
             android:contentDescription="@string/app_name"
-            android:id="@+id/iv_home_collect"
+            android:id="@+id/iv_article_collect"
             app:layout_constraintTop_toBottomOf="@id/tv_home_title"
             app:layout_constraintRight_toRightOf="parent"
             android:src="@{bean.collect ? @drawable/ic_heart_select : @drawable/ic_heart_normal}"

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply from: '../config.gradle'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -52,5 +53,6 @@ dependencies {
     implementation rootProject.ext.dependencies['tablayout']
     implementation rootProject.ext.dependencies['flexbox']
     implementation rootProject.ext.dependencies['liveDataBus']
+    implementation rootProject.ext.dependencies['agentweb']
     debugImplementation rootProject.ext.dependencies['leakcanary']
 }

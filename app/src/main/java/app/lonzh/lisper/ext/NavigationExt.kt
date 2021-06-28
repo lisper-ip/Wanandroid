@@ -1,5 +1,6 @@
 package app.lonzh.lisper.ext
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
@@ -16,6 +17,10 @@ import androidx.navigation.fragment.findNavController
  */
 fun Fragment.nav(id: Int){
     findNavController().navigate(id)
+}
+
+fun Fragment.nav(id: Int, bundle: Bundle){
+    findNavController().navigate(id, bundle)
 }
 
 fun Fragment.back(){

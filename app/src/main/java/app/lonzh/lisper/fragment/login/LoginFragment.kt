@@ -98,7 +98,7 @@ class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding
             LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).post(LoginEvent(true))
             dismissLoading()
             appDataViewModel.userInfo.value = it
-            MMKVUtil.setObject(it)
+            MMKVUtil.setObject(MMKVUtil.USER, it)
             toast(getString(R.string.login_success))
             back()
         }

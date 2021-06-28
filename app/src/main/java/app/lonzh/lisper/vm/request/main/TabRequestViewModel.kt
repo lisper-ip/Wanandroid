@@ -2,8 +2,10 @@ package app.lonzh.lisper.vm.request.main
 
 import androidx.lifecycle.MutableLiveData
 import app.lonzh.commonlibrary.ext.launch
+import app.lonzh.commonlibrary.ext.launchView
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.data.Tab
+import com.drake.logcat.LogCat
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toLpResponse
 
@@ -23,6 +25,7 @@ class TabRequestViewModel : BaseViewModel() {
 
     fun getProjectTab() = launch({
         val result = RxHttp.get("/project/tree/json").toLpResponse<List<Tab>>().await()
+        LogCat.e(Thread.currentThread().name)
         projectTabLiveData.value = result
     })
 

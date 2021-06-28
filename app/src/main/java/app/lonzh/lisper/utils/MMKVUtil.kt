@@ -15,6 +15,9 @@ import com.tencent.mmkv.MMKV
  * @Version:        1.0
  */
 object MMKVUtil {
+    const val USER = "user"
+
+
     fun getInstance(str: String?) : MMKV?{
         if(str == null){
             return MMKV.defaultMMKV()
@@ -22,8 +25,8 @@ object MMKVUtil {
         return MMKV.mmkvWithID(str)
     }
 
-    fun <P : Parcelable > setObject(value : P){
-        getInstance(null)?.encode("user", value)
+    fun <P : Parcelable > setObject(key: String, value : P){
+        getInstance(null)?.encode(key, value)
     }
 
     fun <T : Parcelable> getObject(key: String, clazz: Class<T>): T?{

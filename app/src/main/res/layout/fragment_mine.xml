@@ -7,6 +7,10 @@
         <variable
             name="vm"
             type="app.lonzh.lisper.vm.AppDataViewModel" />
+
+        <variable
+            name="coin_vm"
+            type="app.lonzh.lisper.vm.state.main.MineStateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,10 +102,10 @@
                 android:id="@+id/tv_coinNext"
                 android:textColor="@color/search_text"
                 android:textSize="@dimen/text_14sp"
+                android:text='@{@string/cur_coins + coin_vm.coinInfo.intValue()}'
                 android:gravity="center_vertical"
                 android:layout_marginEnd="@dimen/dp_30"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text='@{@string/cur_coins + vm.userInfo.coinCount}'
                 app:layout_constraintTop_toTopOf="@id/tv_coins"
                 app:layout_constraintBottom_toBottomOf="@id/tv_coins"
                 android:layout_width="wrap_content"

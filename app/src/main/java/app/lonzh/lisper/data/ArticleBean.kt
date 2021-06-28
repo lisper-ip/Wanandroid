@@ -1,5 +1,7 @@
 package app.lonzh.lisper.data
 
+import androidx.databinding.BaseObservable
+
 /**
  *
  * @ProjectName:    lisper
@@ -46,8 +48,9 @@ data class ArticleBean(
     val type: Int,
     val userId: Int,
     val visible: Int,
-    val zan: Int
-)
+    val zan: Int,
+    val originId: Int
+) : BaseObservable()
 data class Tag(
     val name: String,
     val url: String

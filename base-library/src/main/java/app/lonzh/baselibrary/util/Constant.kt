@@ -13,5 +13,5 @@ package app.lonzh.baselibrary.util
  */
 object Constant {
     //延迟加载时间(毫秒)）
-    const val RELAY_LOAD = 200L
+    const val RELAY_LOAD = 500L
 }

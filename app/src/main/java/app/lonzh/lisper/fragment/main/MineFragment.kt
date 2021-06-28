@@ -1,14 +1,20 @@
 package app.lonzh.lisper.fragment.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
-import app.lonzh.commonlibrary.vm.BaseViewModel
+import androidx.fragment.app.viewModels
+import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentMineBinding
+import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.AppDataViewModel
+import app.lonzh.lisper.vm.request.main.MineRequestViewModel
+import app.lonzh.lisper.vm.state.main.MineStateViewModel
 import com.blankj.utilcode.util.ClickUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
  *
@@ -21,9 +27,11 @@ import com.blankj.utilcode.util.ClickUtils
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class MineFragment : LisperFragment<BaseViewModel, FragmentMineBinding>() {
+class MineFragment : LisperFragment<MineRequestViewModel, FragmentMineBinding>() {
 
     private val appDataViewModel : AppDataViewModel by activityViewModels()
+
+    private val mineStateViewModel: MineStateViewModel by viewModels()
 
     companion object{
         @JvmStatic
@@ -35,11 +43,18 @@ class MineFragment : LisperFragment<BaseViewModel, FragmentMineBinding>() {
 
     override fun layoutId(): Int = R.layout.fragment_mine
 
+    override fun lazyLoad() {
+        if(isLogin()){
+            viewModel.getUserInfo()
+        }
+    }
+
     /**
      * 初始化view
      */
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = appDataViewModel
+        binding.coinVm = mineStateViewModel
 
         ClickUtils.applySingleDebouncing(arrayOf(binding.tvSetting, binding.tvCoins,
             binding.tvCollection, binding.tvArticle, binding.tvWeb, binding.tvName,
@@ -52,11 +67,27 @@ class MineFragment : LisperFragment<BaseViewModel, FragmentMineBinding>() {
                 R.id.tv_setting -> nav(R.id.action_main_fragment_to_settingFragment)
                 R.id.tv_web -> {}
                 R.id.tv_coins -> {}
-                R.id.tv_collection -> {}
+                R.id.tv_collection -> nav(R.id.action_main_fragment_to_collectFragment)
                 R.id.tv_article -> {}
                 else ->{}
             }
+        }
+    }
 
+    @SuppressLint("SetTextI18n")
+    override fun createObserver() {
+        viewModel.userInfoLiveData.observe(viewLifecycleOwner){
+            mineStateViewModel.coinInfo.set(it.coinCount)
+        }
+
+        LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
+            if(it.isLogin){
+                postDelayed({
+                    lazyLoad()
+                }, Constant.RELAY_LOAD)
+            } else {
+                mineStateViewModel.coinInfo.set(0)
+            }
         }
     }
 }
