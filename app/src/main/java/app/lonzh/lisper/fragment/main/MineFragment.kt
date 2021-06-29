@@ -6,13 +6,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
+import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.databinding.FragmentMineBinding
 import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.AppDataViewModel
 import app.lonzh.lisper.vm.request.main.MineRequestViewModel
 import app.lonzh.lisper.vm.state.main.MineStateViewModel
+import app.lonzh.netlibrary.constant.UrlConstant
 import com.blankj.utilcode.util.ClickUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 
@@ -65,7 +68,10 @@ class MineFragment : LisperFragment<MineRequestViewModel, FragmentMineBinding>()
             }
             when(it.id){
                 R.id.tv_setting -> nav(R.id.action_main_fragment_to_settingFragment)
-                R.id.tv_web -> {}
+                R.id.tv_web -> {
+                    val bundle = WebFragmentArgs(getString(R.string.wan_android_web), UrlConstant.baseUrl, "", -1).toBundle()
+                    nav(R.id.action_main_fragment_to_webFragment, bundle)
+                }
                 R.id.tv_coins -> {}
                 R.id.tv_collection -> nav(R.id.action_main_fragment_to_collectFragment)
                 R.id.tv_article -> {}

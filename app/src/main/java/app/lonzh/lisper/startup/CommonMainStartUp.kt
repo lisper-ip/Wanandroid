@@ -50,7 +50,6 @@ class CommonMainStartUp : AndroidStartup<String>(){
         BRV.modelId = BR.bean
         RxHttpManager.init(context)
         PageRefreshLayout.startIndex = 0
-
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { mContext, _ ->
             MaterialHeader(mContext)
         }

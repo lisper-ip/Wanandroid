@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="app.lonzh.lisper.vm.state.home.SearchStateViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/search_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:backButton="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:id="@+id/edt_search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:background="@drawable/shape_search"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/dp_4"
+                android:textColor="@color/search_text"
+                android:text="@={vm.keyword}"
+                android:hint="@string/search_text"
+                android:textSize="@dimen/text_12sp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                app:drawableStartCompat="@drawable/ic_search" />
+        </com.hjq.bar.TitleBar>
+
+        <TextView
+            android:visibility="@{vm.hasHistory ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="@dimen/dp_10"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_14sp"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_clear"
+            app:layout_constraintTop_toTopOf="@id/tv_clear"
+            android:text="@string/history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:visibility="@{vm.hasHistory ? View.VISIBLE : View.GONE}"
+            android:id="@+id/tv_clear"
+            android:drawablePadding="@dimen/dp_4"
+            app:layout_constraintTop_toBottomOf="@id/search_title"
+            android:layout_marginEnd="@dimen/dp_10"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/clear_history"
+            android:textSize="@dimen/text_14sp"
+            android:gravity="center"
+            android:textColor="@color/title_color"
+            android:minWidth="@dimen/dp_48"
+            android:minHeight="@dimen/dp_48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:drawableStartCompat="@drawable/ic_clear" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_clear"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

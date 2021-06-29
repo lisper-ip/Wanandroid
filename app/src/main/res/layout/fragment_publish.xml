@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <com.hjq.bar.TitleBar
+            app:leftSize="@dimen/text_18sp"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/publish_titleBar"
             app:leftColor="@color/title_color"

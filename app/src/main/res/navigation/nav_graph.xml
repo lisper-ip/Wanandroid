@@ -47,6 +47,20 @@
             app:popExitAnim="@anim/window_right_out"
             app:popEnterAnim="@anim/window_left_in"
             app:destination="@id/webFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_systemFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/systemFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_searchFragment"
+            app:exitAnim="@anim/window_alpha_out"
+            app:enterAnim="@anim/window_alpha_in"
+            app:popExitAnim="@anim/window_alpha_out"
+            app:popEnterAnim="@anim/window_alpha_in"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -86,7 +100,15 @@
         android:id="@+id/settingFragment"
         tools:layout="@layout/fragment_setting"
         android:name="app.lonzh.lisper.fragment.mine.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_webFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/webFragment" />
+    </fragment>
     <fragment
         android:id="@+id/collectFragment"
         tools:layout="@layout/fragment_collect"
@@ -124,5 +146,73 @@
             android:name="id"
             app:argType="integer"
             android:defaultValue="-1"/>
+    </fragment>
+    <fragment
+        android:id="@+id/systemFragment"
+        tools:layout="@layout/fragment_system"
+        android:name="app.lonzh.lisper.fragment.square.SystemFragment"
+        android:label="SystemFragment" >
+        <action
+            android:id="@+id/action_systemFragment_to_webFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/webFragment" />
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue=""/>
+
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_systemFragment_to_loginFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        tools:layout="@layout/fragment_search"
+        android:name="app.lonzh.lisper.fragment.home.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:exitAnim="@anim/window_alpha_out"
+            app:enterAnim="@anim/window_alpha_in"
+            app:popExitAnim="@anim/window_alpha_out"
+            app:popEnterAnim="@anim/window_alpha_in"
+            app:destination="@id/searchResultFragment" />
+
+        <argument
+            android:name="keyword"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        tools:layout="@layout/fragment_search_result"
+        android:name="app.lonzh.lisper.fragment.home.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_loginFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_webFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/webFragment" />
     </fragment>
 </navigation>

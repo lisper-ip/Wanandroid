@@ -1,10 +1,13 @@
 package app.lonzh.lisper.ext
 
 import android.os.Parcelable
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.hjq.toast.ToastUtils
 
 /**
  *
@@ -62,4 +65,19 @@ fun ViewPager.doSelected(selected: (Int) -> Unit) {
         }
 
     })
+}
+
+/**
+ * edit 监听
+ */
+fun EditText.keyBoardSearch(onClick: () -> Unit){
+    setOnEditorActionListener { _, actionId, _ ->
+        if(actionId == EditorInfo.IME_ACTION_SEARCH){
+            onClick()
+        } else {
+            ToastUtils.show("请输入关键字")
+            return@setOnEditorActionListener false
+        }
+        return@setOnEditorActionListener true
+    }
 }

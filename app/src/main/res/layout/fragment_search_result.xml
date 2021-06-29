@@ -11,26 +11,42 @@
         android:layout_height="match_parent">
 
         <com.hjq.bar.TitleBar
-            android:id="@+id/collect_titleBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:leftSize="@dimen/text_16sp"
+            android:id="@+id/search_result_titleBar"
             app:layout_constraintTop_toTopOf="parent"
-            app:leftColor="@color/title_color"
-            app:leftTitle="@string/my_collection" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:id="@+id/tv_search"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:background="@drawable/shape_search"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/dp_4"
+                android:textColor="@color/search_text"
+                android:hint="@string/search_text"
+                android:textSize="@dimen/text_12sp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                app:drawableStartCompat="@drawable/ic_search" />
+        </com.hjq.bar.TitleBar>
 
         <com.drake.brv.PageRefreshLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_result_titleBar"
             android:id="@+id/page_refresh"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collect_titleBar">
-
+            android:layout_height="0dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycle_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
         </com.drake.brv.PageRefreshLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_float"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -17,6 +17,7 @@ import com.tencent.mmkv.MMKV
 object MMKVUtil {
     const val USER = "user"
 
+    const val HISTORY = "history"
 
     fun getInstance(str: String?) : MMKV?{
         if(str == null){
@@ -31,6 +32,14 @@ object MMKVUtil {
 
     fun <T : Parcelable> getObject(key: String, clazz: Class<T>): T?{
         return getInstance(null)?.decodeParcelable(key, clazz)
+    }
+
+    fun getSetObject(key: String): MutableSet<String>?{
+       return getInstance(null)?.getStringSet(key, mutableSetOf())
+    }
+
+    fun setSetObject(key: String, sets: MutableSet<String>?){
+        getInstance(null)?.encode(key, sets)
     }
 
     fun clearUser(){

@@ -40,4 +40,12 @@
     <string name="setting">设置</string>
     <string name="logout">退出登录</string>
     <string name="lisper_request">拼命请求中…</string>
+    <string name="clear_cache">清理缓存</string>
+    <string name="version">版本</string>
+    <string name="author">作者</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="history">历史记录</string>
+    <string name="clear_history">清空</string>
+    <string name="clear_history_title">清空历史记录</string>
 </resources>

@@ -7,7 +7,9 @@ import app.lonzh.lisper.data.Children
 import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSquareBinding
+import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
+import app.lonzh.lisper.fragment.square.SystemFragmentArgs
 import app.lonzh.lisper.vm.request.main.SquareRequestViewModel
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.models
@@ -53,6 +55,11 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
                 flexRecycle.layoutManager = FlexboxLayoutManager(mActivity)
                 flexRecycle.setup {
                     addType<Children>(R.layout.item_square_child)
+
+                    onClick(R.id.tv_child_title){
+                        val bundle = SystemFragmentArgs(getModel<Children>().name, getModel<Children>().id).toBundle()
+                        nav(R.id.action_main_fragment_to_systemFragment, bundle)
+                    }
                 }
             }
 

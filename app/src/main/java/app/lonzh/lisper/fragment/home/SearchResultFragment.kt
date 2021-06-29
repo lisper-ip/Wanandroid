@@ -1,98 +1,74 @@
-package app.lonzh.lisper.fragment.main
+package app.lonzh.lisper.fragment.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
-import app.lonzh.lisper.adapter.HomeBannerAdapter
 import app.lonzh.lisper.data.ArticleBean
-import app.lonzh.lisper.data.BannerBean
 import app.lonzh.lisper.data.HomeBanner
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.databinding.FragmentHomeBinding
+import app.lonzh.lisper.databinding.FragmentSearchResultBinding
 import app.lonzh.lisper.event.LoginEvent
+import app.lonzh.lisper.event.SearchEvent
 import app.lonzh.lisper.event.UnCollectEvent
+import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
-import app.lonzh.lisper.vm.request.main.HomeRequestViewModel
+import app.lonzh.lisper.vm.request.home.SearchRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
-import com.drake.brv.PageRefreshLayout.Companion.startIndex
+import com.drake.brv.PageRefreshLayout
 import com.drake.brv.utils.bindingAdapter
 import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.youth.banner.Banner
-import com.youth.banner.indicator.CircleIndicator
 
 /**
  *
  * @ProjectName:    lisper
  * @Description:    描述
  * @Author:         Lisper
- * @CreateDate:     5/19/21 4:48 PM
+ * @CreateDate:     2021/6/29 3:21 下午
  * @UpdateUser:     Lisper：
- * @UpdateDate:     5/19/21 4:48 PM
+ * @UpdateDate:     2021/6/29 3:21 下午
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>() {
+class SearchResultFragment : LisperFragment<SearchRequestViewModel, FragmentSearchResultBinding>() {
 
     private var selectIndex = -1
 
     //加载更多真实的index
-    private var realIndex: Int = startIndex
+    private var realIndex: Int = PageRefreshLayout.startIndex
 
-    private val homeBanner: HomeBanner by lazy{ HomeBanner(null) }
+    override fun layoutId(): Int = R.layout.fragment_search_result
 
-    companion object{
-        @JvmStatic
-        fun getInstance(): HomeFragment {
-            return HomeFragment()
-        }
-    }
-
-    override fun layoutId(): Int = R.layout.fragment_home
-
-    /**
-     * 初始化view
-     */
     override fun initView(savedInstanceState: Bundle?) {
+        arguments?.let {
+            binding.tvSearch.text = SearchFragmentArgs.fromBundle(it).keyword
+        }
+
         binding.pageRefresh.run {
             onRefresh {
-                viewModel.getHomeArticles(index)
+                arguments?.let {
+                    viewModel.search(index, SearchFragmentArgs.fromBundle(it).keyword)
+                }
             }
 
             onLoadMore {
                 index = realIndex
-                viewModel.getHomeArticles(index)
+                arguments?.let {
+                    viewModel.search(index, SearchFragmentArgs.fromBundle(it).keyword)
+                }
             }
         }
 
-        binding.homeRecycle.run {
+        binding.recycleView.run {
             linear().divider(R.drawable.driver_black_line).setup {
                 addType<ArticleBean>(R.layout.item_home_list)
                 addType<HomeBanner>(R.layout.item_home_banner)
-
-                onBind {
-                    when(itemViewType){
-                        R.layout.item_home_banner ->{
-                            val banner = findView<Banner<BannerBean, HomeBannerAdapter>>(R.id.home_banner)
-                            banner.addBannerLifecycleObserver(viewLifecycleOwner)
-                                .setAdapter(HomeBannerAdapter(getModel<HomeBanner>().list))
-                                .setIndicator(CircleIndicator(mActivity))
-                                .setOnBannerListener { data, _ ->
-                                    if(data is BannerBean){
-                                        val bundle = WebFragmentArgs(data.title, data.url,
-                                            "", data.id).toBundle()
-                                        nav(R.id.action_main_fragment_to_webFragment, bundle)
-                                    }
-                                }
-                        }
-                    }
-                }
 
                 onClick(R.id.article_list, R.id.iv_article_collect){
                     selectIndex = modelPosition
@@ -100,7 +76,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
                         R.id.article_list -> {
                             val bundle = WebFragmentArgs(getModel<ArticleBean>().title, getModel<ArticleBean>().link,
                                 getModel<ArticleBean>().author, getModel<ArticleBean>().id).toBundle()
-                            nav(R.id.action_main_fragment_to_webFragment, bundle)
+                            nav(R.id.action_searchResultFragment_to_webFragment, bundle)
                         }
                         R.id.iv_article_collect -> {
                             collectArticle(getModel())
@@ -130,11 +106,10 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
             })
         }
 
-        ClickUtils.applySingleDebouncing(arrayOf(binding.ivAdd, binding.btnFloat, binding.tvHomeSearch)){
-            when(it.id){
-                R.id.iv_add -> nav(R.id.action_main_fragment_to_publishFragment)
-                R.id.btn_float -> binding.homeRecycle.smoothScrollToPosition(0)
-                R.id.tv_home_search -> nav(R.id.action_main_fragment_to_searchFragment)
+        ClickUtils.applySingleDebouncing(arrayOf(binding.btnFloat, binding.tvSearch)){
+            when(it){
+                binding.btnFloat -> binding.recycleView.smoothScrollToPosition(0)
+                binding.tvSearch -> back()
                 else ->{}
             }
         }
@@ -142,7 +117,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
 
     private fun collectArticle(articleBean: ArticleBean){
         if(!isLogin()){
-            nav(R.id.action_main_fragment_to_loginFragment)
+            nav(R.id.action_searchResultFragment_to_loginFragment)
             return
         }
         if(articleBean.collect){
@@ -154,6 +129,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
 
     override fun lazyLoad() {
         binding.pageRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
+        LiveEventBus.get<SearchEvent>(SearchEvent::class.java.simpleName).post(SearchEvent())
     }
 
     override fun showEmptyView() {
@@ -172,16 +148,9 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
     }
 
     override fun createObserver() {
-        viewModel.homeBannerLiveData.observe(viewLifecycleOwner, {
-            homeBanner.list = it
-            if(binding.homeRecycle.bindingAdapter.headerCount != 0){
-                binding.homeRecycle.bindingAdapter.clearHeader(false)
-            }
-            binding.homeRecycle.bindingAdapter.addHeader(homeBanner)
-        })
-        viewModel.homeArticlesLiveData.observe(viewLifecycleOwner, {
+        viewModel.searchLiveData.observe(viewLifecycleOwner, {
             binding.pageRefresh.run {
-                if(index == startIndex){ // 刷新
+                if(index == PageRefreshLayout.startIndex){ // 刷新
                     realIndex = index + 1
                 } else {
                     realIndex += 1
@@ -192,17 +161,17 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
             }
         })
         viewModel.collectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)
-            val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
+            val index = selectIndex.plus(binding.recycleView.bindingAdapter.headerCount)
+            val articleBean = binding.recycleView.bindingAdapter.getModel<ArticleBean>(index)
             articleBean.collect = !articleBean.collect
-            binding.homeRecycle.bindingAdapter.notifyItemChanged(selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount))
+            binding.recycleView.bindingAdapter.notifyItemChanged(selectIndex.plus(binding.recycleView.bindingAdapter.headerCount))
         }
 
         viewModel.unCollectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)
-            val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
+            val index = selectIndex.plus(binding.recycleView.bindingAdapter.headerCount)
+            val articleBean = binding.recycleView.bindingAdapter.getModel<ArticleBean>(index)
             articleBean.collect = !articleBean.collect
-            binding.homeRecycle.bindingAdapter.notifyItemChanged(index)
+            binding.recycleView.bindingAdapter.notifyItemChanged(index)
         }
 
         LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
@@ -212,7 +181,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
         }
 
         LiveEventBus.get<UnCollectEvent>(UnCollectEvent::class.java.simpleName).observe(viewLifecycleOwner){ event ->
-            binding.homeRecycle.bindingAdapter.run {
+            binding.recycleView.bindingAdapter.run {
                 var unCollectIndex = -1
                 models?.mapIndexed{ index, it ->
                     if(it is ArticleBean){
@@ -223,7 +192,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
                     }
                 }
                 if(unCollectIndex >= 0){
-                    notifyItemChanged(unCollectIndex.plus(headerCount))
+                    notifyItemChanged(unCollectIndex)
                 }
             }
         }
