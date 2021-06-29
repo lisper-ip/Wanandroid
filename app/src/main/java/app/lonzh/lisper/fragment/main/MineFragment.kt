@@ -72,7 +72,8 @@ class MineFragment : LisperFragment<MineRequestViewModel, FragmentMineBinding>()
                     val bundle = WebFragmentArgs(getString(R.string.wan_android_web), UrlConstant.baseUrl, "", -1).toBundle()
                     nav(R.id.action_main_fragment_to_webFragment, bundle)
                 }
-                R.id.tv_coins -> {}
+                R.id.tv_coin_next,
+                R.id.tv_coins -> nav(R.id.action_main_fragment_to_coinFragment)
                 R.id.tv_collection -> nav(R.id.action_main_fragment_to_collectFragment)
                 R.id.tv_article -> {}
                 else ->{}

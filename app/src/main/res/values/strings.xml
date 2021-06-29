@@ -47,5 +47,6 @@
     <string name="confirm">确定</string>
     <string name="history">历史记录</string>
     <string name="clear_history">清空</string>
+    <string name="coin">积分:</string>
     <string name="clear_history_title">清空历史记录</string>
 </resources>

@@ -61,6 +61,13 @@
             app:popExitAnim="@anim/window_alpha_out"
             app:popEnterAnim="@anim/window_alpha_in"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_coinFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/coinFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -215,4 +222,9 @@
             app:popEnterAnim="@anim/window_left_in"
             app:destination="@id/webFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/coinFragment"
+        tools:layout="@layout/fragment_coin"
+        android:name="app.lonzh.lisper.fragment.mine.CoinFragment"
+        android:label="CoinFragment" />
 </navigation>
