@@ -75,7 +75,7 @@ class MineFragment : LisperFragment<MineRequestViewModel, FragmentMineBinding>()
                 R.id.tv_coin_next,
                 R.id.tv_coins -> nav(R.id.action_main_fragment_to_coinFragment)
                 R.id.tv_collection -> nav(R.id.action_main_fragment_to_collectFragment)
-                R.id.tv_article -> {}
+                R.id.tv_article -> nav(R.id.action_main_fragment_to_articleFragment)
                 else ->{}
             }
         }

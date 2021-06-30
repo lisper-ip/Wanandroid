@@ -43,7 +43,8 @@ ext {
             "tablayout"               : "2.1.2@aar",
             "flexbox"                 : "3.0.0",
             "liveDataBus"             : "1.8.0",
-            "agentweb"                : "v4.1.9-androidx"
+            "agentweb"                : "v4.1.9-androidx",
+            "swipelayout"             : "1.1.4"
     ]
 
     androidx = [
@@ -84,5 +85,6 @@ ext {
             "flexbox"                 : "com.google.android.flexbox:flexbox:${versions['flexbox']}", //https://github.com/google/flexbox-layout
             "liveDataBus"             : "io.github.jeremyliao:live-event-bus-x:${versions['liveDataBus']}", //https://github.com/JeremyLiao/LiveEventBus
             "agentweb"                : "com.github.Justson.AgentWeb:agentweb-core:${versions['agentweb']}", //https://github.com/Justson/AgentWeb
+            "swipelayout"             : "com.github.anzaizai:EasySwipeMenuLayout:${versions['swipelayout']}", //https://github.com/anzaizai/EasySwipeMenuLayout
     ]
 }

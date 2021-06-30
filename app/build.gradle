@@ -54,5 +54,6 @@ dependencies {
     implementation rootProject.ext.dependencies['flexbox']
     implementation rootProject.ext.dependencies['liveDataBus']
     implementation rootProject.ext.dependencies['agentweb']
+    implementation rootProject.ext.dependencies['swipelayout']
     debugImplementation rootProject.ext.dependencies['leakcanary']
 }
