@@ -148,17 +148,17 @@ class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBind
         }
 
         viewModel.collectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.recycleView.bindingAdapter.headerCount)
-            val articleBean = binding.recycleView.bindingAdapter.getModel<ArticleBean>(index)
-            articleBean.collect = !articleBean.collect
-            binding.recycleView.bindingAdapter.notifyItemChanged(selectIndex.plus(binding.recycleView.bindingAdapter.headerCount))
+            binding.recycleView.bindingAdapter.getModel<ArticleBean>(selectIndex).run {
+                collect = !collect
+                notifyChange()
+            }
         }
 
         viewModel.unCollectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.recycleView.bindingAdapter.headerCount)
-            val articleBean = binding.recycleView.bindingAdapter.getModel<ArticleBean>(index)
-            articleBean.collect = !articleBean.collect
-            binding.recycleView.bindingAdapter.notifyItemChanged(index)
+            binding.recycleView.bindingAdapter.getModel<ArticleBean>(selectIndex).run {
+                collect = !collect
+                notifyChange()
+            }
         }
 
         LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){

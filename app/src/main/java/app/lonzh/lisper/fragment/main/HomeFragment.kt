@@ -192,17 +192,17 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
             }
         })
         viewModel.collectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)
-            val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
-            articleBean.collect = !articleBean.collect
-            binding.homeRecycle.bindingAdapter.notifyItemChanged(selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount))
+            binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)).run {
+                collect = !collect
+                notifyChange()
+            }
         }
 
         viewModel.unCollectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)
-            val articleBean = binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(index)
-            articleBean.collect = !articleBean.collect
-            binding.homeRecycle.bindingAdapter.notifyItemChanged(index)
+            binding.homeRecycle.bindingAdapter.getModel<ArticleBean>(selectIndex.plus(binding.homeRecycle.bindingAdapter.headerCount)).run {
+                collect = !collect
+                notifyChange()
+            }
         }
 
         LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
@@ -213,17 +213,13 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
 
         LiveEventBus.get<UnCollectEvent>(UnCollectEvent::class.java.simpleName).observe(viewLifecycleOwner){ event ->
             binding.homeRecycle.bindingAdapter.run {
-                var unCollectIndex = -1
                 models?.mapIndexed{ index, it ->
                     if(it is ArticleBean){
                         if(it.id == event.id){
                             it.collect = false
-                            unCollectIndex = index
+                            it.notifyChange()
                         }
                     }
-                }
-                if(unCollectIndex >= 0){
-                    notifyItemChanged(unCollectIndex.plus(headerCount))
                 }
             }
         }

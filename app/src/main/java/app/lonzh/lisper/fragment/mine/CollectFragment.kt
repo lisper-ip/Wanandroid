@@ -142,6 +142,7 @@ class CollectFragment : LisperFragment<CollectRequestViewModel, FragmentCollectB
                 LiveEventBus.get<UnCollectEvent>(UnCollectEvent::class.java.simpleName).post(
                     UnCollectEvent(getModel<ArticleBean>(selectIndex).originId)
                 )
+                //removeAt 参数index   remove  参数model
                 mutable.removeAt(selectIndex)
                 notifyItemRemoved(selectIndex)
                 models?.isEmpty()?.run {

@@ -161,17 +161,17 @@ class SearchResultFragment : LisperFragment<SearchRequestViewModel, FragmentSear
             }
         })
         viewModel.collectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.recycleView.bindingAdapter.headerCount)
-            val articleBean = binding.recycleView.bindingAdapter.getModel<ArticleBean>(index)
-            articleBean.collect = !articleBean.collect
-            binding.recycleView.bindingAdapter.notifyItemChanged(selectIndex.plus(binding.recycleView.bindingAdapter.headerCount))
+            binding.recycleView.bindingAdapter.getModel<ArticleBean>(selectIndex).run {
+                collect = !collect
+                notifyChange()
+            }
         }
 
         viewModel.unCollectArticleLiveData.observe(viewLifecycleOwner){
-            val index = selectIndex.plus(binding.recycleView.bindingAdapter.headerCount)
-            val articleBean = binding.recycleView.bindingAdapter.getModel<ArticleBean>(index)
-            articleBean.collect = !articleBean.collect
-            binding.recycleView.bindingAdapter.notifyItemChanged(index)
+            binding.recycleView.bindingAdapter.getModel<ArticleBean>(selectIndex).run {
+                collect = !collect
+                notifyChange()
+            }
         }
 
         LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
@@ -182,17 +182,13 @@ class SearchResultFragment : LisperFragment<SearchRequestViewModel, FragmentSear
 
         LiveEventBus.get<UnCollectEvent>(UnCollectEvent::class.java.simpleName).observe(viewLifecycleOwner){ event ->
             binding.recycleView.bindingAdapter.run {
-                var unCollectIndex = -1
-                models?.mapIndexed{ index, it ->
+                models?.mapIndexed{ _, it ->
                     if(it is ArticleBean){
                         if(it.id == event.id){
                             it.collect = false
-                            unCollectIndex = index
+                            it.notifyChange()
                         }
                     }
-                }
-                if(unCollectIndex >= 0){
-                    notifyItemChanged(unCollectIndex)
                 }
             }
         }
