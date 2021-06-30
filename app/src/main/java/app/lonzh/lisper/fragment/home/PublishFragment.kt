@@ -33,6 +33,8 @@ class PublishFragment : LisperFragment<PublishRequestViewModel, FragmentPublishB
     override fun initView(savedInstanceState: Bundle?) {
         binding.stateViewModel = publishStateViewModel
 
+        setLeftTitle(R.string.publish_article)
+
         ClickUtils.applySingleDebouncing(binding.tvShare){
             viewModel.shareArticle(publishStateViewModel)
         }

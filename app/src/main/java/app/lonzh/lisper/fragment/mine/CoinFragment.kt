@@ -36,6 +36,8 @@ class CoinFragment : LisperFragment<CoinRequestViewModel, FragmentCoinBinding>()
     override fun layoutId(): Int = R.layout.fragment_coin
 
     override fun initView(savedInstanceState: Bundle?) {
+        setLeftTitle(R.string.my_coin)
+
         binding.pageRefresh.run {
             onRefresh {
                 //接口页数从1开始， 如果是0不需要设置(列表界面需要)

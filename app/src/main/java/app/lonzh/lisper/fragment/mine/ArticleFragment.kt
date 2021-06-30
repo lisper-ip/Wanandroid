@@ -45,6 +45,8 @@ class ArticleFragment : LisperFragment<ArticleRequestViewModel, FragmentArticleB
     override fun layoutId(): Int = R.layout.fragment_article
 
     override fun initView(savedInstanceState: Bundle?) {
+        setLeftTitle(R.string.my_article)
+
         binding.pageRefresh.run {
             onRefresh {
                 //接口页数从1开始， 如果是0不需要设置(列表界面需要)

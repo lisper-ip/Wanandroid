@@ -40,6 +40,8 @@ class CollectFragment : LisperFragment<CollectRequestViewModel, FragmentCollectB
     override fun layoutId(): Int = R.layout.fragment_collect
 
     override fun initView(savedInstanceState: Bundle?) {
+        setLeftTitle(R.string.my_collection)
+
         binding.pageRefresh.run {
             onRefresh {
                 viewModel.getCollect(index)

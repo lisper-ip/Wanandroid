@@ -15,6 +15,7 @@ import com.drake.brv.utils.linear
 import com.drake.brv.utils.models
 import com.drake.brv.utils.setup
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.gyf.immersionbar.ImmersionBar
 
 /**
  *
@@ -42,6 +43,8 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
      * 初始化view
      */
     override fun initView(savedInstanceState: Bundle?) {
+        ImmersionBar.setTitleBar(this, binding.squareRefresh)
+
         binding.squareRefresh.run {
             onRefresh {
                 viewModel.getSquareList()

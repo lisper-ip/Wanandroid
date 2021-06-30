@@ -44,6 +44,8 @@ class SettingFragment : LisperFragment<SettingRequestViewModel, FragmentSettingB
      * 初始化view
      */
     override fun initView(savedInstanceState: Bundle?) {
+        setLeftTitle(R.string.setting)
+
         systemStateViewModel.run {
             version.set("V${AppUtils.getAppVersionName()}")
             cache.set(DataCleanManager.getTotalCacheSize(requireActivity()))

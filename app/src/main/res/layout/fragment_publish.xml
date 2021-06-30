@@ -12,17 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.hjq.bar.TitleBar
-            app:leftSize="@dimen/text_18sp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/publish_titleBar"
-            app:leftColor="@color/title_color"
-            app:leftTitle="@string/publish_article"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <include layout="@layout/include_title"/>
 
         <androidx.core.widget.NestedScrollView
-            app:layout_constraintTop_toBottomOf="@id/publish_titleBar"
+            app:layout_constraintTop_toBottomOf="@id/titleBar"
             app:layout_constraintBottom_toBottomOf="parent"
             android:fillViewport="true"
             android:layout_width="match_parent"

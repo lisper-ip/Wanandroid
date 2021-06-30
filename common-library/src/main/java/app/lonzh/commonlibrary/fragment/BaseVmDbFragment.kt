@@ -142,7 +142,9 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
     override fun onResume() {
         super.onResume()
         // 重新初始化状态栏
-        statusBarConfig()!!.init()
+        if(isStatusBarEnabled()){
+            statusBarConfig()!!.init()
+        }
     }
 
     /**

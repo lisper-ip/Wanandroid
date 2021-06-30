@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hjq.bar.TitleBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/titleBar"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@color/transparent"
+    app:leftBackground="@color/transparent"
+    app:rightBackground="@color/transparent"
+    app:leftColor="@color/title_color"
+    app:leftSize="@dimen/text_16sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
