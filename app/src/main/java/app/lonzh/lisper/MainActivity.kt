@@ -28,9 +28,6 @@ class MainActivity : BaseVmDbActivity<BaseViewModel, ActivityMainBinding>() {
         val fragment = mainNavFragment?.childFragmentManager?.primaryNavigationFragment
         if (fragment is MainFragment) {
             moveTaskToBack(false)
-            postDelayed({
-                finish()
-            }, 300)
         } else {
             super.onBackPressed()
         }

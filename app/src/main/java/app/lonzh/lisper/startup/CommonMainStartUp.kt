@@ -48,7 +48,6 @@ class CommonMainStartUp : AndroidStartup<String>(){
      */
     override fun create(context: Context): String? {
         MMKV.initialize(context)
-        //TitleBar.setDefaultStyle(TransparentBarStyle())
         ToastUtils.init(context as Application)
         BRV.modelId = BR.bean
         RxHttpManager.init(context)

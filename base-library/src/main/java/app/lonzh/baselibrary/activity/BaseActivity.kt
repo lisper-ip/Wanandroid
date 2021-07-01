@@ -1,12 +1,8 @@
 package app.lonzh.baselibrary.activity
 
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.Window
-import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import app.lonzh.baselibrary.action.HandlerAction
 import app.lonzh.baselibrary.action.ToastAction

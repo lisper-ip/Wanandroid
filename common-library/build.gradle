@@ -9,6 +9,9 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
+
+        // 模块混淆配置
+        consumerProguardFiles 'proguard-common.pro'
     }
 
     compileOptions {
@@ -18,9 +21,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-    buildFeatures{
-        dataBinding = true
     }
 }
 

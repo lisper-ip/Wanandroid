@@ -17,8 +17,8 @@ import app.lonzh.baselibrary.common.BaseApp
  */
 open class CommonApp : BaseApp() {
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        MultiDex.install(base)
-    }
+//    override fun attachBaseContext(base: Context?) {
+//        super.attachBaseContext(base)
+//        MultiDex.install(base)
+//    }
 }

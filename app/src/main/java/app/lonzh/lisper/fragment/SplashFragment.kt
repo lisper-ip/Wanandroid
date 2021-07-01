@@ -1,7 +1,6 @@
 package app.lonzh.lisper.fragment
 
 import android.Manifest
-import android.animation.Animator
 import android.os.Bundle
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
@@ -32,26 +31,13 @@ class SplashFragment : LisperFragment<BaseViewModel, FragmentSplashBinding>() {
         PermissionX.init(this)
             .permissions(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
+                Manifest.permission.READ_EXTERNAL_STORAGE
             )
             .request { _, _, _ ->
-                binding.ivSplash.addAnimatorListener(object : Animator.AnimatorListener{
-                    override fun onAnimationStart(p0: Animator?) {
-
-                    }
-
-                    override fun onAnimationEnd(p0: Animator?) {
-                        nav(R.id.action_splashFragment_to_main_fragment)
-                    }
-
-                    override fun onAnimationCancel(p0: Animator?) {
-                    }
-
-                    override fun onAnimationRepeat(p0: Animator?) {
-                    }
-
-                })
+                postDelayed({
+                    nav(R.id.action_splashFragment_to_main_fragment)
+                }, 2000)
+                binding.ivSplash.playAnimation()
             }
     }
 
