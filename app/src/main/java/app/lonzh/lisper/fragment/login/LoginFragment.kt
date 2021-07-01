@@ -67,7 +67,9 @@ class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding
                             HideReturnsTransformationMethod.getInstance()
                     }
                     binding.ivEye.isSelected = !binding.ivEye.isSelected
-                    Selection.setSelection(binding.edtPassword.text, binding.edtPassword.text.length)
+                    binding.edtPassword.text?.length?.let { length ->
+                        Selection.setSelection(binding.edtPassword.text, length)
+                    }
                 }
                 R.id.tv_login -> viewModel.login(loginStateViewModel)
                 else -> {

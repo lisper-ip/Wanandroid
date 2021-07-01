@@ -213,7 +213,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
 
         LiveEventBus.get<UnCollectEvent>(UnCollectEvent::class.java.simpleName).observe(viewLifecycleOwner){ event ->
             binding.homeRecycle.bindingAdapter.run {
-                models?.mapIndexed{ index, it ->
+                models?.mapIndexed{ _, it ->
                     if(it is ArticleBean){
                         if(it.id == event.id){
                             it.collect = false

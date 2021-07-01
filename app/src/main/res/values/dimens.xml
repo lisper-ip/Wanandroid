@@ -423,4 +423,6 @@
     <dimen name="text_48sp">48sp</dimen>
     <dimen name="text_56sp">56sp</dimen>
     <dimen name="text_60sp">60sp</dimen>
+
+    <dimen name="btn_text_size">@dimen/text_14sp</dimen>
 </resources>

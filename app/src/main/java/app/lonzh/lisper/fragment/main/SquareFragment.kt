@@ -1,21 +1,17 @@
 package app.lonzh.lisper.fragment.main
 
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import app.lonzh.lisper.R
-import app.lonzh.lisper.data.Children
-import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSquareBinding
-import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.ext.doSelected
+import app.lonzh.lisper.ext.initFragment
 import app.lonzh.lisper.fragment.base.LisperFragment
-import app.lonzh.lisper.fragment.square.SystemFragmentArgs
+import app.lonzh.lisper.fragment.square.NavFragment
+import app.lonzh.lisper.fragment.square.SystemFragment
 import app.lonzh.lisper.vm.request.main.SquareRequestViewModel
-import com.drake.brv.utils.linear
-import com.drake.brv.utils.models
-import com.drake.brv.utils.setup
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.gyf.immersionbar.ImmersionBar
+import com.blankj.utilcode.util.StringUtils.getStringArray
+import com.flyco.tablayout.listener.OnTabSelectListener
 
 /**
  *
@@ -37,69 +33,41 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
         }
     }
 
+    private val fragmentList = arrayListOf<Fragment>()
+
+    init {
+        fragmentList.apply {
+            add(SystemFragment.getInstance())
+            add(NavFragment.getInstance())
+        }
+    }
+
     override fun layoutId(): Int = R.layout.fragment_square
 
     /**
      * 初始化view
      */
     override fun initView(savedInstanceState: Bundle?) {
-        ImmersionBar.setTitleBar(this, binding.squareRefresh)
-
-        binding.squareRefresh.run {
-            onRefresh {
-                viewModel.getSquareList()
-            }
-        }
-        binding.squareRecycle.linear().setup {
-            addType<Tab>(R.layout.item_square)
-
-            onCreate {
-                val flexRecycle = findView<RecyclerView>(R.id.flexbox_recycle)
-                flexRecycle.layoutManager = FlexboxLayoutManager(mActivity)
-                flexRecycle.setup {
-                    addType<Children>(R.layout.item_square_child)
-
-                    onClick(R.id.tv_child_title){
-                        val bundle = SystemFragmentArgs(getModel<Children>().name, getModel<Children>().id).toBundle()
-                        nav(R.id.action_main_fragment_to_systemFragment, bundle)
-                    }
+        val titles = getStringArray(R.array.square_title)
+        binding.segmentTab.run {
+            setTabData(titles)
+            setOnTabSelectListener(object : OnTabSelectListener{
+                override fun onTabSelect(position: Int) {
+                    binding.squareViewpager.currentItem = position
                 }
-            }
 
-            onBind {
-                val flexRecycle = findView<RecyclerView>(R.id.flexbox_recycle)
-                flexRecycle.models = getModel<Tab>().children
-            }
-        }
-    }
-
-    override fun lazyLoad() {
-        binding.squareRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
-    }
-
-    override fun showEmptyView() {
-        binding.squareRefresh.showEmpty()
-    }
-
-    override fun showErrorView(msg: String) {
-        binding.squareRefresh.run {
-            if(loaded){
-                finish(success = false, hasMore = true)
-                toast(msg)
-            } else {
-                showError(StateData(R.drawable.ic_error, msg))
-            }
-        }
-    }
-
-    override fun createObserver() {
-        viewModel.squareLiveData.observe(viewLifecycleOwner) {
-            binding.squareRefresh.run {
-                addData(it) {
-                    false
+                override fun onTabReselect(position: Int) {
                 }
+            })
+            binding.segmentTab.currentTab = 0
+        }
+        binding.squareViewpager.apply {
+            initFragment(childFragmentManager, fragmentList).run {
+                offscreenPageLimit = fragmentList.size
+            }
+            doSelected {
+                binding.segmentTab.currentTab = it
             }
         }
     }
-
 }

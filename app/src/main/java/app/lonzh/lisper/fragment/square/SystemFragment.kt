@@ -1,129 +1,82 @@
 package app.lonzh.lisper.fragment.square
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
-import app.lonzh.lisper.data.ArticleBean
+import app.lonzh.lisper.data.Children
 import app.lonzh.lisper.data.StateData
+import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSystemBinding
-import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.nav
-import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
+import app.lonzh.lisper.fragment.main.SquareFragment
 import app.lonzh.lisper.vm.request.square.SystemRequestViewModel
-import com.blankj.utilcode.util.ClickUtils
-import com.drake.brv.PageRefreshLayout.Companion.startIndex
-import com.drake.brv.utils.bindingAdapter
-import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear
+import com.drake.brv.utils.models
 import com.drake.brv.utils.setup
-import com.jeremyliao.liveeventbus.LiveEventBus
+import com.google.android.flexbox.FlexboxLayoutManager
 
 /**
  *
  * @ProjectName:    lisper
  * @Description:    描述
  * @Author:         Lisper
- * @CreateDate:     2021/6/28 4:22 下午
+ * @CreateDate:     2021/7/1 3:20 下午
  * @UpdateUser:     Lisper：
- * @UpdateDate:     2021/6/28 4:22 下午
+ * @UpdateDate:     2021/7/1 3:20 下午
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
 class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBinding>() {
 
-    private var selectIndex = -1
-    //加载更多真实的index(列表界面需要)
-    private var realIndex: Int = startIndex
+    companion object {
+        @JvmStatic
+        fun getInstance(): SystemFragment {
+            return SystemFragment()
+        }
+    }
 
     override fun layoutId(): Int = R.layout.fragment_system
 
     override fun initView(savedInstanceState: Bundle?) {
-        arguments?.run {
-            setTitle(SystemFragmentArgs.fromBundle(this).title)
-            val cid = SystemFragmentArgs.fromBundle(this).id
+        binding.squareRefresh.run {
+            onRefresh {
+                viewModel.getSystemList()
+            }
+        }
+        binding.squareRecycle.linear().setup {
+            addType<Tab>(R.layout.item_square)
 
-            binding.pageRefresh.run {
-                onRefresh {
-                    viewModel.getArticles(index, cid)
-                }
+            onCreate {
+                val flexRecycle = findView<RecyclerView>(R.id.flexbox_recycle)
+                flexRecycle.layoutManager = FlexboxLayoutManager(mActivity)
+                flexRecycle.setup {
+                    addType<Children>(R.layout.item_square_child)
 
-                onLoadMore {
-                    index = realIndex
-                    viewModel.getArticles(index, cid)
+                    onClick(R.id.tv_child_title){
+                        val bundle = SystemItemFragmentArgs(getModel<Children>().name, getModel<Children>().id).toBundle()
+                        nav(R.id.action_main_fragment_to_systemItemFragment, bundle)
+                    }
                 }
             }
 
-            binding.recycleView.run {
-                linear().divider(R.drawable.driver_black_line).setup {
-                    addType<ArticleBean>(R.layout.item_home_list)
-
-                    onClick(R.id.article_list, R.id.iv_article_collect){
-                        selectIndex = modelPosition
-                        when(it){
-                            R.id.article_list -> {
-                                val bundle = WebFragmentArgs(getModel<ArticleBean>().title, getModel<ArticleBean>().link,
-                                    getModel<ArticleBean>().author, getModel<ArticleBean>().id).toBundle()
-                                nav(R.id.action_systemFragment_to_webFragment, bundle)
-                            }
-                            R.id.iv_article_collect -> {
-                                collectArticle(getModel())
-                            }
-                            else ->{}
-                        }
-                    }
-                }
-
-                addOnScrollListener(object : RecyclerView.OnScrollListener(){
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        if (dy > 0 && binding.btnFloat.visibility == View.VISIBLE){
-                            binding.btnFloat.hide()
-                        }else if (dy < 0 && binding.btnFloat.visibility != View.VISIBLE){
-                            binding.btnFloat.show()
-                        }
-                    }
-
-                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                        super.onScrollStateChanged(recyclerView, newState)
-                        if(!recyclerView.canScrollVertically(-1)){
-                            //到达顶部
-                            binding.btnFloat.hide()
-                        }
-                    }
-                })
-            }
-
-            ClickUtils.applySingleDebouncing(binding.btnFloat){
-                binding.recycleView.smoothScrollToPosition(0)
+            onBind {
+                val flexRecycle = findView<RecyclerView>(R.id.flexbox_recycle)
+                flexRecycle.models = getModel<Tab>().children
             }
         }
     }
 
     override fun lazyLoad() {
-        binding.pageRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
-    }
-
-    private fun collectArticle(articleBean: ArticleBean){
-        if(!isLogin()){
-            nav(R.id.action_systemFragment_to_loginFragment)
-            return
-        }
-        if(articleBean.collect){
-            viewModel.unCollectArticle(articleBean)
-        } else {
-            viewModel.collectArticle(articleBean)
-        }
+        binding.squareRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
     }
 
     override fun showEmptyView() {
-        binding.pageRefresh.showEmpty()
+        binding.squareRefresh.showEmpty()
     }
 
     override fun showErrorView(msg: String) {
-        binding.pageRefresh.run {
+        binding.squareRefresh.run {
             if(loaded){
                 finish(success = false, hasMore = true)
                 toast(msg)
@@ -134,37 +87,12 @@ class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBind
     }
 
     override fun createObserver() {
-        viewModel.articlesLiveData.observe(viewLifecycleOwner){
-            binding.pageRefresh.run {
-                if(index == startIndex){ // 刷新
-                    realIndex = index + 1
-                } else {
-                    realIndex += 1
-                }
-                addData(it.datas) {
-                    !it.over
+        viewModel.systemLiveData.observe(viewLifecycleOwner) {
+            binding.squareRefresh.run {
+                addData(it) {
+                    false
                 }
             }
-        }
-
-        viewModel.collectArticleLiveData.observe(viewLifecycleOwner){
-            binding.recycleView.bindingAdapter.getModel<ArticleBean>(selectIndex).run {
-                collect = !collect
-                notifyChange()
-            }
-        }
-
-        viewModel.unCollectArticleLiveData.observe(viewLifecycleOwner){
-            binding.recycleView.bindingAdapter.getModel<ArticleBean>(selectIndex).run {
-                collect = !collect
-                notifyChange()
-            }
-        }
-
-        LiveEventBus.get<LoginEvent>(LoginEvent::class.java.simpleName).observe(viewLifecycleOwner){
-            postDelayed({
-                binding.pageRefresh.refresh()
-            }, Constant.RELAY_LOAD)
         }
     }
 }

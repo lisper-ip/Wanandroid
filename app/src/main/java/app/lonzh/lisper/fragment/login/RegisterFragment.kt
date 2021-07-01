@@ -58,10 +58,9 @@ class RegisterFragment : LisperFragment<RegisterRequestViewModel, FragmentRegist
                             HideReturnsTransformationMethod.getInstance()
                     }
                     binding.ivPasswordEye.isSelected = !binding.ivPasswordEye.isSelected
-                    Selection.setSelection(
-                        binding.edtPassword.text,
-                        binding.edtPassword.text.length
-                    )
+                    binding.edtPassword.text?.length?.let { length ->
+                        Selection.setSelection(binding.edtPassword.text, length)
+                    }
                 }
                 R.id.iv_again_password_eye -> {
                     val method = binding.edtAgainPassword.transformationMethod
@@ -73,10 +72,9 @@ class RegisterFragment : LisperFragment<RegisterRequestViewModel, FragmentRegist
                             HideReturnsTransformationMethod.getInstance()
                     }
                     binding.ivAgainPasswordEye.isSelected = !binding.ivAgainPasswordEye.isSelected
-                    Selection.setSelection(
-                        binding.edtAgainPassword.text,
-                        binding.edtAgainPassword.text.length
-                    )
+                    binding.edtAgainPassword.text?.length?.let { length ->
+                        Selection.setSelection(binding.edtAgainPassword.text, length)
+                    }
                 }
                 else -> {
                 }

@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:text="@={vm.account}"
             android:background="@null"
             android:layout_marginStart="@dimen/dp_20"
@@ -50,7 +50,7 @@
             android:textColorHint="@color/hint_text_color"
             android:textColor="@color/title_color"
             android:id="@+id/edt_account"
-            android:textSize="@dimen/text_16sp"
+            android:textSize="@dimen/text_14sp"
             android:inputType="text"
             android:paddingStart="@dimen/dp_8"
             android:gravity="center_vertical"
@@ -83,7 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_1"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:text="@={vm.password}"
             android:background="@null"
             app:layout_constraintTop_toBottomOf="@id/line_account"
@@ -93,7 +93,7 @@
             android:textColorHint="@color/hint_text_color"
             android:textColor="@color/title_color"
             android:id="@+id/edt_password"
-            android:textSize="@dimen/text_16sp"
+            android:textSize="@dimen/text_14sp"
             android:paddingStart="@dimen/dp_8"
             android:gravity="center_vertical"
             android:inputType="textPassword"
@@ -121,7 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_1"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:text="@={vm.againPassword}"
             android:background="@null"
             app:layout_constraintTop_toBottomOf="@id/line_pwd"
@@ -131,7 +131,7 @@
             android:textColorHint="@color/hint_text_color"
             android:textColor="@color/title_color"
             android:id="@+id/edt_again_password"
-            android:textSize="@dimen/text_16sp"
+            android:textSize="@dimen/text_14sp"
             android:paddingStart="@dimen/dp_8"
             android:gravity="center_vertical"
             android:inputType="textPassword"
@@ -164,7 +164,7 @@
             android:textColor="@android:color/white"
             android:background="@drawable/shape_btn_share_article"
             android:gravity="center"
-            android:textSize="@dimen/text_18sp"
+            android:textSize="@dimen/btn_text_size"
             app:layout_constraintTop_toBottomOf="@id/line_again_pwd"
             android:text="@string/register"
             android:id="@+id/tv_register"

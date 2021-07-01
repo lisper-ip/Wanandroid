@@ -47,7 +47,7 @@ class SettingFragment : LisperFragment<SettingRequestViewModel, FragmentSettingB
         setLeftTitle(R.string.setting)
 
         systemStateViewModel.run {
-            version.set("V${AppUtils.getAppVersionName()}")
+            version.set("v${AppUtils.getAppVersionName()}")
             cache.set(DataCleanManager.getTotalCacheSize(requireActivity()))
         }
 

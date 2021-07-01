@@ -44,7 +44,6 @@ object DataCleanManager {
             deleteDir(context.externalCacheDir)
         }
     }
-
     private fun deleteDir(dir: File?): Boolean {
         if (dir != null && dir.isDirectory) {
             val children: Array<String> = dir.list()

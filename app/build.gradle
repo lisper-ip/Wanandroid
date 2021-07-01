@@ -54,6 +54,11 @@ android {
             minifyEnabled false
             // 签名信息配置
             signingConfig signingConfigs.config
+
+            // 调试模式下只保留一种架构的 so 库，提升打包速度
+            ndk {
+                abiFilters 'armeabi-v7a'
+            }
         }
         release {
             // 调试模式开关
@@ -67,11 +72,33 @@ android {
             minifyEnabled true
             // 签名信息配置
             signingConfig signingConfigs.config
+
+            ndk {
+                // armeabi-v7a：曾经主流的架构平台（占用率：10%）
+                // arm64-v8a：目前主流架构平台（占用率：95%）
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
         }
     }
 
     buildFeatures{
         dataBinding = true
+    }
+
+    packagingOptions {
+        // 剔除这个包下的所有文件（不会移除签名信息）
+        exclude 'META-INF/*******'
+    }
+
+    applicationVariants.all { variant ->
+        // Apk 输出文件名配置
+        variant.outputs.all { output ->
+            outputFileName = rootProject.getName() + '_v' + variant.versionName + '_' + variant.buildType.name
+            if (variant.buildType.name == buildTypes.release.getName()) {
+                outputFileName += '_' + new Date().format('MMdd')
+            }
+            outputFileName += '.apk'
+        }
     }
 }
 

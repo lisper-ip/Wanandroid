@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,15 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.drake.brv.PageRefreshLayout
-            android:id="@+id/square_refresh"
+        <com.hjq.bar.TitleBar
+            android:id="@+id/square_title"
+            app:backButton="false"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/square_recycle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.drake.brv.PageRefreshLayout>
+            <com.flyco.tablayout.SegmentTabLayout
+                android:layout_gravity="center"
+                app:tl_tab_width="@dimen/dp_60"
+                android:id="@+id/segment_tab"
+                app:tl_tab_space_equal="true"
+                app:tl_textBold="SELECT"
+                app:tl_indicator_color="@color/white"
+                app:tl_textSelectColor="@color/colorAccent"
+                app:tl_textUnselectColor="@color/title_color"
+                app:tl_textsize="@dimen/text_16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </com.hjq.bar.TitleBar>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/square_viewpager"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/square_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

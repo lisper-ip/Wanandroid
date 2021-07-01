@@ -48,13 +48,6 @@
             app:popEnterAnim="@anim/window_left_in"
             app:destination="@id/webFragment" />
         <action
-            android:id="@+id/action_main_fragment_to_systemFragment"
-            app:exitAnim="@anim/window_left_out"
-            app:enterAnim="@anim/window_right_in"
-            app:popExitAnim="@anim/window_right_out"
-            app:popEnterAnim="@anim/window_left_in"
-            app:destination="@id/systemFragment" />
-        <action
             android:id="@+id/action_main_fragment_to_searchFragment"
             app:exitAnim="@anim/window_alpha_out"
             app:enterAnim="@anim/window_alpha_in"
@@ -75,6 +68,13 @@
             app:popExitAnim="@anim/window_right_out"
             app:popEnterAnim="@anim/window_left_in"
             app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_systemItemFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/systemItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -162,36 +162,6 @@
             android:defaultValue="-1"/>
     </fragment>
     <fragment
-        android:id="@+id/systemFragment"
-        tools:layout="@layout/fragment_system"
-        android:name="app.lonzh.lisper.fragment.square.SystemFragment"
-        android:label="SystemFragment" >
-        <action
-            android:id="@+id/action_systemFragment_to_webFragment"
-            app:exitAnim="@anim/window_left_out"
-            app:enterAnim="@anim/window_right_in"
-            app:popExitAnim="@anim/window_right_out"
-            app:popEnterAnim="@anim/window_left_in"
-            app:destination="@id/webFragment" />
-
-        <argument
-            android:name="title"
-            app:argType="string"
-            android:defaultValue=""/>
-
-        <argument
-            android:name="id"
-            app:argType="integer"
-            android:defaultValue="-1"/>
-        <action
-            android:id="@+id/action_systemFragment_to_loginFragment"
-            app:exitAnim="@anim/window_left_out"
-            app:enterAnim="@anim/window_right_in"
-            app:popExitAnim="@anim/window_right_out"
-            app:popEnterAnim="@anim/window_left_in"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/searchFragment"
         tools:layout="@layout/fragment_search"
         android:name="app.lonzh.lisper.fragment.home.SearchFragment"
@@ -246,5 +216,35 @@
             app:popExitAnim="@anim/window_right_out"
             app:popEnterAnim="@anim/window_left_in"
             app:destination="@id/webFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/systemItemFragment"
+        tools:layout="@layout/fragment_system_item"
+        android:name="app.lonzh.lisper.fragment.square.SystemItemFragment"
+        android:label="SystemItemFragment" >
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue=""/>
+
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_systemItemFragment_to_webFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/webFragment" />
+        <action
+            android:id="@+id/action_systemItemFragment_to_loginFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

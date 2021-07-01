@@ -40,7 +40,7 @@
 
         <TextView
             android:textStyle="bold"
-            android:textColor="@color/red_text"
+            android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="@id/tv_time"
             app:layout_constraintTop_toTopOf="@id/tv_coin"
             app:layout_constraintRight_toRightOf="parent"
