@@ -9,5 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.drake.brv.PageRefreshLayout
+            android:id="@+id/page_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.drake.brv.PageRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -9,7 +9,6 @@ import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSystemBinding
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
-import app.lonzh.lisper.fragment.main.SquareFragment
 import app.lonzh.lisper.vm.request.square.SystemRequestViewModel
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.models
