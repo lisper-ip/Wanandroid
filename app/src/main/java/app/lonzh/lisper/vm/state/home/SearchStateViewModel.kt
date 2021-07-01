@@ -31,4 +31,6 @@ class SearchStateViewModel : ViewModel() {
         hasHistory.set(histories.isNotEmpty())
         history.set(histories)
     }
+
+    val hasHot = ObservableField(false)
 }

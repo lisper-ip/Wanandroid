@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import app.lonzh.baselibrary.util.Constant
-import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
 import app.lonzh.lisper.databinding.FragmentSearchBinding
 import app.lonzh.lisper.event.SearchEvent
@@ -12,6 +11,7 @@ import app.lonzh.lisper.ext.keyBoardSearch
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.utils.MMKVUtil
+import app.lonzh.lisper.vm.request.home.SearchRequestViewModel
 import app.lonzh.lisper.vm.state.home.SearchStateViewModel
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.KeyboardUtils
@@ -32,7 +32,7 @@ import com.pedaily.yc.ycdialoglib.fragment.CustomDialogFragment
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class SearchFragment : LisperFragment<BaseViewModel, FragmentSearchBinding>() {
+class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBinding>() {
 
     private val searchStateViewModel: SearchStateViewModel by viewModels()
 
@@ -61,13 +61,24 @@ class SearchFragment : LisperFragment<BaseViewModel, FragmentSearchBinding>() {
             setup {
                 addType<String>(R.layout.item_search_flag)
 
-                onClick(R.id.tv_search_flag){
+                onClick(R.id.tv_search_flag) {
                     goSearch(getModel())
                 }
             }.models = searchStateViewModel.history.get()
         }
 
-        ClickUtils.applySingleDebouncing(binding.tvClear){
+        binding.hotRecycle.run {
+            layoutManager = FlexboxLayoutManager(activity)
+            setup {
+                addType<String>(R.layout.item_search_flag)
+
+                onClick(R.id.tv_search_flag) {
+                    goSearch(getModel())
+                }
+            }
+        }
+
+        ClickUtils.applySingleDebouncing(binding.tvClear) {
             CustomDialogFragment.create(childFragmentManager)
                 .setTitle(getString(R.string.clear_history_title))
                 .setCancelContent(getString(R.string.cancel))
@@ -91,7 +102,11 @@ class SearchFragment : LisperFragment<BaseViewModel, FragmentSearchBinding>() {
         }
     }
 
-    private fun goSearch(k: String){
+    override fun lazyLoad() {
+        viewModel.getHotKey()
+    }
+
+    private fun goSearch(k: String) {
         nav(R.id.action_searchFragment_to_searchResultFragment, SearchFragmentArgs(k).toBundle())
         hideSoftInput()
     }
@@ -101,24 +116,34 @@ class SearchFragment : LisperFragment<BaseViewModel, FragmentSearchBinding>() {
         super.onDestroyView()
     }
 
-    private fun hideSoftInput(){
+    private fun hideSoftInput() {
         postDelayed({
             KeyboardUtils.hideSoftInput(binding.edtSearch)
         }, Constant.RELAY_LOAD)
     }
 
     override fun createObserver() {
-        LiveEventBus.get<SearchEvent>(SearchEvent::class.java.simpleName).observe(viewLifecycleOwner){
-            searchStateViewModel.run {
-                val histories = mutableListOf<String>()
-                val result = MMKVUtil.getSetObject(MMKVUtil.HISTORY)
-                result?.map {
-                    histories.add(it)
+        LiveEventBus.get<SearchEvent>(SearchEvent::class.java.simpleName)
+            .observe(viewLifecycleOwner) {
+                searchStateViewModel.run {
+                    val histories = mutableListOf<String>()
+                    val result = MMKVUtil.getSetObject(MMKVUtil.HISTORY)
+                    result?.map {
+                        histories.add(it)
+                    }
+                    keyword.set("")
+                    hasHistory.set(histories.isNotEmpty())
+                    binding.recycleView.models = histories
                 }
-                keyword.set("")
-                hasHistory.set(histories.isNotEmpty())
-                binding.recycleView.models = histories
             }
+
+        viewModel.hotLiveData.observe(viewLifecycleOwner) {
+            searchStateViewModel.hasHot.set(!it.isNullOrEmpty())
+            val result = mutableListOf<String>()
+            it.map { key ->
+                result.add(key.name)
+            }
+            binding.hotRecycle.models = result
         }
     }
 }

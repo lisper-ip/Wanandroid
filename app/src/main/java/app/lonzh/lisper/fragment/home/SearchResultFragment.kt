@@ -16,7 +16,7 @@ import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
-import app.lonzh.lisper.vm.request.home.SearchRequestViewModel
+import app.lonzh.lisper.vm.request.home.SearchResultRequestViewModel
 import com.blankj.utilcode.util.ClickUtils
 import com.drake.brv.PageRefreshLayout
 import com.drake.brv.utils.bindingAdapter
@@ -36,7 +36,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class SearchResultFragment : LisperFragment<SearchRequestViewModel, FragmentSearchResultBinding>() {
+class SearchResultFragment : LisperFragment<SearchResultRequestViewModel, FragmentSearchResultBinding>() {
 
     private var selectIndex = -1
 
