@@ -5,10 +5,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
+import app.lonzh.lisper.data.ArticleBean
+import app.lonzh.lisper.data.HotWeb
 import app.lonzh.lisper.databinding.FragmentSearchBinding
 import app.lonzh.lisper.event.SearchEvent
 import app.lonzh.lisper.ext.keyBoardSearch
 import app.lonzh.lisper.ext.nav
+import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.utils.MMKVUtil
 import app.lonzh.lisper.vm.request.home.SearchRequestViewModel
@@ -78,7 +81,22 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
             }
         }
 
+        binding.hotWebRecycle.run {
+            layoutManager = FlexboxLayoutManager(activity)
+            setup {
+                addType<HotWeb>(R.layout.item_hot_web)
+
+                onClick(R.id.tv_search_flag) {
+                    val bundle = WebFragmentArgs("", getModel<HotWeb>().link,
+                        "", getModel<HotWeb>().id).toBundle()
+                    nav(R.id.action_searchFragment_to_webFragment, bundle)
+                    hideSoftInput()
+                }
+            }
+        }
+
         ClickUtils.applySingleDebouncing(binding.tvClear) {
+            hideSoftInput()
             CustomDialogFragment.create(childFragmentManager)
                 .setTitle(getString(R.string.clear_history_title))
                 .setCancelContent(getString(R.string.cancel))
@@ -104,6 +122,7 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
 
     override fun lazyLoad() {
         viewModel.getHotKey()
+        viewModel.getHotWeb()
     }
 
     private fun goSearch(k: String) {
@@ -144,6 +163,11 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
                 result.add(key.name)
             }
             binding.hotRecycle.models = result
+        }
+
+        viewModel.hotWebLiveData.observe(viewLifecycleOwner){
+            searchStateViewModel.hasWeb.set(!it.isNullOrEmpty())
+            binding.hotWebRecycle.models = it
         }
     }
 }

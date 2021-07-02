@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="bean"
+            type="app.lonzh.lisper.data.HotWeb" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/shape_flag_bg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Android 相关"
+            android:text="@{bean.name}"
+            android:maxEms="8"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_12sp"
+            android:textColor="@color/title_color"
+            android:id="@+id/tv_search_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

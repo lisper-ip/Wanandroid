@@ -33,4 +33,6 @@ class SearchStateViewModel : ViewModel() {
     }
 
     val hasHot = ObservableField(false)
+
+    val hasWeb = ObservableField(false)
 }

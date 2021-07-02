@@ -96,5 +96,26 @@
             app:layout_constraintTop_toBottomOf="@id/hot_key_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:visibility="@{vm.hasWeb ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="@dimen/dp_10"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_14sp"
+            android:maxLines="1"
+            android:id="@+id/hot_web"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            app:layout_constraintTop_toBottomOf="@id/hot_recycle"
+            android:text="@string/hot_web"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hot_web_recycle"
+            app:layout_constraintTop_toBottomOf="@id/hot_web"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

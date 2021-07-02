@@ -178,6 +178,13 @@
             android:name="keyword"
             app:argType="string"
             android:defaultValue=""/>
+        <action
+            android:id="@+id/action_searchFragment_to_webFragment"
+            app:exitAnim="@anim/window_left_out"
+            app:enterAnim="@anim/window_right_in"
+            app:popExitAnim="@anim/window_right_out"
+            app:popEnterAnim="@anim/window_left_in"
+            app:destination="@id/webFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import app.lonzh.commonlibrary.ext.launch
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.data.HotKey
+import app.lonzh.lisper.data.HotWeb
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toLpResponse
 
@@ -25,4 +26,12 @@ class SearchRequestViewModel : BaseViewModel() {
         val result = RxHttp.get("/hotkey/json").toLpResponse<List<HotKey>>().await()
         hotLiveData.value = result
     })
+
+    val hotWebLiveData by lazy { MutableLiveData<List<HotWeb>>() }
+
+    fun getHotWeb() = launch({
+        val result = RxHttp.get("/friend/json").toLpResponse<List<HotWeb>>().await()
+        hotWebLiveData.value = result
+    })
+
 }

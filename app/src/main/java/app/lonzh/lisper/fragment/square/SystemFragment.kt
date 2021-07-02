@@ -7,7 +7,6 @@ import app.lonzh.lisper.data.Children
 import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.data.Tab
 import app.lonzh.lisper.databinding.FragmentSingleListBinding
-import app.lonzh.lisper.databinding.FragmentSystemBinding
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.vm.request.square.SystemRequestViewModel

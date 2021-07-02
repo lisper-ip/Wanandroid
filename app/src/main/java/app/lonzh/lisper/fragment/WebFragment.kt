@@ -19,6 +19,7 @@ import app.lonzh.lisper.databinding.FragmentWebBinding
 import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.fragment.base.LisperFragment
 import com.just.agentweb.AgentWeb
+import com.just.agentweb.WebChromeClient
 
 /**
  *
@@ -50,13 +51,20 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
                     findViewById<TextView>(R.id.tv_msg).text = "页面出现错误!"
                 }
             }
-            binding.webTitleBar.titleView.ellipsize = TextUtils.TruncateAt.END
             setTitle(Html.fromHtml(WebFragmentArgs.fromBundle(this).title, Html.FROM_HTML_MODE_COMPACT))
             val url = WebFragmentArgs.fromBundle(this).url
             agentWeb = AgentWeb.with(this@WebFragment)
                 .setAgentWebParent(binding.webCon, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
                 .useDefaultIndicator(R.color.colorAccent)
                 .setMainFrameErrorView(view)
+                .setWebChromeClient(object : WebChromeClient(){
+                    override fun onReceivedTitle(view: WebView?, title: String?) {
+                        super.onReceivedTitle(view, title)
+                        if(titleBar?.titleView?.text.isNullOrEmpty()){
+                            setTitle(title)
+                        }
+                    }
+                })
                 .interceptUnkownUrl()
                 .createAgentWeb()
                 .ready()
@@ -74,12 +82,14 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
 
     override fun onPause() {
         agentWeb?.webLifeCycle?.onPause()
+        binding.webTitleBar.titleView.ellipsize = TextUtils.TruncateAt.END
         super.onPause()
     }
 
 
     override fun onResume() {
         agentWeb?.webLifeCycle?.onResume()
+        binding.webTitleBar.titleView.ellipsize = TextUtils.TruncateAt.MARQUEE
         super.onResume()
     }
 
