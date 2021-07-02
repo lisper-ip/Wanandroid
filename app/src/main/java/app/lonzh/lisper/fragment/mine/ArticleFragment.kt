@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.databinding.FragmentArticleBinding
+import app.lonzh.lisper.databinding.FragmentTitleListBinding
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
@@ -16,7 +16,6 @@ import com.drake.brv.utils.bindingAdapter
 import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
-import com.drake.logcat.LogCat
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
 
 /**
@@ -30,7 +29,7 @@ import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class ArticleFragment : LisperFragment<ArticleRequestViewModel, FragmentArticleBinding>() {
+class ArticleFragment : LisperFragment<ArticleRequestViewModel, FragmentTitleListBinding>() {
 
     private var selectIndex = -1
 
@@ -42,7 +41,7 @@ class ArticleFragment : LisperFragment<ArticleRequestViewModel, FragmentArticleB
         const val START_INDEX = 1
     }
 
-    override fun layoutId(): Int = R.layout.fragment_article
+    override fun layoutId(): Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         setLeftTitle(R.string.my_article)

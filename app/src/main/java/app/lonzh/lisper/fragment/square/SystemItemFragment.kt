@@ -7,7 +7,7 @@ import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.databinding.FragmentSystemItemBinding
+import app.lonzh.lisper.databinding.FragmentTitleListBinding
 import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.WebFragmentArgs
@@ -32,13 +32,13 @@ import com.jeremyliao.liveeventbus.LiveEventBus
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class SystemItemFragment : LisperFragment<SystemItemRequestViewModel, FragmentSystemItemBinding>() {
+class SystemItemFragment : LisperFragment<SystemItemRequestViewModel, FragmentTitleListBinding>() {
 
     private var selectIndex = -1
     //加载更多真实的index(列表界面需要)
     private var realIndex: Int = startIndex
 
-    override fun layoutId(): Int = R.layout.fragment_system_item
+    override fun layoutId(): Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         arguments?.run {

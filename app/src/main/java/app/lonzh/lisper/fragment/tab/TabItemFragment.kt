@@ -7,7 +7,7 @@ import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.databinding.FragmentListBinding
+import app.lonzh.lisper.databinding.FragmentSingleListBinding
 import app.lonzh.lisper.event.LoginEvent
 import app.lonzh.lisper.event.UnCollectEvent
 import app.lonzh.lisper.ext.nav
@@ -34,7 +34,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentListBinding>() {
+open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentSingleListBinding>() {
 
     private var selectIndex = -1
 
@@ -235,5 +235,5 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentLis
     /**
      * 当前Fragment绑定的视图布局
      */
-    override fun layoutId(): Int = R.layout.fragment_list
+    override fun layoutId(): Int = R.layout.fragment_single_list
 }

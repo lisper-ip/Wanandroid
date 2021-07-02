@@ -4,7 +4,7 @@ import android.os.Bundle
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.Coin
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.databinding.FragmentCoinBinding
+import app.lonzh.lisper.databinding.FragmentTitleListBinding
 import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.fragment.tab.TabItemFragment
 import app.lonzh.lisper.vm.request.mine.CoinRequestViewModel
@@ -23,7 +23,7 @@ import com.drake.brv.utils.setup
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class CoinFragment : LisperFragment<CoinRequestViewModel, FragmentCoinBinding>(){
+class CoinFragment : LisperFragment<CoinRequestViewModel, FragmentTitleListBinding>(){
 
     //加载更多真实的index(列表界面需要)
     private var realIndex: Int = START_INDEX
@@ -33,7 +33,7 @@ class CoinFragment : LisperFragment<CoinRequestViewModel, FragmentCoinBinding>()
         const val START_INDEX = 1
     }
 
-    override fun layoutId(): Int = R.layout.fragment_coin
+    override fun layoutId(): Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         setLeftTitle(R.string.my_coin)

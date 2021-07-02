@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.lisper.R
 import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.databinding.FragmentCollectBinding
+import app.lonzh.lisper.databinding.FragmentTitleListBinding
 import app.lonzh.lisper.event.UnCollectEvent
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.WebFragmentArgs
@@ -31,13 +31,13 @@ import com.jeremyliao.liveeventbus.LiveEventBus
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class CollectFragment : LisperFragment<CollectRequestViewModel, FragmentCollectBinding>() {
+class CollectFragment : LisperFragment<CollectRequestViewModel, FragmentTitleListBinding>() {
     private var selectIndex = -1
 
     //加载更多真实的index
     private var realIndex: Int = PageRefreshLayout.startIndex
 
-    override fun layoutId(): Int = R.layout.fragment_collect
+    override fun layoutId(): Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         setLeftTitle(R.string.my_collection)

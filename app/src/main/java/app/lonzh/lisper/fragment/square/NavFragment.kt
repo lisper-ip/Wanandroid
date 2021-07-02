@@ -6,8 +6,7 @@ import app.lonzh.lisper.R
 import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.NavBean
 import app.lonzh.lisper.data.StateData
-import app.lonzh.lisper.data.Tab
-import app.lonzh.lisper.databinding.FragmentNavBinding
+import app.lonzh.lisper.databinding.FragmentSingleListBinding
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.WebFragmentArgs
 import app.lonzh.lisper.fragment.base.LisperFragment
@@ -28,7 +27,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class NavFragment : LisperFragment<NavRequestViewModel, FragmentNavBinding>() {
+class NavFragment : LisperFragment<NavRequestViewModel, FragmentSingleListBinding>() {
     companion object {
         @JvmStatic
         fun getInstance(): NavFragment {
@@ -36,7 +35,7 @@ class NavFragment : LisperFragment<NavRequestViewModel, FragmentNavBinding>() {
         }
     }
 
-    override fun layoutId(): Int = R.layout.fragment_nav
+    override fun layoutId(): Int = R.layout.fragment_single_list
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.pageRefresh.run {

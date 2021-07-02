@@ -6,6 +6,7 @@ import app.lonzh.lisper.R
 import app.lonzh.lisper.data.Children
 import app.lonzh.lisper.data.StateData
 import app.lonzh.lisper.data.Tab
+import app.lonzh.lisper.databinding.FragmentSingleListBinding
 import app.lonzh.lisper.databinding.FragmentSystemBinding
 import app.lonzh.lisper.ext.nav
 import app.lonzh.lisper.fragment.base.LisperFragment
@@ -26,7 +27,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
  * @UpdateRemark:   更新说明：
  * @Version:        1.0
  */
-class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBinding>() {
+class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSingleListBinding>() {
 
     companion object {
         @JvmStatic
@@ -35,15 +36,15 @@ class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBind
         }
     }
 
-    override fun layoutId(): Int = R.layout.fragment_system
+    override fun layoutId(): Int = R.layout.fragment_single_list
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.squareRefresh.run {
+        binding.pageRefresh.run {
             onRefresh {
                 viewModel.getSystemList()
             }
         }
-        binding.squareRecycle.linear().setup {
+        binding.recycleView.linear().setup {
             addType<Tab>(R.layout.item_square)
 
             onCreate {
@@ -67,15 +68,15 @@ class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBind
     }
 
     override fun lazyLoad() {
-        binding.squareRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
+        binding.pageRefresh.showLoading(tag  = StateData(-1, getString(R.string.lisper_request)), refresh = false)
     }
 
     override fun showEmptyView() {
-        binding.squareRefresh.showEmpty()
+        binding.pageRefresh.showEmpty()
     }
 
     override fun showErrorView(msg: String) {
-        binding.squareRefresh.run {
+        binding.pageRefresh.run {
             if(loaded){
                 finish(success = false, hasMore = true)
                 toast(msg)
@@ -87,7 +88,7 @@ class SystemFragment : LisperFragment<SystemRequestViewModel, FragmentSystemBind
 
     override fun createObserver() {
         viewModel.systemLiveData.observe(viewLifecycleOwner) {
-            binding.squareRefresh.run {
+            binding.pageRefresh.run {
                 addData(it) {
                     false
                 }
