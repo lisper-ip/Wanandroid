@@ -27,7 +27,7 @@ abstract class BaseActivity : AppCompatActivity(), HandlerAction, ToastAction {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!isUserDb) {
-            setContentView(layoutId())
+            setContentView(layoutId)
         } else {
             initDataBind()
         }
@@ -71,7 +71,7 @@ abstract class BaseActivity : AppCompatActivity(), HandlerAction, ToastAction {
      */
     open fun initDataBind() {}
 
-    abstract fun layoutId(): Int
+    abstract val layoutId : Int
 
     abstract fun initView(savedInstanceState: Bundle?)
 

@@ -125,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/collectFragment"
-        tools:layout="@layout/fragment_collect"
+        tools:layout="@layout/fragment_title_list"
         android:name="app.lonzh.lisper.fragment.mine.CollectFragment"
         android:label="CollectFragment" >
         <action
@@ -208,12 +208,12 @@
     </fragment>
     <fragment
         android:id="@+id/coinFragment"
-        tools:layout="@layout/fragment_coin"
+        tools:layout="@layout/fragment_title_list"
         android:name="app.lonzh.lisper.fragment.mine.CoinFragment"
         android:label="CoinFragment" />
     <fragment
         android:id="@+id/articleFragment"
-        tools:layout="@layout/fragment_article"
+        tools:layout="@layout/fragment_title_list"
         android:name="app.lonzh.lisper.fragment.mine.ArticleFragment"
         android:label="ArticleFragment" >
         <action
@@ -226,7 +226,7 @@
     </fragment>
     <fragment
         android:id="@+id/systemItemFragment"
-        tools:layout="@layout/fragment_system_item"
+        tools:layout="@layout/fragment_single_list"
         android:name="app.lonzh.lisper.fragment.square.SystemItemFragment"
         android:label="SystemItemFragment" >
 

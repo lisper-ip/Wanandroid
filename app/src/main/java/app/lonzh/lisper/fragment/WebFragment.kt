@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import app.lonzh.baselibrary.dialog.BaseDialog
 import app.lonzh.baselibrary.manage.net.NetworkUtil
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
@@ -21,11 +22,11 @@ import app.lonzh.lisper.data.ShareEntity
 import app.lonzh.lisper.databinding.FragmentWebBinding
 import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.fragment.base.LisperFragment
+import app.lonzh.lisper.widget.dialog.BottomDialog
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
-import com.pedaily.yc.ycdialoglib.fragment.BottomDialogFragment
 
 /**
  *
@@ -42,7 +43,7 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
 
     private var agentWeb: AgentWeb? = null
 
-    override fun layoutId(): Int = R.layout.fragment_web
+    override val layoutId: Int = R.layout.fragment_web
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("InflateParams")
@@ -51,22 +52,33 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
             val view = LayoutInflater.from(activity).inflate(R.layout.layout_view_state, null)
             view?.run {
                 findViewById<ImageView>(R.id.iv_anim).setImageResource(R.drawable.ic_error)
-                if(!NetworkUtil.isNetworkAvailable(activity)){
+                if (!NetworkUtil.isNetworkAvailable(activity)) {
                     findViewById<TextView>(R.id.tv_msg).text = getString(R.string.network_error)
                 } else {
                     findViewById<TextView>(R.id.tv_msg).text = "页面出现错误!"
                 }
             }
-            setTitle(Html.fromHtml(WebFragmentArgs.fromBundle(this).title, Html.FROM_HTML_MODE_COMPACT))
+            setTitle(
+                Html.fromHtml(
+                    WebFragmentArgs.fromBundle(this).title,
+                    Html.FROM_HTML_MODE_COMPACT
+                )
+            )
             val url = WebFragmentArgs.fromBundle(this).url
             agentWeb = AgentWeb.with(this@WebFragment)
-                .setAgentWebParent(binding.webCon, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+                .setAgentWebParent(
+                    binding.webCon,
+                    ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                )
                 .useDefaultIndicator(R.color.colorAccent)
                 .setMainFrameErrorView(view)
-                .setWebChromeClient(object : WebChromeClient(){
+                .setWebChromeClient(object : WebChromeClient() {
                     override fun onReceivedTitle(view: WebView?, title: String?) {
                         super.onReceivedTitle(view, title)
-                        if(titleBar?.titleView?.text.isNullOrEmpty()){
+                        if (titleBar?.titleView?.text.isNullOrEmpty()) {
                             setTitle(title)
                         }
                     }
@@ -77,13 +89,15 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
                 .go(url)
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                if(!agentWeb!!.back()){
-                    back()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (!agentWeb!!.back()) {
+                        back()
+                    }
                 }
-            }
-        })
+            })
     }
 
     override fun onPause() {
@@ -105,23 +119,24 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
     }
 
     override fun onRightClick(v: View) {
-        BottomDialogFragment.create(childFragmentManager)
-            .run {
-                setViewListener {
-                    val recycleView = it.findViewById<RecyclerView>(R.id.share_recycle)
-                    recycleView.linear(RecyclerView.HORIZONTAL, reverseLayout = false, scrollEnabled = true).setup {
-                        addType<ShareEntity>(R.layout.item_share)
+        activity?.let {
+            BottomDialog.Builder(it) { recycleView ->
+                recycleView.linear(
+                    RecyclerView.HORIZONTAL,
+                    reverseLayout = false,
+                    scrollEnabled = true
+                ).setup {
+                    addType<ShareEntity>(R.layout.item_share)
 
-                        onClick(R.id.tv_share){
-                            toast(getModel<ShareEntity>().title)
-                        }
-                    }.models = ShareEntity.getShareEntities()
-                }
-                layoutRes = R.layout.layout_share_menu
-                dimAmount = 0.2f
-                setCancelOutside(true)
-                show()
+                    onClick(R.id.tv_share) {
+                        toast(getModel<ShareEntity>().title)
+                    }
+                }.models = ShareEntity.getShareEntities()
             }
+                .setTitle(R.string.share_to)
+                .create()
+                .show()
+        }
 
     }
 

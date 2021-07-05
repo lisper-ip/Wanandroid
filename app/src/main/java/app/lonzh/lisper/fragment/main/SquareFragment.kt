@@ -42,7 +42,7 @@ class SquareFragment : LisperFragment<SquareRequestViewModel, FragmentSquareBind
         }
     }
 
-    override fun layoutId(): Int = R.layout.fragment_square
+    override val layoutId: Int = R.layout.fragment_square
 
     /**
      * 初始化view

@@ -53,7 +53,7 @@ abstract class BaseFragment : Fragment(), HandlerAction, ToastAction {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutId(), container, false)
+        return inflater.inflate(layoutId, container, false)
     }
 
     override fun onAttach(context: Context) {
@@ -69,7 +69,7 @@ abstract class BaseFragment : Fragment(), HandlerAction, ToastAction {
     /**
      * 当前Fragment绑定的视图布局
      */
-    abstract fun layoutId(): Int
+    abstract val layoutId: Int
 
     open fun lazyLoad(){
 

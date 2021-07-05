@@ -54,7 +54,7 @@ class HomeFragment : LisperFragment<HomeRequestViewModel, FragmentHomeBinding>()
         }
     }
 
-    override fun layoutId(): Int = R.layout.fragment_home
+    override val layoutId: Int = R.layout.fragment_home
 
     /**
      * 初始化view

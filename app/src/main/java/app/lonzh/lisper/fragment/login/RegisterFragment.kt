@@ -32,7 +32,7 @@ class RegisterFragment : LisperFragment<RegisterRequestViewModel, FragmentRegist
 
     private val registerStateViewModel: RegisterStateViewModel by viewModels()
 
-    override fun layoutId(): Int = R.layout.fragment_register
+    override val layoutId: Int = R.layout.fragment_register
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = registerStateViewModel
@@ -45,7 +45,11 @@ class RegisterFragment : LisperFragment<RegisterRequestViewModel, FragmentRegist
             )
         ) {
             when (it.id) {
-                R.id.tv_register -> viewModel.register(registerStateViewModel)
+                R.id.tv_register -> {
+                    hideSoftInputAfter{
+                        viewModel.register(registerStateViewModel)
+                    }
+                }
                 R.id.tv_back -> back()
                 R.id.iv_clear -> registerStateViewModel.account.set("")
                 R.id.iv_password_eye -> {

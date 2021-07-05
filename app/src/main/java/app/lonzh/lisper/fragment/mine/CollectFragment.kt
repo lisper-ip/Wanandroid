@@ -37,7 +37,7 @@ class CollectFragment : LisperFragment<CollectRequestViewModel, FragmentTitleLis
     //加载更多真实的index
     private var realIndex: Int = PageRefreshLayout.startIndex
 
-    override fun layoutId(): Int = R.layout.fragment_title_list
+    override val layoutId: Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         setLeftTitle(R.string.my_collection)

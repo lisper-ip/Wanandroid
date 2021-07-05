@@ -22,8 +22,7 @@ import com.permissionx.guolindev.PermissionX
  */
 class SplashFragment : LisperFragment<BaseViewModel, FragmentSplashBinding>() {
 
-    override fun layoutId(): Int = R.layout.fragment_splash
-
+    override val layoutId: Int = R.layout.fragment_splash
     /**
      * 初始化view
      */

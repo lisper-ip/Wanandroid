@@ -80,5 +80,5 @@ class MainFragment: LisperFragment<BaseViewModel, FragmentMainBinding>() {
     /**
      * 当前Fragment绑定的视图布局
      */
-    override fun layoutId(): Int = R.layout.fragment_main
+    override val layoutId: Int = R.layout.fragment_main
 }

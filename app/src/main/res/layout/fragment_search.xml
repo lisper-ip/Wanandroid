@@ -43,12 +43,11 @@
         <TextView
             android:visibility="@{vm.hasHistory ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
             android:textColor="@color/title_color"
             android:textSize="@dimen/text_14sp"
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@id/tv_clear"
-            app:layout_constraintTop_toTopOf="@id/tv_clear"
             android:text="@string/history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

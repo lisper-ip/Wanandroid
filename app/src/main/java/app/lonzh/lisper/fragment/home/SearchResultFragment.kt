@@ -43,7 +43,7 @@ class SearchResultFragment : LisperFragment<SearchResultRequestViewModel, Fragme
     //加载更多真实的index
     private var realIndex: Int = PageRefreshLayout.startIndex
 
-    override fun layoutId(): Int = R.layout.fragment_search_result
+    override val layoutId: Int = R.layout.fragment_search_result
 
     override fun initView(savedInstanceState: Bundle?) {
         arguments?.let {

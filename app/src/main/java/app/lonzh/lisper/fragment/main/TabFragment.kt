@@ -34,7 +34,7 @@ class TabFragment : LisperFragment<TabRequestViewModel, FragmentTabBinding>() {
         const val TAB_WXARTICLE = "wxarticle"
     }
 
-    override fun layoutId(): Int = R.layout.fragment_tab
+    override val layoutId: Int = R.layout.fragment_tab
 
     /**
      * 初始化view

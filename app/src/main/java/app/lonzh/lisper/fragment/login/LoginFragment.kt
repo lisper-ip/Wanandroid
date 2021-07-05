@@ -20,6 +20,7 @@ import app.lonzh.lisper.vm.AppDataViewModel
 import app.lonzh.lisper.vm.request.login.LoginRequestViewModel
 import app.lonzh.lisper.vm.state.login.LoginStateViewModel
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.StringUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 
@@ -39,7 +40,7 @@ class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding
 
     private val loginStateViewModel: LoginStateViewModel by viewModels()
 
-    override fun layoutId(): Int = R.layout.fragment_login
+    override val layoutId: Int = R.layout.fragment_login
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = loginStateViewModel
@@ -71,7 +72,11 @@ class LoginFragment : LisperFragment<LoginRequestViewModel, FragmentLoginBinding
                         Selection.setSelection(binding.edtPassword.text, length)
                     }
                 }
-                R.id.tv_login -> viewModel.login(loginStateViewModel)
+                R.id.tv_login -> {
+                    hideSoftInputAfter{
+                        viewModel.login(loginStateViewModel)
+                    }
+                }
                 else -> {
                 }
             }

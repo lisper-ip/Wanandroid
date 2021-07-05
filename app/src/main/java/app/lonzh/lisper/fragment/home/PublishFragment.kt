@@ -25,7 +25,7 @@ class PublishFragment : LisperFragment<PublishRequestViewModel, FragmentPublishB
 
     private val publishStateViewModel: PublishStateViewModel by viewModels()
 
-    override fun layoutId(): Int = R.layout.fragment_publish
+    override val layoutId: Int = R.layout.fragment_publish
 
     /**
      * 初始化view

@@ -1,11 +1,9 @@
 package app.lonzh.lisper.fragment.home
 
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import app.lonzh.baselibrary.util.Constant
 import app.lonzh.lisper.R
-import app.lonzh.lisper.data.ArticleBean
 import app.lonzh.lisper.data.HotWeb
 import app.lonzh.lisper.databinding.FragmentSearchBinding
 import app.lonzh.lisper.event.SearchEvent
@@ -16,13 +14,13 @@ import app.lonzh.lisper.fragment.base.LisperFragment
 import app.lonzh.lisper.utils.MMKVUtil
 import app.lonzh.lisper.vm.request.home.SearchRequestViewModel
 import app.lonzh.lisper.vm.state.home.SearchStateViewModel
+import app.lonzh.lisper.widget.dialog.MessageDialog
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.drake.brv.utils.models
 import com.drake.brv.utils.setup
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.pedaily.yc.ycdialoglib.fragment.CustomDialogFragment
 
 /**
  *
@@ -39,7 +37,7 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
 
     private val searchStateViewModel: SearchStateViewModel by viewModels()
 
-    override fun layoutId(): Int = R.layout.fragment_search
+    override val layoutId: Int = R.layout.fragment_search
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = searchStateViewModel
@@ -89,34 +87,29 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
                 onClick(R.id.tv_search_flag) {
                     val bundle = WebFragmentArgs("", getModel<HotWeb>().link,
                         "", getModel<HotWeb>().id).toBundle()
-                    nav(R.id.action_searchFragment_to_webFragment, bundle)
-                    hideSoftInput()
+                    hideSoftInputAfter {
+                        nav(R.id.action_searchFragment_to_webFragment, bundle)
+                    }
                 }
             }
         }
 
         ClickUtils.applySingleDebouncing(binding.tvClear) {
-            hideSoftInput()
-            CustomDialogFragment.create(childFragmentManager)
-                .setTitle(getString(R.string.clear_history_title))
-                .setCancelContent(getString(R.string.cancel))
-                .setOkContent(getString(R.string.confirm))
-                .setOkColor(ContextCompat.getColor(requireActivity(), R.color.red_text))
-                .setCancelListener {
-                    CustomDialogFragment.dismissDialogFragment()
+            hideSoftInputAfter {
+                activity?.let { act ->
+                    MessageDialog.Builder(act, onConfirm = {
+                        MMKVUtil.setSetObject(MMKVUtil.HISTORY, mutableSetOf())
+                        searchStateViewModel.run {
+                            hasHistory.set(false)
+                            history.set(mutableListOf())
+                            binding.recycleView.models = mutableListOf()
+                        }
+                    })
+                        .setTitle(getString(R.string.clear_history_title))
+                        .create()
+                        .show()
                 }
-                .setOkListener {
-                    CustomDialogFragment.dismissDialogFragment()
-                    MMKVUtil.setSetObject(MMKVUtil.HISTORY, mutableSetOf())
-                    searchStateViewModel.run {
-                        hasHistory.set(false)
-                        history.set(mutableListOf())
-                        binding.recycleView.models = mutableListOf()
-                    }
-                }
-                .setDimAmount(0.2f)
-                .setCancelOutside(true)
-                .show()
+            }
         }
     }
 
@@ -126,19 +119,9 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
     }
 
     private fun goSearch(k: String) {
-        nav(R.id.action_searchFragment_to_searchResultFragment, SearchFragmentArgs(k).toBundle())
-        hideSoftInput()
-    }
-
-    override fun onDestroyView() {
-        hideSoftInput()
-        super.onDestroyView()
-    }
-
-    private fun hideSoftInput() {
-        postDelayed({
-            KeyboardUtils.hideSoftInput(binding.edtSearch)
-        }, Constant.RELAY_LOAD)
+        hideSoftInputAfter {
+            nav(R.id.action_searchFragment_to_searchResultFragment, SearchFragmentArgs(k).toBundle())
+        }
     }
 
     override fun createObserver() {

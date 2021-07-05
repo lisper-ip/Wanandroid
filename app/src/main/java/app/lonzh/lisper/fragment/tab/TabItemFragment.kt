@@ -235,5 +235,5 @@ open class TabItemFragment : LisperFragment<TabItemRequestViewModel, FragmentSin
     /**
      * 当前Fragment绑定的视图布局
      */
-    override fun layoutId(): Int = R.layout.fragment_single_list
+    override val layoutId: Int = R.layout.fragment_single_list
 }

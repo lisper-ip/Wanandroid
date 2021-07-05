@@ -24,7 +24,7 @@ abstract class BaseDBActivity<DB: ViewDataBinding>: BaseActivity() {
     }
 
     override fun initDataBind() {
-        binding = DataBindingUtil.setContentView(this, layoutId())
+        binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
     }
 }

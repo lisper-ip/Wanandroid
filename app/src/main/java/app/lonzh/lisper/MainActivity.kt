@@ -15,7 +15,7 @@ class MainActivity : BaseVmDbActivity<BaseViewModel, ActivityMainBinding>() {
 
     private val appDataViewModel: AppDataViewModel by viewModels()
 
-    override fun layoutId(): Int = R.layout.activity_main
+    override val layoutId: Int = R.layout.activity_main
 
     override fun initView(savedInstanceState: Bundle?) {
     }

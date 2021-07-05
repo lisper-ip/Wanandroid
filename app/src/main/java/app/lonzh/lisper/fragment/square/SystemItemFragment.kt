@@ -38,7 +38,7 @@ class SystemItemFragment : LisperFragment<SystemItemRequestViewModel, FragmentTi
     //加载更多真实的index(列表界面需要)
     private var realIndex: Int = startIndex
 
-    override fun layoutId(): Int = R.layout.fragment_title_list
+    override val layoutId: Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         arguments?.run {

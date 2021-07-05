@@ -41,7 +41,7 @@ class ArticleFragment : LisperFragment<ArticleRequestViewModel, FragmentTitleLis
         const val START_INDEX = 1
     }
 
-    override fun layoutId(): Int = R.layout.fragment_title_list
+    override val layoutId: Int = R.layout.fragment_title_list
 
     override fun initView(savedInstanceState: Bundle?) {
         setLeftTitle(R.string.my_article)

@@ -44,7 +44,7 @@ class MineFragment : LisperFragment<MineRequestViewModel, FragmentMineBinding>()
     }
 
 
-    override fun layoutId(): Int = R.layout.fragment_mine
+    override val layoutId: Int = R.layout.fragment_mine
 
     override fun lazyLoad() {
         if(isLogin()){

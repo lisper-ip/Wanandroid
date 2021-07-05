@@ -35,7 +35,7 @@ class NavFragment : LisperFragment<NavRequestViewModel, FragmentSingleListBindin
         }
     }
 
-    override fun layoutId(): Int = R.layout.fragment_single_list
+    override val layoutId: Int = R.layout.fragment_single_list
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.pageRefresh.run {
