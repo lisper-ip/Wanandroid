@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="bean"
+            type="app.lonzh.lisper.data.ShareEntity" />
+    </data>
+
+    <TextView
+        android:id="@+id/tv_share"
+        android:padding="@dimen/dp_16"
+        tools:text="微信"
+        android:text="@{bean.title}"
+        android:drawablePadding="@dimen/dp_10"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_12sp"
+        android:textColor="@color/title_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:drawableTopCompat="@drawable/ic_wx"
+        drawableTopCompat="@{bean.icon}" />
+</layout>

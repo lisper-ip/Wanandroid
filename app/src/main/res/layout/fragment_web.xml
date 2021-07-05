@@ -11,6 +11,10 @@
         android:layout_height="match_parent">
 
         <com.hjq.bar.TitleBar
+            app:rightIcon="@drawable/ic_share"
+            android:background="@color/transparent"
+            app:leftBackground="@color/transparent"
+            app:rightBackground="@color/transparent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/web_titleBar"
             app:leftColor="@color/title_color"

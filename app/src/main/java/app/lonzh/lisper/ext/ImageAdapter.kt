@@ -1,6 +1,8 @@
 package app.lonzh.lisper.ext
 
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 
@@ -18,4 +20,11 @@ import coil.load
 @BindingAdapter("imageUrl")
 fun imageUrl(view: ImageView, url: String){
     view.load(url)
+}
+
+@BindingAdapter("drawableTopCompat")
+fun drawableTopCompat(view: TextView, rsId: Int){
+    val drawable = ContextCompat.getDrawable(appContext, rsId)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+    view.setCompoundDrawables(null,drawable, null,null);
 }

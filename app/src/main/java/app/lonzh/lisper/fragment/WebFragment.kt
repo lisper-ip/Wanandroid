@@ -6,20 +6,26 @@ import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import app.lonzh.baselibrary.manage.net.NetworkUtil
 import app.lonzh.commonlibrary.vm.BaseViewModel
 import app.lonzh.lisper.R
+import app.lonzh.lisper.data.ShareEntity
 import app.lonzh.lisper.databinding.FragmentWebBinding
 import app.lonzh.lisper.ext.back
 import app.lonzh.lisper.fragment.base.LisperFragment
+import com.drake.brv.utils.linear
+import com.drake.brv.utils.setup
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
+import com.pedaily.yc.ycdialoglib.fragment.BottomDialogFragment
 
 /**
  *
@@ -96,6 +102,27 @@ class WebFragment : LisperFragment<BaseViewModel, FragmentWebBinding>() {
     override fun onDestroy() {
         agentWeb?.webLifeCycle?.onDestroy()
         super.onDestroy()
+    }
+
+    override fun onRightClick(v: View) {
+        BottomDialogFragment.create(childFragmentManager)
+            .run {
+                setViewListener {
+                    val recycleView = it.findViewById<RecyclerView>(R.id.share_recycle)
+                    recycleView.linear(RecyclerView.HORIZONTAL, reverseLayout = false, scrollEnabled = true).setup {
+                        addType<ShareEntity>(R.layout.item_share)
+
+                        onClick(R.id.tv_share){
+                            toast(getModel<ShareEntity>().title)
+                        }
+                    }.models = ShareEntity.getShareEntities()
+                }
+                layoutRes = R.layout.layout_share_menu
+                dimAmount = 0.2f
+                setCancelOutside(true)
+                show()
+            }
+
     }
 
 }

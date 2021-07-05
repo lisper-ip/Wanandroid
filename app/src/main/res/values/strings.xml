@@ -52,4 +52,10 @@
     <string name="delete">删除</string>
     <string name="hot_key">热门搜索</string>
     <string name="hot_web">常用网站</string>
+    <string name="share_to">分享至</string>
+    <string name="share_wx">微信</string>
+    <string name="wx_circle">朋友圈</string>
+    <string name="weibo">微博</string>
+    <string name="qq">QQ</string>
+    <string name="qq_zone">QQ空间</string>
 </resources>

@@ -19,6 +19,8 @@ android {
 
         // 混淆配置
         proguardFiles 'proguard-app.pro'
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
