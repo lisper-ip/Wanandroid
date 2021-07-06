@@ -33,7 +33,7 @@ fun BaseViewModel.launch(block: suspend CoroutineScope.() -> Unit,
         getShowStartEvent().call()
         requestConfig?.let {
             if(it.showLoading){
-                getShowLoadingEvent().setValue(it.loadingMessage ?: appContext.getString(R.string.default_loading))
+                getShowLoadingEvent().setValue(it.loadingMessage)
             }
             if(it.tag.isNotEmpty()){
                 tagList.add(it.tag)

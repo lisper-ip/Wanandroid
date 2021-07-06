@@ -15,6 +15,6 @@ object Constant {
     //延迟加载时间(毫秒)）
     const val RELAY_LOAD = 500L
 
-    //延迟关闭软件盘
+    //延迟打开软件盘
     const val RELAY_KEYBOARD = 200L
 }

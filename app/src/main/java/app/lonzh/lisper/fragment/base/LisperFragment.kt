@@ -1,5 +1,6 @@
 package app.lonzh.lisper.fragment.base
 
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.activityViewModels
 import app.lonzh.baselibrary.dialog.BaseDialog
@@ -43,17 +44,23 @@ abstract class LisperFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVm
         loadingDialog = null
     }
 
-    private fun hideSoftInput() {
+    fun showSoftInput(view: View){
         postDelayed({
-            activity?.let { KeyboardUtils.hideSoftInput(it) }
+            KeyboardUtils.showSoftInput(view)
         }, Constant.RELAY_KEYBOARD)
     }
 
+    private fun hideSoftInput() {
+        post {
+            activity?.let { KeyboardUtils.hideSoftInput(it) }
+        }
+    }
+
     fun hideSoftInputAfter(block: () -> Unit){
-        postDelayed({
+        post {
             activity?.let { KeyboardUtils.hideSoftInput(it) }
             block.invoke()
-        }, Constant.RELAY_KEYBOARD)
+        }
     }
 
     override fun onDestroyView() {

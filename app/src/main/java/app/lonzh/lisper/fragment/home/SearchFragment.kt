@@ -42,9 +42,7 @@ class SearchFragment : LisperFragment<SearchRequestViewModel, FragmentSearchBind
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = searchStateViewModel
 
-        postDelayed({
-            KeyboardUtils.showSoftInput(binding.edtSearch)
-        }, Constant.RELAY_LOAD)
+        showSoftInput(binding.edtSearch)
 
         binding.edtSearch.run {
             keyBoardSearch {
