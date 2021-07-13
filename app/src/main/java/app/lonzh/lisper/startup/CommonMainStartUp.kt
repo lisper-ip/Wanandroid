@@ -14,8 +14,6 @@ import com.drake.brv.PageRefreshLayout
 import com.drake.brv.utils.BRV
 import com.drake.logcat.LogCat
 import com.drake.statelayout.StateConfig
-import com.hjq.bar.TitleBar
-import com.hjq.bar.style.TransparentBarStyle
 import com.hjq.toast.ToastUtils
 import com.rousetime.android_startup.AndroidStartup
 import com.scwang.smart.refresh.footer.ClassicsFooter
